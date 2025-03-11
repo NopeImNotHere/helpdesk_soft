@@ -1,7 +1,7 @@
 ﻿
 namespace EF_leer
 {
-    partial class Form1
+    partial class Main_Form
     {
         /// <summary>
         /// Erforderliche Designervariable.

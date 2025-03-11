@@ -8,13 +8,24 @@ EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
+		Login|Any CPU = Login|Any CPU
+		Main|Any CPU = Main|Any CPU
+		Rechnung|Any CPU = Rechnung|Any CPU
 		Release|Any CPU = Release|Any CPU
+		Ticket|Any CPU = Ticket|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{112314D5-69CA-498F-85FA-EEE640AF26CF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{112314D5-69CA-498F-85FA-EEE640AF26CF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{112314D5-69CA-498F-85FA-EEE640AF26CF}.Login|Any CPU.ActiveCfg = Login|Any CPU
+		{112314D5-69CA-498F-85FA-EEE640AF26CF}.Login|Any CPU.Build.0 = Login|Any CPU
+		{112314D5-69CA-498F-85FA-EEE640AF26CF}.Main|Any CPU.ActiveCfg = Rechnung|Any CPU
+		{112314D5-69CA-498F-85FA-EEE640AF26CF}.Rechnung|Any CPU.ActiveCfg = Rechnung|Any CPU
+		{112314D5-69CA-498F-85FA-EEE640AF26CF}.Rechnung|Any CPU.Build.0 = Rechnung|Any CPU
 		{112314D5-69CA-498F-85FA-EEE640AF26CF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{112314D5-69CA-498F-85FA-EEE640AF26CF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{112314D5-69CA-498F-85FA-EEE640AF26CF}.Ticket|Any CPU.ActiveCfg = Ticket|Any CPU
+		{112314D5-69CA-498F-85FA-EEE640AF26CF}.Ticket|Any CPU.Build.0 = Ticket|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
