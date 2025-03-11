@@ -1,0 +1,1205 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="oberstufe_db1Model.Store" Provider="MySql.Data.MySqlClient" ProviderManifestToken="5.5" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <!--Während der Generierung sind Fehler aufgetreten:
+Warnung 6002: Für Tabelle/Sicht 'def.oberstufe_db1.abgeleitet' ist kein Primärschlüssel definiert. Der Schlüssel wurde abgeleitet, und die Definition wurde als schreibgeschützte Tabelle/Sicht erstellt.-->
+        <EntityType Name="abgeleitet">
+          <Key>
+            <PropertyRef Name="FK_Dienstleistung" />
+            <PropertyRef Name="FK_Ticket" />
+          </Key>
+          <Property Name="FK_Dienstleistung" Type="int" Nullable="false" />
+          <Property Name="FK_Ticket" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="arbeitet">
+          <Key>
+            <PropertyRef Name="FK_Mitarbeiter" />
+            <PropertyRef Name="FK_Kunde" />
+          </Key>
+          <Property Name="FK_Mitarbeiter" Type="int" Nullable="false" />
+          <Property Name="FK_Kunde" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="art">
+          <Key>
+            <PropertyRef Name="PK_Art" />
+          </Key>
+          <Property Name="PK_Art" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Artname" Type="varchar" MaxLength="255" />
+          <Property Name="Beschreibung" Type="text" />
+        </EntityType>
+        <EntityType Name="bearbeitet">
+          <Key>
+            <PropertyRef Name="FK_Mitarbeiter" />
+            <PropertyRef Name="FK_Ticket" />
+          </Key>
+          <Property Name="FK_Mitarbeiter" Type="int" Nullable="false" />
+          <Property Name="FK_Ticket" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="bezahlungsart">
+          <Key>
+            <PropertyRef Name="PK_Bezahlungsart" />
+          </Key>
+          <Property Name="Artname" Type="varchar" MaxLength="255" />
+          <Property Name="Beschreibung" Type="text" />
+          <Property Name="PK_Bezahlungsart" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+        </EntityType>
+        <EntityType Name="dienstleistung">
+          <Key>
+            <PropertyRef Name="PK_Dienstleistung" />
+          </Key>
+          <Property Name="PK_Dienstleistung" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Beschreibung" Type="text" />
+          <Property Name="Kosten" Type="decimal" Precision="10" Scale="2" />
+        </EntityType>
+        <EntityType Name="kunde">
+          <Key>
+            <PropertyRef Name="PK_Kunde" />
+          </Key>
+          <Property Name="PK_Kunde" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Kundennummer" Type="varchar" MaxLength="255" />
+          <Property Name="Firmenname" Type="varchar" MaxLength="255" />
+          <Property Name="Email" Type="varchar" MaxLength="255" />
+          <Property Name="Passwort" Type="varchar" MaxLength="255" />
+        </EntityType>
+        <EntityType Name="mitarbeiter">
+          <Key>
+            <PropertyRef Name="PK_Mitarbeiter" />
+          </Key>
+          <Property Name="PK_Mitarbeiter" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Vorname" Type="varchar" MaxLength="255" />
+          <Property Name="Nachname" Type="varchar" MaxLength="255" />
+          <Property Name="Position" Type="varchar" MaxLength="255" />
+          <Property Name="Festnetznummer" Type="varchar" MaxLength="20" />
+          <Property Name="Mobilnummer" Type="varchar" MaxLength="20" />
+          <Property Name="Email" Type="varchar" MaxLength="255" />
+          <Property Name="Passwort" Type="varchar" MaxLength="255" />
+          <Property Name="FK_Ort" Type="int" />
+          <Property Name="FK_Rechtegruppe" Type="int" />
+        </EntityType>
+        <EntityType Name="ort">
+          <Key>
+            <PropertyRef Name="PK_Ort" />
+          </Key>
+          <Property Name="PK_Ort" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Stadt" Type="varchar" MaxLength="255" />
+          <Property Name="PLZ" Type="varchar" MaxLength="10" />
+          <Property Name="Straße" Type="varchar" MaxLength="255" />
+          <Property Name="Hausnummer" Type="varchar" MaxLength="10" />
+        </EntityType>
+        <EntityType Name="priorität">
+          <Key>
+            <PropertyRef Name="PK_Priorität" />
+          </Key>
+          <Property Name="PK_Priorität" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Prioritätsname" Type="varchar" MaxLength="255" />
+          <Property Name="Beschreibung" Type="text" />
+        </EntityType>
+        <EntityType Name="rechnung">
+          <Key>
+            <PropertyRef Name="Rechnungsnr" />
+          </Key>
+          <Property Name="Rechnungsnr" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Ticketbeschreibung" Type="text" />
+          <Property Name="Abrechnung" Type="varchar" MaxLength="255" />
+          <Property Name="Ratenzahlung" Type="bool" />
+          <Property Name="FK_Bezahlungsart" Type="int" />
+          <Property Name="FK_Kunde" Type="int" />
+          <Property Name="FK_Ticket" Type="int" />
+        </EntityType>
+        <EntityType Name="rechtegruppe">
+          <Key>
+            <PropertyRef Name="PK_Rechtegruppe" />
+          </Key>
+          <Property Name="Administrationsrechte" Type="bool" />
+          <Property Name="Bestelllimit" Type="decimal" Precision="10" Scale="2" />
+          <Property Name="Helpdesk_Fernwartung" Type="bool" />
+          <Property Name="PK_Rechtegruppe" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+        </EntityType>
+        <EntityType Name="residiert">
+          <Key>
+            <PropertyRef Name="FK_Kunde" />
+            <PropertyRef Name="FK_Ort" />
+          </Key>
+          <Property Name="FK_Kunde" Type="int" Nullable="false" />
+          <Property Name="FK_Ort" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="session">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="sessionhash" Type="longtext" Nullable="false" />
+          <Property Name="expires_at" Type="datetime" Precision="0" Nullable="false" />
+          <Property Name="inserted_at" Type="datetime" Precision="0" Nullable="false" />
+          <Property Name="FK_Mitarbeiter" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="status">
+          <Key>
+            <PropertyRef Name="PK_Status" />
+          </Key>
+          <Property Name="PK_Status" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Statusname" Type="varchar" MaxLength="255" />
+          <Property Name="Farbe" Type="varchar" MaxLength="20" />
+          <Property Name="Beschreibung" Type="text" />
+        </EntityType>
+        <EntityType Name="ticket">
+          <Key>
+            <PropertyRef Name="PK_Ticket" />
+          </Key>
+          <Property Name="PK_Ticket" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Ticket_Titel" Type="varchar" MaxLength="75" Nullable="false" />
+          <Property Name="Beschreibung" Type="text" />
+          <Property Name="InterneNotiz" Type="text" />
+          <Property Name="InternerStatus" Type="text" />
+          <Property Name="Erstelldatum" Type="datetime" Precision="0" />
+          <Property Name="Bearbeitungsdatum" Type="datetime" Precision="0" />
+          <Property Name="FK_Status" Type="int" />
+          <Property Name="FK_Priorität" Type="int" />
+          <Property Name="FK_Art" Type="int" />
+          <Property Name="FK_Mitarbeiter" Type="int" />
+          <Property Name="FK_Kunde" Type="int" />
+        </EntityType>
+        <Association Name="abgeleitet_fk_1">
+          <End Role="dienstleistung" Type="Self.dienstleistung" Multiplicity="1" />
+          <End Role="abgeleitet" Type="Self.abgeleitet" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="dienstleistung">
+              <PropertyRef Name="PK_Dienstleistung" />
+            </Principal>
+            <Dependent Role="abgeleitet">
+              <PropertyRef Name="FK_Dienstleistung" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="abgeleitet_fk_2">
+          <End Role="ticket" Type="Self.ticket" Multiplicity="1" />
+          <End Role="abgeleitet" Type="Self.abgeleitet" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ticket">
+              <PropertyRef Name="PK_Ticket" />
+            </Principal>
+            <Dependent Role="abgeleitet">
+              <PropertyRef Name="FK_Ticket" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="abgeleitet_ibfk_1">
+          <End Role="dienstleistung" Type="Self.dienstleistung" Multiplicity="1" />
+          <End Role="abgeleitet" Type="Self.abgeleitet" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="dienstleistung">
+              <PropertyRef Name="PK_Dienstleistung" />
+            </Principal>
+            <Dependent Role="abgeleitet">
+              <PropertyRef Name="FK_Dienstleistung" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="arbeitet_ibfk_1">
+          <End Role="mitarbeiter" Type="Self.mitarbeiter" Multiplicity="1" />
+          <End Role="arbeitet" Type="Self.arbeitet" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="mitarbeiter">
+              <PropertyRef Name="PK_Mitarbeiter" />
+            </Principal>
+            <Dependent Role="arbeitet">
+              <PropertyRef Name="FK_Mitarbeiter" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="bearbeitet_fk_1">
+          <End Role="mitarbeiter" Type="Self.mitarbeiter" Multiplicity="1" />
+          <End Role="bearbeitet" Type="Self.bearbeitet" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="mitarbeiter">
+              <PropertyRef Name="PK_Mitarbeiter" />
+            </Principal>
+            <Dependent Role="bearbeitet">
+              <PropertyRef Name="FK_Mitarbeiter" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="bearbeitet_fk_2">
+          <End Role="ticket" Type="Self.ticket" Multiplicity="1" />
+          <End Role="bearbeitet" Type="Self.bearbeitet" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ticket">
+              <PropertyRef Name="PK_Ticket" />
+            </Principal>
+            <Dependent Role="bearbeitet">
+              <PropertyRef Name="FK_Ticket" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_kunde">
+          <End Role="kunde" Type="Self.kunde" Multiplicity="1" />
+          <End Role="arbeitet" Type="Self.arbeitet" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="kunde">
+              <PropertyRef Name="PK_Kunde" />
+            </Principal>
+            <Dependent Role="arbeitet">
+              <PropertyRef Name="FK_Kunde" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_mitarbeiter">
+          <End Role="mitarbeiter" Type="Self.mitarbeiter" Multiplicity="1" />
+          <End Role="arbeitet" Type="Self.arbeitet" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="mitarbeiter">
+              <PropertyRef Name="PK_Mitarbeiter" />
+            </Principal>
+            <Dependent Role="arbeitet">
+              <PropertyRef Name="FK_Mitarbeiter" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="mitarbeiter_fk_1">
+          <End Role="ort" Type="Self.ort" Multiplicity="0..1" />
+          <End Role="mitarbeiter" Type="Self.mitarbeiter" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ort">
+              <PropertyRef Name="PK_Ort" />
+            </Principal>
+            <Dependent Role="mitarbeiter">
+              <PropertyRef Name="FK_Ort" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="mitarbeiter_fk_2">
+          <End Role="rechtegruppe" Type="Self.rechtegruppe" Multiplicity="0..1" />
+          <End Role="mitarbeiter" Type="Self.mitarbeiter" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="rechtegruppe">
+              <PropertyRef Name="PK_Rechtegruppe" />
+            </Principal>
+            <Dependent Role="mitarbeiter">
+              <PropertyRef Name="FK_Rechtegruppe" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="rechnung_fk_1">
+          <End Role="bezahlungsart" Type="Self.bezahlungsart" Multiplicity="0..1" />
+          <End Role="rechnung" Type="Self.rechnung" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="bezahlungsart">
+              <PropertyRef Name="PK_Bezahlungsart" />
+            </Principal>
+            <Dependent Role="rechnung">
+              <PropertyRef Name="FK_Bezahlungsart" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="rechnung_fk_2">
+          <End Role="kunde" Type="Self.kunde" Multiplicity="0..1" />
+          <End Role="rechnung" Type="Self.rechnung" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="kunde">
+              <PropertyRef Name="PK_Kunde" />
+            </Principal>
+            <Dependent Role="rechnung">
+              <PropertyRef Name="FK_Kunde" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="rechnung_fk_3">
+          <End Role="ticket" Type="Self.ticket" Multiplicity="0..1" />
+          <End Role="rechnung" Type="Self.rechnung" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ticket">
+              <PropertyRef Name="PK_Ticket" />
+            </Principal>
+            <Dependent Role="rechnung">
+              <PropertyRef Name="FK_Ticket" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="residiert_fk1">
+          <End Role="ort" Type="Self.ort" Multiplicity="1" />
+          <End Role="residiert" Type="Self.residiert" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ort">
+              <PropertyRef Name="PK_Ort" />
+            </Principal>
+            <Dependent Role="residiert">
+              <PropertyRef Name="FK_Ort" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="residiert_fk2">
+          <End Role="kunde" Type="Self.kunde" Multiplicity="1" />
+          <End Role="residiert" Type="Self.residiert" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="kunde">
+              <PropertyRef Name="PK_Kunde" />
+            </Principal>
+            <Dependent Role="residiert">
+              <PropertyRef Name="FK_Kunde" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="session_ibfk_1">
+          <End Role="mitarbeiter" Type="Self.mitarbeiter" Multiplicity="1" />
+          <End Role="session" Type="Self.session" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="mitarbeiter">
+              <PropertyRef Name="PK_Mitarbeiter" />
+            </Principal>
+            <Dependent Role="session">
+              <PropertyRef Name="FK_Mitarbeiter" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="ticket_fk_1">
+          <End Role="status" Type="Self.status" Multiplicity="0..1" />
+          <End Role="ticket" Type="Self.ticket" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="status">
+              <PropertyRef Name="PK_Status" />
+            </Principal>
+            <Dependent Role="ticket">
+              <PropertyRef Name="FK_Status" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="ticket_fk_2">
+          <End Role="priorität" Type="Self.priorität" Multiplicity="0..1" />
+          <End Role="ticket" Type="Self.ticket" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="priorität">
+              <PropertyRef Name="PK_Priorität" />
+            </Principal>
+            <Dependent Role="ticket">
+              <PropertyRef Name="FK_Priorität" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="ticket_fk_3">
+          <End Role="art" Type="Self.art" Multiplicity="0..1" />
+          <End Role="ticket" Type="Self.ticket" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="art">
+              <PropertyRef Name="PK_Art" />
+            </Principal>
+            <Dependent Role="ticket">
+              <PropertyRef Name="FK_Art" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="ticket_fk_4">
+          <End Role="mitarbeiter" Type="Self.mitarbeiter" Multiplicity="0..1" />
+          <End Role="ticket" Type="Self.ticket" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="mitarbeiter">
+              <PropertyRef Name="PK_Mitarbeiter" />
+            </Principal>
+            <Dependent Role="ticket">
+              <PropertyRef Name="FK_Mitarbeiter" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="ticket_fk_5">
+          <End Role="kunde" Type="Self.kunde" Multiplicity="0..1" />
+          <End Role="ticket" Type="Self.ticket" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="kunde">
+              <PropertyRef Name="PK_Kunde" />
+            </Principal>
+            <Dependent Role="ticket">
+              <PropertyRef Name="FK_Kunde" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="oberstufe_db1ModelStoreContainer">
+          <EntitySet Name="arbeitet" EntityType="Self.arbeitet" Schema="oberstufe_db1" store:Type="Tables" />
+          <EntitySet Name="art" EntityType="Self.art" Schema="oberstufe_db1" store:Type="Tables" />
+          <EntitySet Name="bearbeitet" EntityType="Self.bearbeitet" Schema="oberstufe_db1" store:Type="Tables" />
+          <EntitySet Name="bezahlungsart" EntityType="Self.bezahlungsart" Schema="oberstufe_db1" store:Type="Tables" />
+          <EntitySet Name="dienstleistung" EntityType="Self.dienstleistung" Schema="oberstufe_db1" store:Type="Tables" />
+          <EntitySet Name="kunde" EntityType="Self.kunde" Schema="oberstufe_db1" store:Type="Tables" />
+          <EntitySet Name="mitarbeiter" EntityType="Self.mitarbeiter" Schema="oberstufe_db1" store:Type="Tables" />
+          <EntitySet Name="ort" EntityType="Self.ort" Schema="oberstufe_db1" store:Type="Tables" />
+          <EntitySet Name="priorität" EntityType="Self.priorität" Schema="oberstufe_db1" store:Type="Tables" />
+          <EntitySet Name="rechnung" EntityType="Self.rechnung" Schema="oberstufe_db1" store:Type="Tables" />
+          <EntitySet Name="rechtegruppe" EntityType="Self.rechtegruppe" Schema="oberstufe_db1" store:Type="Tables" />
+          <EntitySet Name="residiert" EntityType="Self.residiert" Schema="oberstufe_db1" store:Type="Tables" />
+          <EntitySet Name="session" EntityType="Self.session" Schema="oberstufe_db1" store:Type="Tables" />
+          <EntitySet Name="status" EntityType="Self.status" Schema="oberstufe_db1" store:Type="Tables" />
+          <EntitySet Name="ticket" EntityType="Self.ticket" Schema="oberstufe_db1" store:Type="Tables" />
+          <EntitySet Name="abgeleitet" EntityType="Self.abgeleitet" store:Type="Tables" store:Schema="oberstufe_db1">
+          </EntitySet>
+          <AssociationSet Name="abgeleitet_fk_1" Association="Self.abgeleitet_fk_1">
+            <End Role="dienstleistung" EntitySet="dienstleistung" />
+            <End Role="abgeleitet" EntitySet="abgeleitet" />
+          </AssociationSet>
+          <AssociationSet Name="abgeleitet_fk_2" Association="Self.abgeleitet_fk_2">
+            <End Role="ticket" EntitySet="ticket" />
+            <End Role="abgeleitet" EntitySet="abgeleitet" />
+          </AssociationSet>
+          <AssociationSet Name="abgeleitet_ibfk_1" Association="Self.abgeleitet_ibfk_1">
+            <End Role="dienstleistung" EntitySet="dienstleistung" />
+            <End Role="abgeleitet" EntitySet="abgeleitet" />
+          </AssociationSet>
+          <AssociationSet Name="arbeitet_ibfk_1" Association="Self.arbeitet_ibfk_1">
+            <End Role="mitarbeiter" EntitySet="mitarbeiter" />
+            <End Role="arbeitet" EntitySet="arbeitet" />
+          </AssociationSet>
+          <AssociationSet Name="bearbeitet_fk_1" Association="Self.bearbeitet_fk_1">
+            <End Role="mitarbeiter" EntitySet="mitarbeiter" />
+            <End Role="bearbeitet" EntitySet="bearbeitet" />
+          </AssociationSet>
+          <AssociationSet Name="bearbeitet_fk_2" Association="Self.bearbeitet_fk_2">
+            <End Role="ticket" EntitySet="ticket" />
+            <End Role="bearbeitet" EntitySet="bearbeitet" />
+          </AssociationSet>
+          <AssociationSet Name="fk_kunde" Association="Self.fk_kunde">
+            <End Role="kunde" EntitySet="kunde" />
+            <End Role="arbeitet" EntitySet="arbeitet" />
+          </AssociationSet>
+          <AssociationSet Name="fk_mitarbeiter" Association="Self.fk_mitarbeiter">
+            <End Role="mitarbeiter" EntitySet="mitarbeiter" />
+            <End Role="arbeitet" EntitySet="arbeitet" />
+          </AssociationSet>
+          <AssociationSet Name="mitarbeiter_fk_1" Association="Self.mitarbeiter_fk_1">
+            <End Role="ort" EntitySet="ort" />
+            <End Role="mitarbeiter" EntitySet="mitarbeiter" />
+          </AssociationSet>
+          <AssociationSet Name="mitarbeiter_fk_2" Association="Self.mitarbeiter_fk_2">
+            <End Role="rechtegruppe" EntitySet="rechtegruppe" />
+            <End Role="mitarbeiter" EntitySet="mitarbeiter" />
+          </AssociationSet>
+          <AssociationSet Name="rechnung_fk_1" Association="Self.rechnung_fk_1">
+            <End Role="bezahlungsart" EntitySet="bezahlungsart" />
+            <End Role="rechnung" EntitySet="rechnung" />
+          </AssociationSet>
+          <AssociationSet Name="rechnung_fk_2" Association="Self.rechnung_fk_2">
+            <End Role="kunde" EntitySet="kunde" />
+            <End Role="rechnung" EntitySet="rechnung" />
+          </AssociationSet>
+          <AssociationSet Name="rechnung_fk_3" Association="Self.rechnung_fk_3">
+            <End Role="ticket" EntitySet="ticket" />
+            <End Role="rechnung" EntitySet="rechnung" />
+          </AssociationSet>
+          <AssociationSet Name="residiert_fk1" Association="Self.residiert_fk1">
+            <End Role="ort" EntitySet="ort" />
+            <End Role="residiert" EntitySet="residiert" />
+          </AssociationSet>
+          <AssociationSet Name="residiert_fk2" Association="Self.residiert_fk2">
+            <End Role="kunde" EntitySet="kunde" />
+            <End Role="residiert" EntitySet="residiert" />
+          </AssociationSet>
+          <AssociationSet Name="session_ibfk_1" Association="Self.session_ibfk_1">
+            <End Role="mitarbeiter" EntitySet="mitarbeiter" />
+            <End Role="session" EntitySet="session" />
+          </AssociationSet>
+          <AssociationSet Name="ticket_fk_1" Association="Self.ticket_fk_1">
+            <End Role="status" EntitySet="status" />
+            <End Role="ticket" EntitySet="ticket" />
+          </AssociationSet>
+          <AssociationSet Name="ticket_fk_2" Association="Self.ticket_fk_2">
+            <End Role="priorität" EntitySet="priorität" />
+            <End Role="ticket" EntitySet="ticket" />
+          </AssociationSet>
+          <AssociationSet Name="ticket_fk_3" Association="Self.ticket_fk_3">
+            <End Role="art" EntitySet="art" />
+            <End Role="ticket" EntitySet="ticket" />
+          </AssociationSet>
+          <AssociationSet Name="ticket_fk_4" Association="Self.ticket_fk_4">
+            <End Role="mitarbeiter" EntitySet="mitarbeiter" />
+            <End Role="ticket" EntitySet="ticket" />
+          </AssociationSet>
+          <AssociationSet Name="ticket_fk_5" Association="Self.ticket_fk_5">
+            <End Role="kunde" EntitySet="kunde" />
+            <End Role="ticket" EntitySet="ticket" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="oberstufe_db1Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="arbeitet">
+          <Key>
+            <PropertyRef Name="FK_Mitarbeiter" />
+            <PropertyRef Name="FK_Kunde" />
+          </Key>
+          <Property Name="FK_Mitarbeiter" Type="Int32" Nullable="false" />
+          <Property Name="FK_Kunde" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="mitarbeiter" Relationship="Self.arbeitet_ibfk_1" FromRole="arbeitet" ToRole="mitarbeiter" />
+          <NavigationProperty Name="kunde" Relationship="Self.fk_kunde" FromRole="arbeitet" ToRole="kunde" />
+          <NavigationProperty Name="mitarbeiter1" Relationship="Self.fk_mitarbeiter" FromRole="arbeitet" ToRole="mitarbeiter" />
+        </EntityType>
+        <EntityType Name="art">
+          <Key>
+            <PropertyRef Name="PK_Art" />
+          </Key>
+          <Property Name="PK_Art" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Artname" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="Beschreibung" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="ticket" Relationship="Self.ticket_fk_3" FromRole="art" ToRole="ticket" />
+        </EntityType>
+        <EntityType Name="bezahlungsart">
+          <Key>
+            <PropertyRef Name="PK_Bezahlungsart" />
+          </Key>
+          <Property Name="Artname" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="Beschreibung" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
+          <Property Name="PK_Bezahlungsart" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <NavigationProperty Name="rechnung" Relationship="Self.rechnung_fk_1" FromRole="bezahlungsart" ToRole="rechnung" />
+        </EntityType>
+        <EntityType Name="dienstleistung">
+          <Key>
+            <PropertyRef Name="PK_Dienstleistung" />
+          </Key>
+          <Property Name="PK_Dienstleistung" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Beschreibung" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
+          <Property Name="Kosten" Type="Decimal" />
+          <NavigationProperty Name="abgeleitet" Relationship="Self.abgeleitet_fk_1" FromRole="dienstleistung" ToRole="abgeleitet" />
+          <NavigationProperty Name="abgeleitet1" Relationship="Self.abgeleitet_ibfk_1" FromRole="dienstleistung" ToRole="abgeleitet" />
+        </EntityType>
+        <EntityType Name="kunde">
+          <Key>
+            <PropertyRef Name="PK_Kunde" />
+          </Key>
+          <Property Name="PK_Kunde" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Kundennummer" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="Firmenname" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="Email" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="Passwort" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="arbeitet" Relationship="Self.fk_kunde" FromRole="kunde" ToRole="arbeitet" />
+          <NavigationProperty Name="rechnung" Relationship="Self.rechnung_fk_2" FromRole="kunde" ToRole="rechnung" />
+          <NavigationProperty Name="ticket" Relationship="Self.ticket_fk_5" FromRole="kunde" ToRole="ticket" />
+          <NavigationProperty Name="ort" Relationship="Self.residiert" FromRole="kunde" ToRole="ort" />
+        </EntityType>
+        <EntityType Name="mitarbeiter">
+          <Key>
+            <PropertyRef Name="PK_Mitarbeiter" />
+          </Key>
+          <Property Name="PK_Mitarbeiter" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Vorname" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="Nachname" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="Position" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="Festnetznummer" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="Mobilnummer" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="Email" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="Passwort" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="FK_Ort" Type="Int32" />
+          <Property Name="FK_Rechtegruppe" Type="Int32" />
+          <NavigationProperty Name="arbeitet" Relationship="Self.arbeitet_ibfk_1" FromRole="mitarbeiter" ToRole="arbeitet" />
+          <NavigationProperty Name="arbeitet1" Relationship="Self.fk_mitarbeiter" FromRole="mitarbeiter" ToRole="arbeitet" />
+          <NavigationProperty Name="ort" Relationship="Self.mitarbeiter_fk_1" FromRole="mitarbeiter" ToRole="ort" />
+          <NavigationProperty Name="rechtegruppe" Relationship="Self.mitarbeiter_fk_2" FromRole="mitarbeiter" ToRole="rechtegruppe" />
+          <NavigationProperty Name="session" Relationship="Self.session_ibfk_1" FromRole="mitarbeiter" ToRole="session" />
+          <NavigationProperty Name="ticket" Relationship="Self.ticket_fk_4" FromRole="mitarbeiter" ToRole="ticket" />
+          <NavigationProperty Name="ticket1" Relationship="Self.bearbeitet" FromRole="mitarbeiter" ToRole="ticket" />
+        </EntityType>
+        <EntityType Name="ort">
+          <Key>
+            <PropertyRef Name="PK_Ort" />
+          </Key>
+          <Property Name="PK_Ort" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Stadt" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="PLZ" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="Straße" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="Hausnummer" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="mitarbeiter" Relationship="Self.mitarbeiter_fk_1" FromRole="ort" ToRole="mitarbeiter" />
+          <NavigationProperty Name="kunde" Relationship="Self.residiert" FromRole="ort" ToRole="kunde" />
+        </EntityType>
+        <EntityType Name="priorität">
+          <Key>
+            <PropertyRef Name="PK_Priorität" />
+          </Key>
+          <Property Name="PK_Priorität" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Prioritätsname" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="Beschreibung" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="ticket" Relationship="Self.ticket_fk_2" FromRole="priorität" ToRole="ticket" />
+        </EntityType>
+        <EntityType Name="rechnung">
+          <Key>
+            <PropertyRef Name="Rechnungsnr" />
+          </Key>
+          <Property Name="Rechnungsnr" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Ticketbeschreibung" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
+          <Property Name="Abrechnung" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="Ratenzahlung" Type="Boolean" />
+          <Property Name="FK_Bezahlungsart" Type="Int32" />
+          <Property Name="FK_Kunde" Type="Int32" />
+          <Property Name="FK_Ticket" Type="Int32" />
+          <NavigationProperty Name="bezahlungsart" Relationship="Self.rechnung_fk_1" FromRole="rechnung" ToRole="bezahlungsart" />
+          <NavigationProperty Name="kunde" Relationship="Self.rechnung_fk_2" FromRole="rechnung" ToRole="kunde" />
+          <NavigationProperty Name="ticket" Relationship="Self.rechnung_fk_3" FromRole="rechnung" ToRole="ticket" />
+        </EntityType>
+        <EntityType Name="rechtegruppe">
+          <Key>
+            <PropertyRef Name="PK_Rechtegruppe" />
+          </Key>
+          <Property Name="Administrationsrechte" Type="Boolean" />
+          <Property Name="Bestelllimit" Type="Decimal" />
+          <Property Name="Helpdesk_Fernwartung" Type="Boolean" />
+          <Property Name="PK_Rechtegruppe" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <NavigationProperty Name="mitarbeiter" Relationship="Self.mitarbeiter_fk_2" FromRole="rechtegruppe" ToRole="mitarbeiter" />
+        </EntityType>
+        <EntityType Name="session">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="sessionhash" Type="String" MaxLength="1073741823" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="expires_at" Type="DateTime" Nullable="false" />
+          <Property Name="inserted_at" Type="DateTime" Nullable="false" />
+          <Property Name="FK_Mitarbeiter" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="mitarbeiter" Relationship="Self.session_ibfk_1" FromRole="session" ToRole="mitarbeiter" />
+        </EntityType>
+        <EntityType Name="status">
+          <Key>
+            <PropertyRef Name="PK_Status" />
+          </Key>
+          <Property Name="PK_Status" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Statusname" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="Farbe" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="Beschreibung" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="ticket" Relationship="Self.ticket_fk_1" FromRole="status" ToRole="ticket" />
+        </EntityType>
+        <EntityType Name="ticket">
+          <Key>
+            <PropertyRef Name="PK_Ticket" />
+          </Key>
+          <Property Name="PK_Ticket" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Ticket_Titel" Type="String" MaxLength="75" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Beschreibung" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
+          <Property Name="InterneNotiz" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
+          <Property Name="InternerStatus" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
+          <Property Name="Erstelldatum" Type="DateTime" />
+          <Property Name="Bearbeitungsdatum" Type="DateTime" />
+          <Property Name="FK_Status" Type="Int32" />
+          <Property Name="FK_Priorität" Type="Int32" />
+          <Property Name="FK_Art" Type="Int32" />
+          <Property Name="FK_Mitarbeiter" Type="Int32" />
+          <Property Name="FK_Kunde" Type="Int32" />
+          <NavigationProperty Name="art" Relationship="Self.ticket_fk_3" FromRole="ticket" ToRole="art" />
+          <NavigationProperty Name="kunde" Relationship="Self.ticket_fk_5" FromRole="ticket" ToRole="kunde" />
+          <NavigationProperty Name="mitarbeiter" Relationship="Self.ticket_fk_4" FromRole="ticket" ToRole="mitarbeiter" />
+          <NavigationProperty Name="priorität" Relationship="Self.ticket_fk_2" FromRole="ticket" ToRole="priorität" />
+          <NavigationProperty Name="rechnung" Relationship="Self.rechnung_fk_3" FromRole="ticket" ToRole="rechnung" />
+          <NavigationProperty Name="status" Relationship="Self.ticket_fk_1" FromRole="ticket" ToRole="status" />
+          <NavigationProperty Name="abgeleitet" Relationship="Self.abgeleitet_fk_2" FromRole="ticket" ToRole="abgeleitet" />
+          <NavigationProperty Name="mitarbeiter1" Relationship="Self.bearbeitet" FromRole="ticket" ToRole="mitarbeiter" />
+        </EntityType>
+        <EntityType Name="abgeleitet">
+          <Key>
+            <PropertyRef Name="FK_Dienstleistung" />
+            <PropertyRef Name="FK_Ticket" />
+          </Key>
+          <Property Name="FK_Dienstleistung" Type="Int32" Nullable="false" />
+          <Property Name="FK_Ticket" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="dienstleistung" Relationship="Self.abgeleitet_fk_1" FromRole="abgeleitet" ToRole="dienstleistung" />
+          <NavigationProperty Name="dienstleistung1" Relationship="Self.abgeleitet_ibfk_1" FromRole="abgeleitet" ToRole="dienstleistung" />
+          <NavigationProperty Name="ticket" Relationship="Self.abgeleitet_fk_2" FromRole="abgeleitet" ToRole="ticket" />
+        </EntityType>
+        <Association Name="arbeitet_ibfk_1">
+          <End Role="mitarbeiter" Type="Self.mitarbeiter" Multiplicity="1" />
+          <End Role="arbeitet" Type="Self.arbeitet" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="mitarbeiter">
+              <PropertyRef Name="PK_Mitarbeiter" />
+            </Principal>
+            <Dependent Role="arbeitet">
+              <PropertyRef Name="FK_Mitarbeiter" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_kunde">
+          <End Role="kunde" Type="Self.kunde" Multiplicity="1" />
+          <End Role="arbeitet" Type="Self.arbeitet" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="kunde">
+              <PropertyRef Name="PK_Kunde" />
+            </Principal>
+            <Dependent Role="arbeitet">
+              <PropertyRef Name="FK_Kunde" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_mitarbeiter">
+          <End Role="mitarbeiter" Type="Self.mitarbeiter" Multiplicity="1" />
+          <End Role="arbeitet" Type="Self.arbeitet" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="mitarbeiter">
+              <PropertyRef Name="PK_Mitarbeiter" />
+            </Principal>
+            <Dependent Role="arbeitet">
+              <PropertyRef Name="FK_Mitarbeiter" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="ticket_fk_3">
+          <End Role="art" Type="Self.art" Multiplicity="0..1" />
+          <End Role="ticket" Type="Self.ticket" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="art">
+              <PropertyRef Name="PK_Art" />
+            </Principal>
+            <Dependent Role="ticket">
+              <PropertyRef Name="FK_Art" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="rechnung_fk_1">
+          <End Role="bezahlungsart" Type="Self.bezahlungsart" Multiplicity="0..1" />
+          <End Role="rechnung" Type="Self.rechnung" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="bezahlungsart">
+              <PropertyRef Name="PK_Bezahlungsart" />
+            </Principal>
+            <Dependent Role="rechnung">
+              <PropertyRef Name="FK_Bezahlungsart" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="abgeleitet_fk_1">
+          <End Role="dienstleistung" Type="Self.dienstleistung" Multiplicity="1" />
+          <End Role="abgeleitet" Type="Self.abgeleitet" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="dienstleistung">
+              <PropertyRef Name="PK_Dienstleistung" />
+            </Principal>
+            <Dependent Role="abgeleitet">
+              <PropertyRef Name="FK_Dienstleistung" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="abgeleitet_ibfk_1">
+          <End Role="dienstleistung" Type="Self.dienstleistung" Multiplicity="1" />
+          <End Role="abgeleitet" Type="Self.abgeleitet" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="dienstleistung">
+              <PropertyRef Name="PK_Dienstleistung" />
+            </Principal>
+            <Dependent Role="abgeleitet">
+              <PropertyRef Name="FK_Dienstleistung" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="rechnung_fk_2">
+          <End Role="kunde" Type="Self.kunde" Multiplicity="0..1" />
+          <End Role="rechnung" Type="Self.rechnung" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="kunde">
+              <PropertyRef Name="PK_Kunde" />
+            </Principal>
+            <Dependent Role="rechnung">
+              <PropertyRef Name="FK_Kunde" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="ticket_fk_5">
+          <End Role="kunde" Type="Self.kunde" Multiplicity="0..1" />
+          <End Role="ticket" Type="Self.ticket" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="kunde">
+              <PropertyRef Name="PK_Kunde" />
+            </Principal>
+            <Dependent Role="ticket">
+              <PropertyRef Name="FK_Kunde" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="mitarbeiter_fk_1">
+          <End Role="ort" Type="Self.ort" Multiplicity="0..1" />
+          <End Role="mitarbeiter" Type="Self.mitarbeiter" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ort">
+              <PropertyRef Name="PK_Ort" />
+            </Principal>
+            <Dependent Role="mitarbeiter">
+              <PropertyRef Name="FK_Ort" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="mitarbeiter_fk_2">
+          <End Role="rechtegruppe" Type="Self.rechtegruppe" Multiplicity="0..1" />
+          <End Role="mitarbeiter" Type="Self.mitarbeiter" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="rechtegruppe">
+              <PropertyRef Name="PK_Rechtegruppe" />
+            </Principal>
+            <Dependent Role="mitarbeiter">
+              <PropertyRef Name="FK_Rechtegruppe" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="session_ibfk_1">
+          <End Role="mitarbeiter" Type="Self.mitarbeiter" Multiplicity="1" />
+          <End Role="session" Type="Self.session" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="mitarbeiter">
+              <PropertyRef Name="PK_Mitarbeiter" />
+            </Principal>
+            <Dependent Role="session">
+              <PropertyRef Name="FK_Mitarbeiter" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="ticket_fk_4">
+          <End Role="mitarbeiter" Type="Self.mitarbeiter" Multiplicity="0..1" />
+          <End Role="ticket" Type="Self.ticket" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="mitarbeiter">
+              <PropertyRef Name="PK_Mitarbeiter" />
+            </Principal>
+            <Dependent Role="ticket">
+              <PropertyRef Name="FK_Mitarbeiter" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="ticket_fk_2">
+          <End Role="priorität" Type="Self.priorität" Multiplicity="0..1" />
+          <End Role="ticket" Type="Self.ticket" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="priorität">
+              <PropertyRef Name="PK_Priorität" />
+            </Principal>
+            <Dependent Role="ticket">
+              <PropertyRef Name="FK_Priorität" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="rechnung_fk_3">
+          <End Role="ticket" Type="Self.ticket" Multiplicity="0..1" />
+          <End Role="rechnung" Type="Self.rechnung" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ticket">
+              <PropertyRef Name="PK_Ticket" />
+            </Principal>
+            <Dependent Role="rechnung">
+              <PropertyRef Name="FK_Ticket" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="ticket_fk_1">
+          <End Role="status" Type="Self.status" Multiplicity="0..1" />
+          <End Role="ticket" Type="Self.ticket" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="status">
+              <PropertyRef Name="PK_Status" />
+            </Principal>
+            <Dependent Role="ticket">
+              <PropertyRef Name="FK_Status" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="abgeleitet_fk_2">
+          <End Role="ticket" Type="Self.ticket" Multiplicity="1" />
+          <End Role="abgeleitet" Type="Self.abgeleitet" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ticket">
+              <PropertyRef Name="PK_Ticket" />
+            </Principal>
+            <Dependent Role="abgeleitet">
+              <PropertyRef Name="FK_Ticket" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="bearbeitet">
+          <End Role="mitarbeiter" Type="Self.mitarbeiter" Multiplicity="*" />
+          <End Role="ticket" Type="Self.ticket" Multiplicity="*" />
+        </Association>
+        <Association Name="residiert">
+          <End Role="ort" Type="Self.ort" Multiplicity="*" />
+          <End Role="kunde" Type="Self.kunde" Multiplicity="*" />
+        </Association>
+        <EntityContainer Name="oberstufe_db1Entities1" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="arbeitet" EntityType="Self.arbeitet" />
+          <EntitySet Name="art" EntityType="Self.art" />
+          <EntitySet Name="bezahlungsart" EntityType="Self.bezahlungsart" />
+          <EntitySet Name="dienstleistung" EntityType="Self.dienstleistung" />
+          <EntitySet Name="kunde" EntityType="Self.kunde" />
+          <EntitySet Name="mitarbeiter" EntityType="Self.mitarbeiter" />
+          <EntitySet Name="ort" EntityType="Self.ort" />
+          <EntitySet Name="priorität" EntityType="Self.priorität" />
+          <EntitySet Name="rechnung" EntityType="Self.rechnung" />
+          <EntitySet Name="rechtegruppe" EntityType="Self.rechtegruppe" />
+          <EntitySet Name="session" EntityType="Self.session" />
+          <EntitySet Name="status" EntityType="Self.status" />
+          <EntitySet Name="ticket" EntityType="Self.ticket" />
+          <EntitySet Name="abgeleitet" EntityType="Self.abgeleitet" />
+          <AssociationSet Name="arbeitet_ibfk_1" Association="Self.arbeitet_ibfk_1">
+            <End Role="mitarbeiter" EntitySet="mitarbeiter" />
+            <End Role="arbeitet" EntitySet="arbeitet" />
+          </AssociationSet>
+          <AssociationSet Name="fk_kunde" Association="Self.fk_kunde">
+            <End Role="kunde" EntitySet="kunde" />
+            <End Role="arbeitet" EntitySet="arbeitet" />
+          </AssociationSet>
+          <AssociationSet Name="fk_mitarbeiter" Association="Self.fk_mitarbeiter">
+            <End Role="mitarbeiter" EntitySet="mitarbeiter" />
+            <End Role="arbeitet" EntitySet="arbeitet" />
+          </AssociationSet>
+          <AssociationSet Name="ticket_fk_3" Association="Self.ticket_fk_3">
+            <End Role="art" EntitySet="art" />
+            <End Role="ticket" EntitySet="ticket" />
+          </AssociationSet>
+          <AssociationSet Name="rechnung_fk_1" Association="Self.rechnung_fk_1">
+            <End Role="bezahlungsart" EntitySet="bezahlungsart" />
+            <End Role="rechnung" EntitySet="rechnung" />
+          </AssociationSet>
+          <AssociationSet Name="abgeleitet_fk_1" Association="Self.abgeleitet_fk_1">
+            <End Role="dienstleistung" EntitySet="dienstleistung" />
+            <End Role="abgeleitet" EntitySet="abgeleitet" />
+          </AssociationSet>
+          <AssociationSet Name="abgeleitet_ibfk_1" Association="Self.abgeleitet_ibfk_1">
+            <End Role="dienstleistung" EntitySet="dienstleistung" />
+            <End Role="abgeleitet" EntitySet="abgeleitet" />
+          </AssociationSet>
+          <AssociationSet Name="rechnung_fk_2" Association="Self.rechnung_fk_2">
+            <End Role="kunde" EntitySet="kunde" />
+            <End Role="rechnung" EntitySet="rechnung" />
+          </AssociationSet>
+          <AssociationSet Name="ticket_fk_5" Association="Self.ticket_fk_5">
+            <End Role="kunde" EntitySet="kunde" />
+            <End Role="ticket" EntitySet="ticket" />
+          </AssociationSet>
+          <AssociationSet Name="mitarbeiter_fk_1" Association="Self.mitarbeiter_fk_1">
+            <End Role="ort" EntitySet="ort" />
+            <End Role="mitarbeiter" EntitySet="mitarbeiter" />
+          </AssociationSet>
+          <AssociationSet Name="mitarbeiter_fk_2" Association="Self.mitarbeiter_fk_2">
+            <End Role="rechtegruppe" EntitySet="rechtegruppe" />
+            <End Role="mitarbeiter" EntitySet="mitarbeiter" />
+          </AssociationSet>
+          <AssociationSet Name="session_ibfk_1" Association="Self.session_ibfk_1">
+            <End Role="mitarbeiter" EntitySet="mitarbeiter" />
+            <End Role="session" EntitySet="session" />
+          </AssociationSet>
+          <AssociationSet Name="ticket_fk_4" Association="Self.ticket_fk_4">
+            <End Role="mitarbeiter" EntitySet="mitarbeiter" />
+            <End Role="ticket" EntitySet="ticket" />
+          </AssociationSet>
+          <AssociationSet Name="ticket_fk_2" Association="Self.ticket_fk_2">
+            <End Role="priorität" EntitySet="priorität" />
+            <End Role="ticket" EntitySet="ticket" />
+          </AssociationSet>
+          <AssociationSet Name="rechnung_fk_3" Association="Self.rechnung_fk_3">
+            <End Role="ticket" EntitySet="ticket" />
+            <End Role="rechnung" EntitySet="rechnung" />
+          </AssociationSet>
+          <AssociationSet Name="ticket_fk_1" Association="Self.ticket_fk_1">
+            <End Role="status" EntitySet="status" />
+            <End Role="ticket" EntitySet="ticket" />
+          </AssociationSet>
+          <AssociationSet Name="abgeleitet_fk_2" Association="Self.abgeleitet_fk_2">
+            <End Role="ticket" EntitySet="ticket" />
+            <End Role="abgeleitet" EntitySet="abgeleitet" />
+          </AssociationSet>
+          <AssociationSet Name="bearbeitet" Association="Self.bearbeitet">
+            <End Role="mitarbeiter" EntitySet="mitarbeiter" />
+            <End Role="ticket" EntitySet="ticket" />
+          </AssociationSet>
+          <AssociationSet Name="residiert" Association="Self.residiert">
+            <End Role="ort" EntitySet="ort" />
+            <End Role="kunde" EntitySet="kunde" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="oberstufe_db1ModelStoreContainer" CdmEntityContainer="oberstufe_db1Entities1">
+          <EntitySetMapping Name="arbeitet">
+            <EntityTypeMapping TypeName="oberstufe_db1Model.arbeitet">
+              <MappingFragment StoreEntitySet="arbeitet">
+                <ScalarProperty Name="FK_Mitarbeiter" ColumnName="FK_Mitarbeiter" />
+                <ScalarProperty Name="FK_Kunde" ColumnName="FK_Kunde" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="art">
+            <EntityTypeMapping TypeName="oberstufe_db1Model.art">
+              <MappingFragment StoreEntitySet="art">
+                <ScalarProperty Name="PK_Art" ColumnName="PK_Art" />
+                <ScalarProperty Name="Artname" ColumnName="Artname" />
+                <ScalarProperty Name="Beschreibung" ColumnName="Beschreibung" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="bezahlungsart">
+            <EntityTypeMapping TypeName="oberstufe_db1Model.bezahlungsart">
+              <MappingFragment StoreEntitySet="bezahlungsart">
+                <ScalarProperty Name="Artname" ColumnName="Artname" />
+                <ScalarProperty Name="Beschreibung" ColumnName="Beschreibung" />
+                <ScalarProperty Name="PK_Bezahlungsart" ColumnName="PK_Bezahlungsart" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="dienstleistung">
+            <EntityTypeMapping TypeName="oberstufe_db1Model.dienstleistung">
+              <MappingFragment StoreEntitySet="dienstleistung">
+                <ScalarProperty Name="PK_Dienstleistung" ColumnName="PK_Dienstleistung" />
+                <ScalarProperty Name="Beschreibung" ColumnName="Beschreibung" />
+                <ScalarProperty Name="Kosten" ColumnName="Kosten" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="kunde">
+            <EntityTypeMapping TypeName="oberstufe_db1Model.kunde">
+              <MappingFragment StoreEntitySet="kunde">
+                <ScalarProperty Name="PK_Kunde" ColumnName="PK_Kunde" />
+                <ScalarProperty Name="Kundennummer" ColumnName="Kundennummer" />
+                <ScalarProperty Name="Firmenname" ColumnName="Firmenname" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Passwort" ColumnName="Passwort" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="mitarbeiter">
+            <EntityTypeMapping TypeName="oberstufe_db1Model.mitarbeiter">
+              <MappingFragment StoreEntitySet="mitarbeiter">
+                <ScalarProperty Name="PK_Mitarbeiter" ColumnName="PK_Mitarbeiter" />
+                <ScalarProperty Name="Vorname" ColumnName="Vorname" />
+                <ScalarProperty Name="Nachname" ColumnName="Nachname" />
+                <ScalarProperty Name="Position" ColumnName="Position" />
+                <ScalarProperty Name="Festnetznummer" ColumnName="Festnetznummer" />
+                <ScalarProperty Name="Mobilnummer" ColumnName="Mobilnummer" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Passwort" ColumnName="Passwort" />
+                <ScalarProperty Name="FK_Ort" ColumnName="FK_Ort" />
+                <ScalarProperty Name="FK_Rechtegruppe" ColumnName="FK_Rechtegruppe" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ort">
+            <EntityTypeMapping TypeName="oberstufe_db1Model.ort">
+              <MappingFragment StoreEntitySet="ort">
+                <ScalarProperty Name="PK_Ort" ColumnName="PK_Ort" />
+                <ScalarProperty Name="Stadt" ColumnName="Stadt" />
+                <ScalarProperty Name="PLZ" ColumnName="PLZ" />
+                <ScalarProperty Name="Straße" ColumnName="Straße" />
+                <ScalarProperty Name="Hausnummer" ColumnName="Hausnummer" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="priorität">
+            <EntityTypeMapping TypeName="oberstufe_db1Model.priorität">
+              <MappingFragment StoreEntitySet="priorität">
+                <ScalarProperty Name="PK_Priorität" ColumnName="PK_Priorität" />
+                <ScalarProperty Name="Prioritätsname" ColumnName="Prioritätsname" />
+                <ScalarProperty Name="Beschreibung" ColumnName="Beschreibung" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="rechnung">
+            <EntityTypeMapping TypeName="oberstufe_db1Model.rechnung">
+              <MappingFragment StoreEntitySet="rechnung">
+                <ScalarProperty Name="Rechnungsnr" ColumnName="Rechnungsnr" />
+                <ScalarProperty Name="Ticketbeschreibung" ColumnName="Ticketbeschreibung" />
+                <ScalarProperty Name="Abrechnung" ColumnName="Abrechnung" />
+                <ScalarProperty Name="Ratenzahlung" ColumnName="Ratenzahlung" />
+                <ScalarProperty Name="FK_Bezahlungsart" ColumnName="FK_Bezahlungsart" />
+                <ScalarProperty Name="FK_Kunde" ColumnName="FK_Kunde" />
+                <ScalarProperty Name="FK_Ticket" ColumnName="FK_Ticket" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="rechtegruppe">
+            <EntityTypeMapping TypeName="oberstufe_db1Model.rechtegruppe">
+              <MappingFragment StoreEntitySet="rechtegruppe">
+                <ScalarProperty Name="Administrationsrechte" ColumnName="Administrationsrechte" />
+                <ScalarProperty Name="Bestelllimit" ColumnName="Bestelllimit" />
+                <ScalarProperty Name="Helpdesk_Fernwartung" ColumnName="Helpdesk_Fernwartung" />
+                <ScalarProperty Name="PK_Rechtegruppe" ColumnName="PK_Rechtegruppe" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="session">
+            <EntityTypeMapping TypeName="oberstufe_db1Model.session">
+              <MappingFragment StoreEntitySet="session">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="sessionhash" ColumnName="sessionhash" />
+                <ScalarProperty Name="expires_at" ColumnName="expires_at" />
+                <ScalarProperty Name="inserted_at" ColumnName="inserted_at" />
+                <ScalarProperty Name="FK_Mitarbeiter" ColumnName="FK_Mitarbeiter" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="status">
+            <EntityTypeMapping TypeName="oberstufe_db1Model.status">
+              <MappingFragment StoreEntitySet="status">
+                <ScalarProperty Name="PK_Status" ColumnName="PK_Status" />
+                <ScalarProperty Name="Statusname" ColumnName="Statusname" />
+                <ScalarProperty Name="Farbe" ColumnName="Farbe" />
+                <ScalarProperty Name="Beschreibung" ColumnName="Beschreibung" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ticket">
+            <EntityTypeMapping TypeName="oberstufe_db1Model.ticket">
+              <MappingFragment StoreEntitySet="ticket">
+                <ScalarProperty Name="PK_Ticket" ColumnName="PK_Ticket" />
+                <ScalarProperty Name="Ticket_Titel" ColumnName="Ticket_Titel" />
+                <ScalarProperty Name="Beschreibung" ColumnName="Beschreibung" />
+                <ScalarProperty Name="InterneNotiz" ColumnName="InterneNotiz" />
+                <ScalarProperty Name="InternerStatus" ColumnName="InternerStatus" />
+                <ScalarProperty Name="Erstelldatum" ColumnName="Erstelldatum" />
+                <ScalarProperty Name="Bearbeitungsdatum" ColumnName="Bearbeitungsdatum" />
+                <ScalarProperty Name="FK_Status" ColumnName="FK_Status" />
+                <ScalarProperty Name="FK_Priorität" ColumnName="FK_Priorität" />
+                <ScalarProperty Name="FK_Art" ColumnName="FK_Art" />
+                <ScalarProperty Name="FK_Mitarbeiter" ColumnName="FK_Mitarbeiter" />
+                <ScalarProperty Name="FK_Kunde" ColumnName="FK_Kunde" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="abgeleitet">
+            <EntityTypeMapping TypeName="oberstufe_db1Model.abgeleitet">
+              <MappingFragment StoreEntitySet="abgeleitet">
+                <ScalarProperty Name="FK_Dienstleistung" ColumnName="FK_Dienstleistung" />
+                <ScalarProperty Name="FK_Ticket" ColumnName="FK_Ticket" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <AssociationSetMapping Name="bearbeitet" TypeName="oberstufe_db1Model.bearbeitet" StoreEntitySet="bearbeitet">
+            <EndProperty Name="mitarbeiter">
+              <ScalarProperty Name="PK_Mitarbeiter" ColumnName="FK_Mitarbeiter" />
+            </EndProperty>
+            <EndProperty Name="ticket">
+              <ScalarProperty Name="PK_Ticket" ColumnName="FK_Ticket" />
+            </EndProperty>
+          </AssociationSetMapping>
+          <AssociationSetMapping Name="residiert" TypeName="oberstufe_db1Model.residiert" StoreEntitySet="residiert">
+            <EndProperty Name="ort">
+              <ScalarProperty Name="PK_Ort" ColumnName="FK_Ort" />
+            </EndProperty>
+            <EndProperty Name="kunde">
+              <ScalarProperty Name="PK_Kunde" ColumnName="FK_Kunde" />
+            </EndProperty>
+          </AssociationSetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Kein" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
