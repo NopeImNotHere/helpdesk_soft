@@ -149,28 +149,29 @@
     <Compile Include="dienstleistung.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
-    <Compile Include="Main_Form.cs">
+    <Compile Include="util\PasswordHelper.cs" />
+    <Compile Include="Views\Main_Form.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Main_Form.Designer.cs">
+    <Compile Include="Views\Main_Form.Designer.cs">
       <DependentUpon>Main_Form.cs</DependentUpon>
     </Compile>
     <Compile Include="kunde.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
-    <Compile Include="Login_Form.cs">
+    <Compile Include="Views\Login_Form.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Login_Form.Designer.cs">
+    <Compile Include="Views\Login_Form.Designer.cs">
       <DependentUpon>Login_Form.cs</DependentUpon>
     </Compile>
     <Compile Include="mitarbeiter.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
-    <Compile Include="Mitarbeiter_Form.cs">
+    <Compile Include="Views\Mitarbeiter_Form.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Mitarbeiter_Form.Designer.cs">
+    <Compile Include="Views\Mitarbeiter_Form.Designer.cs">
       <DependentUpon>Mitarbeiter_Form.cs</DependentUpon>
     </Compile>
     <Compile Include="Model1.Context.cs">
@@ -199,10 +200,10 @@
     <Compile Include="rechnung.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
-    <Compile Include="Rechnung_Form.cs">
+    <Compile Include="Views\Rechnung_Form.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Rechnung_Form.Designer.cs">
+    <Compile Include="Views\Rechnung_Form.Designer.cs">
       <DependentUpon>Rechnung_Form.cs</DependentUpon>
     </Compile>
     <Compile Include="rechtegruppe.cs">
@@ -217,13 +218,13 @@
     <Compile Include="ticket.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
-    <Compile Include="Ticket_Form.cs">
+    <Compile Include="Views\Ticket_Form.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Ticket_Form.Designer.cs">
+    <Compile Include="Views\Ticket_Form.Designer.cs">
       <DependentUpon>Ticket_Form.cs</DependentUpon>
     </Compile>
-    <EmbeddedResource Include="Login_Form.resx">
+    <EmbeddedResource Include="Views\Login_Form.resx">
       <DependentUpon>Login_Form.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
@@ -235,6 +236,9 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="Views\Main_Form.resx">
+      <DependentUpon>Main_Form.cs</DependentUpon>
+    </EmbeddedResource>
     <EntityDeploy Include="Model1.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>Model1.Designer.cs</LastGenOutput>

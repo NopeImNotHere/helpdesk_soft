@@ -18,25 +18,11 @@ namespace EF_leer
             Application.SetCompatibleTextRenderingDefault(false);
             if (args.Length != 0)
             {
-                switch (args[0])
-                {
-                    case "Login":
-                        Application.Run(new Login_Form());
-                        break;
-                    case "Rechnung":
-                        Application.Run(new Rechnung_Form());
-                        break;
-                    case "Ticket":
-                        Application.Run(new Ticket_Form());
-                        break;
-                    default:
-                        Application.Run(new Main_Form());
-                        break;
-                }
+                Application.Run(new Main_Form(args[0]));
             }
             else
             {
-                Application.Run(new Main_Form());
+                Application.Run(new Main_Form(""));
             }
         }
     }
