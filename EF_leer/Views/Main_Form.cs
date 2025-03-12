@@ -1,11 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace EF_leer
@@ -35,11 +28,11 @@ namespace EF_leer
                     break;
                 case "Ticket":
                     form = new Ticket_Form();
-                    ShowChildForm(form); 
+                    ShowChildForm(form);
                     break;
                 case "Mitarbeiter":
                     form = new Mitarbeiter_Form();
-                    ShowChildForm(form); 
+                    ShowChildForm(form);
                     break;
                 default:
                     break;
