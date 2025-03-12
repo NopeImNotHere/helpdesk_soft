@@ -15,7 +15,6 @@ namespace EF_leer
         public Ticket_Form()
         {
             InitializeComponent();
-            int i = 200;
         }
     }
 }
