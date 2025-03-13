@@ -264,6 +264,26 @@
       <DependentUpon>Model1.edmx</DependentUpon>
     </None>
     <None Include="packages.config" />
+    <None Include="Properties\DataSources\abgeleitet.datasource" />
+    <None Include="Properties\DataSources\arbeitet.datasource" />
+    <None Include="Properties\DataSources\art.datasource" />
+    <None Include="Properties\DataSources\bezahlungsart.datasource" />
+    <None Include="Properties\DataSources\dienstleistung.datasource" />
+    <None Include="Properties\DataSources\kunde.datasource" />
+    <None Include="Properties\DataSources\Login_Form.datasource" />
+    <None Include="Properties\DataSources\Main_Form.datasource" />
+    <None Include="Properties\DataSources\mitarbeiter.datasource" />
+    <None Include="Properties\DataSources\Mitarbeiter_Form.datasource" />
+    <None Include="Properties\DataSources\oberstufe_db1Entities1.datasource" />
+    <None Include="Properties\DataSources\ort.datasource" />
+    <None Include="Properties\DataSources\priorität.datasource" />
+    <None Include="Properties\DataSources\Program.datasource" />
+    <None Include="Properties\DataSources\rechnung.datasource" />
+    <None Include="Properties\DataSources\Rechnung_Form.datasource" />
+    <None Include="Properties\DataSources\rechtegruppe.datasource" />
+    <None Include="Properties\DataSources\session.datasource" />
+    <None Include="Properties\DataSources\status.datasource" />
+    <None Include="Properties\DataSources\ticket.datasource" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
