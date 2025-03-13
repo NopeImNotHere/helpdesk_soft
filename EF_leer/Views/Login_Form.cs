@@ -32,8 +32,8 @@ namespace EF_leer
         {
             string email = EMail_Field.Text;
             string hashed_password = PasswordHelper.hashPassword(Password_Field.Text);
-            //data.mitarbeiter.Any(mitarbeiter => mitarbeiter.Email == email) && data.mitarbeiter.Any(mitarbeiter => mitarbeiter.Passwort == hashed_password)
-            if (true)
+            
+            if (data.mitarbeiter.Any(mitarbeiter => mitarbeiter.Email == email) && data.mitarbeiter.Any(mitarbeiter => mitarbeiter.Passwort == hashed_password))
             {
                 (this.Owner as Main_Form).isLoggedIn = true;
                 this.Close();
