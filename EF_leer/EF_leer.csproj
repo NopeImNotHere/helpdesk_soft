@@ -253,6 +253,9 @@
     <EmbeddedResource Include="Views\Main_Form.resx">
       <DependentUpon>Main_Form.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Views\Rechnung_Form.resx">
+      <DependentUpon>Rechnung_Form.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Views\Ticket_Form.resx">
       <DependentUpon>Ticket_Form.cs</DependentUpon>
     </EmbeddedResource>

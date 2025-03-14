@@ -1,4 +1,4 @@
-﻿// Die T4-Codegenerierung ist für Modell '\\MNSSERVER\schueler.twegner$\Download\helpdesk\helpdesk\EF_leer\Model1.edmx' aktiviert. 
+﻿// Die T4-Codegenerierung ist für Modell '\\MNSSERVER\schueler.tszadkowsk$\Dokumente\Faecher\Oberstufe\Soft Oberstufe\helpdesk_soft\EF_leer\Model1.edmx' aktiviert. 
 // Um die Generierung von Legacycode zu aktivieren, ändern Sie den Wert der Designer-Eigenschaft 'Code Generation Strategy'
 // in 'Legacy ObjectContext'. Diese Eigenschaft wird im Eigenschaftenfenster angezeigt, wenn das Modell
 // im Designer geöffnet ist.
