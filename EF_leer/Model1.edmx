@@ -4,9 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="oberstufe_db1Model.Store" Provider="MySql.Data.MySqlClient" ProviderManifestToken="5.5" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
-        <!--Während der Generierung sind Fehler aufgetreten:
-Warnung 6002: Für Tabelle/Sicht 'def.oberstufe_db1.abgeleitet' ist kein Primärschlüssel definiert. Der Schlüssel wurde abgeleitet, und die Definition wurde als schreibgeschützte Tabelle/Sicht erstellt.-->
+    <Schema Namespace="oberstufe_db1Model.Store" Provider="MySql.Data.MySqlClient" ProviderManifestToken="5.5" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="abgeleitet">
           <Key>
             <PropertyRef Name="FK_Dienstleistung" />
@@ -14,6 +12,7 @@ Warnung 6002: Für Tabelle/Sicht 'def.oberstufe_db1.abgeleitet' ist kein Primär
           </Key>
           <Property Name="FK_Dienstleistung" Type="int" Nullable="false" />
           <Property Name="FK_Ticket" Type="int" Nullable="false" />
+          <Property Name="Anzahl" Type="int" />
         </EntityType>
         <EntityType Name="arbeitet">
           <Key>
@@ -136,6 +135,7 @@ Warnung 6002: Für Tabelle/Sicht 'def.oberstufe_db1.abgeleitet' ist kein Primär
           <Property Name="expires_at" Type="datetime" Precision="0" Nullable="false" />
           <Property Name="inserted_at" Type="datetime" Precision="0" Nullable="false" />
           <Property Name="FK_Mitarbeiter" Type="int" Nullable="false" />
+          <Property Name="FK_Kunde" Type="int" />
         </EntityType>
         <EntityType Name="status">
           <Key>
@@ -163,7 +163,7 @@ Warnung 6002: Für Tabelle/Sicht 'def.oberstufe_db1.abgeleitet' ist kein Primär
           <Property Name="FK_Mitarbeiter" Type="int" />
           <Property Name="FK_Kunde" Type="int" />
         </EntityType>
-        <Association Name="abgeleitet_fk_1">
+        <Association Name="abgeleitet_dienstleistung">
           <End Role="dienstleistung" Type="Self.dienstleistung" Multiplicity="1" />
           <End Role="abgeleitet" Type="Self.abgeleitet" Multiplicity="*" />
           <ReferentialConstraint>
@@ -175,7 +175,7 @@ Warnung 6002: Für Tabelle/Sicht 'def.oberstufe_db1.abgeleitet' ist kein Primär
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="abgeleitet_fk_2">
+        <Association Name="abgeleitet_ticket">
           <End Role="ticket" Type="Self.ticket" Multiplicity="1" />
           <End Role="abgeleitet" Type="Self.abgeleitet" Multiplicity="*" />
           <ReferentialConstraint>
@@ -187,55 +187,7 @@ Warnung 6002: Für Tabelle/Sicht 'def.oberstufe_db1.abgeleitet' ist kein Primär
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="abgeleitet_ibfk_1">
-          <End Role="dienstleistung" Type="Self.dienstleistung" Multiplicity="1" />
-          <End Role="abgeleitet" Type="Self.abgeleitet" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="dienstleistung">
-              <PropertyRef Name="PK_Dienstleistung" />
-            </Principal>
-            <Dependent Role="abgeleitet">
-              <PropertyRef Name="FK_Dienstleistung" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="arbeitet_ibfk_1">
-          <End Role="mitarbeiter" Type="Self.mitarbeiter" Multiplicity="1" />
-          <End Role="arbeitet" Type="Self.arbeitet" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="mitarbeiter">
-              <PropertyRef Name="PK_Mitarbeiter" />
-            </Principal>
-            <Dependent Role="arbeitet">
-              <PropertyRef Name="FK_Mitarbeiter" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="bearbeitet_fk_1">
-          <End Role="mitarbeiter" Type="Self.mitarbeiter" Multiplicity="1" />
-          <End Role="bearbeitet" Type="Self.bearbeitet" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="mitarbeiter">
-              <PropertyRef Name="PK_Mitarbeiter" />
-            </Principal>
-            <Dependent Role="bearbeitet">
-              <PropertyRef Name="FK_Mitarbeiter" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="bearbeitet_fk_2">
-          <End Role="ticket" Type="Self.ticket" Multiplicity="1" />
-          <End Role="bearbeitet" Type="Self.bearbeitet" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="ticket">
-              <PropertyRef Name="PK_Ticket" />
-            </Principal>
-            <Dependent Role="bearbeitet">
-              <PropertyRef Name="FK_Ticket" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="fk_kunde">
+        <Association Name="arbeitet_kunde">
           <End Role="kunde" Type="Self.kunde" Multiplicity="1" />
           <End Role="arbeitet" Type="Self.arbeitet" Multiplicity="*" />
           <ReferentialConstraint>
@@ -247,7 +199,7 @@ Warnung 6002: Für Tabelle/Sicht 'def.oberstufe_db1.abgeleitet' ist kein Primär
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="fk_mitarbeiter">
+        <Association Name="arbeitet_mitarbeiter">
           <End Role="mitarbeiter" Type="Self.mitarbeiter" Multiplicity="1" />
           <End Role="arbeitet" Type="Self.arbeitet" Multiplicity="*" />
           <ReferentialConstraint>
@@ -259,7 +211,31 @@ Warnung 6002: Für Tabelle/Sicht 'def.oberstufe_db1.abgeleitet' ist kein Primär
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="mitarbeiter_fk_1">
+        <Association Name="bearbeitet_mitarbeiter">
+          <End Role="mitarbeiter" Type="Self.mitarbeiter" Multiplicity="1" />
+          <End Role="bearbeitet" Type="Self.bearbeitet" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="mitarbeiter">
+              <PropertyRef Name="PK_Mitarbeiter" />
+            </Principal>
+            <Dependent Role="bearbeitet">
+              <PropertyRef Name="FK_Mitarbeiter" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="bearbeitet_ticket">
+          <End Role="ticket" Type="Self.ticket" Multiplicity="1" />
+          <End Role="bearbeitet" Type="Self.bearbeitet" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ticket">
+              <PropertyRef Name="PK_Ticket" />
+            </Principal>
+            <Dependent Role="bearbeitet">
+              <PropertyRef Name="FK_Ticket" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="mitarbeiter_ort">
           <End Role="ort" Type="Self.ort" Multiplicity="0..1" />
           <End Role="mitarbeiter" Type="Self.mitarbeiter" Multiplicity="*" />
           <ReferentialConstraint>
@@ -271,7 +247,7 @@ Warnung 6002: Für Tabelle/Sicht 'def.oberstufe_db1.abgeleitet' ist kein Primär
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="mitarbeiter_fk_2">
+        <Association Name="mitarbeiter_rechtegruppe">
           <End Role="rechtegruppe" Type="Self.rechtegruppe" Multiplicity="0..1" />
           <End Role="mitarbeiter" Type="Self.mitarbeiter" Multiplicity="*" />
           <ReferentialConstraint>
@@ -283,7 +259,7 @@ Warnung 6002: Für Tabelle/Sicht 'def.oberstufe_db1.abgeleitet' ist kein Primär
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="rechnung_fk_1">
+        <Association Name="rechnung_bezahlungsart">
           <End Role="bezahlungsart" Type="Self.bezahlungsart" Multiplicity="0..1" />
           <End Role="rechnung" Type="Self.rechnung" Multiplicity="*" />
           <ReferentialConstraint>
@@ -295,7 +271,7 @@ Warnung 6002: Für Tabelle/Sicht 'def.oberstufe_db1.abgeleitet' ist kein Primär
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="rechnung_fk_2">
+        <Association Name="rechnung_kunde">
           <End Role="kunde" Type="Self.kunde" Multiplicity="0..1" />
           <End Role="rechnung" Type="Self.rechnung" Multiplicity="*" />
           <ReferentialConstraint>
@@ -307,7 +283,7 @@ Warnung 6002: Für Tabelle/Sicht 'def.oberstufe_db1.abgeleitet' ist kein Primär
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="rechnung_fk_3">
+        <Association Name="rechnung_ticket">
           <End Role="ticket" Type="Self.ticket" Multiplicity="0..1" />
           <End Role="rechnung" Type="Self.rechnung" Multiplicity="*" />
           <ReferentialConstraint>
@@ -319,19 +295,7 @@ Warnung 6002: Für Tabelle/Sicht 'def.oberstufe_db1.abgeleitet' ist kein Primär
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="residiert_fk1">
-          <End Role="ort" Type="Self.ort" Multiplicity="1" />
-          <End Role="residiert" Type="Self.residiert" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="ort">
-              <PropertyRef Name="PK_Ort" />
-            </Principal>
-            <Dependent Role="residiert">
-              <PropertyRef Name="FK_Ort" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="residiert_fk2">
+        <Association Name="residiert_kunde">
           <End Role="kunde" Type="Self.kunde" Multiplicity="1" />
           <End Role="residiert" Type="Self.residiert" Multiplicity="*" />
           <ReferentialConstraint>
@@ -343,7 +307,31 @@ Warnung 6002: Für Tabelle/Sicht 'def.oberstufe_db1.abgeleitet' ist kein Primär
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="session_ibfk_1">
+        <Association Name="residiert_ort">
+          <End Role="ort" Type="Self.ort" Multiplicity="1" />
+          <End Role="residiert" Type="Self.residiert" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ort">
+              <PropertyRef Name="PK_Ort" />
+            </Principal>
+            <Dependent Role="residiert">
+              <PropertyRef Name="FK_Ort" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="session_kunde">
+          <End Role="kunde" Type="Self.kunde" Multiplicity="0..1" />
+          <End Role="session" Type="Self.session" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="kunde">
+              <PropertyRef Name="PK_Kunde" />
+            </Principal>
+            <Dependent Role="session">
+              <PropertyRef Name="FK_Kunde" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="session_mitarbeiter">
           <End Role="mitarbeiter" Type="Self.mitarbeiter" Multiplicity="1" />
           <End Role="session" Type="Self.session" Multiplicity="*" />
           <ReferentialConstraint>
@@ -355,31 +343,7 @@ Warnung 6002: Für Tabelle/Sicht 'def.oberstufe_db1.abgeleitet' ist kein Primär
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="ticket_fk_1">
-          <End Role="status" Type="Self.status" Multiplicity="0..1" />
-          <End Role="ticket" Type="Self.ticket" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="status">
-              <PropertyRef Name="PK_Status" />
-            </Principal>
-            <Dependent Role="ticket">
-              <PropertyRef Name="FK_Status" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="ticket_fk_2">
-          <End Role="priorität" Type="Self.priorität" Multiplicity="0..1" />
-          <End Role="ticket" Type="Self.ticket" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="priorität">
-              <PropertyRef Name="PK_Priorität" />
-            </Principal>
-            <Dependent Role="ticket">
-              <PropertyRef Name="FK_Priorität" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="ticket_fk_3">
+        <Association Name="ticket_art">
           <End Role="art" Type="Self.art" Multiplicity="0..1" />
           <End Role="ticket" Type="Self.ticket" Multiplicity="*" />
           <ReferentialConstraint>
@@ -391,19 +355,7 @@ Warnung 6002: Für Tabelle/Sicht 'def.oberstufe_db1.abgeleitet' ist kein Primär
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="ticket_fk_4">
-          <End Role="mitarbeiter" Type="Self.mitarbeiter" Multiplicity="0..1" />
-          <End Role="ticket" Type="Self.ticket" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="mitarbeiter">
-              <PropertyRef Name="PK_Mitarbeiter" />
-            </Principal>
-            <Dependent Role="ticket">
-              <PropertyRef Name="FK_Mitarbeiter" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="ticket_fk_5">
+        <Association Name="ticket_kunde">
           <End Role="kunde" Type="Self.kunde" Multiplicity="0..1" />
           <End Role="ticket" Type="Self.ticket" Multiplicity="*" />
           <ReferentialConstraint>
@@ -415,7 +367,44 @@ Warnung 6002: Für Tabelle/Sicht 'def.oberstufe_db1.abgeleitet' ist kein Primär
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="ticket_mitarbeiter">
+          <End Role="mitarbeiter" Type="Self.mitarbeiter" Multiplicity="0..1" />
+          <End Role="ticket" Type="Self.ticket" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="mitarbeiter">
+              <PropertyRef Name="PK_Mitarbeiter" />
+            </Principal>
+            <Dependent Role="ticket">
+              <PropertyRef Name="FK_Mitarbeiter" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="ticket_prioritaet">
+          <End Role="priorität" Type="Self.priorität" Multiplicity="0..1" />
+          <End Role="ticket" Type="Self.ticket" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="priorität">
+              <PropertyRef Name="PK_Priorität" />
+            </Principal>
+            <Dependent Role="ticket">
+              <PropertyRef Name="FK_Priorität" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="ticket_status">
+          <End Role="status" Type="Self.status" Multiplicity="0..1" />
+          <End Role="ticket" Type="Self.ticket" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="status">
+              <PropertyRef Name="PK_Status" />
+            </Principal>
+            <Dependent Role="ticket">
+              <PropertyRef Name="FK_Status" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityContainer Name="oberstufe_db1ModelStoreContainer">
+          <EntitySet Name="abgeleitet" EntityType="Self.abgeleitet" Schema="oberstufe_db1" store:Type="Tables" />
           <EntitySet Name="arbeitet" EntityType="Self.arbeitet" Schema="oberstufe_db1" store:Type="Tables" />
           <EntitySet Name="art" EntityType="Self.art" Schema="oberstufe_db1" store:Type="Tables" />
           <EntitySet Name="bearbeitet" EntityType="Self.bearbeitet" Schema="oberstufe_db1" store:Type="Tables" />
@@ -431,108 +420,101 @@ Warnung 6002: Für Tabelle/Sicht 'def.oberstufe_db1.abgeleitet' ist kein Primär
           <EntitySet Name="session" EntityType="Self.session" Schema="oberstufe_db1" store:Type="Tables" />
           <EntitySet Name="status" EntityType="Self.status" Schema="oberstufe_db1" store:Type="Tables" />
           <EntitySet Name="ticket" EntityType="Self.ticket" Schema="oberstufe_db1" store:Type="Tables" />
-          <EntitySet Name="abgeleitet" EntityType="Self.abgeleitet" store:Type="Tables" store:Schema="oberstufe_db1">
-          </EntitySet>
-          <AssociationSet Name="abgeleitet_fk_1" Association="Self.abgeleitet_fk_1">
+          <AssociationSet Name="abgeleitet_dienstleistung" Association="Self.abgeleitet_dienstleistung">
             <End Role="dienstleistung" EntitySet="dienstleistung" />
             <End Role="abgeleitet" EntitySet="abgeleitet" />
           </AssociationSet>
-          <AssociationSet Name="abgeleitet_fk_2" Association="Self.abgeleitet_fk_2">
+          <AssociationSet Name="abgeleitet_ticket" Association="Self.abgeleitet_ticket">
             <End Role="ticket" EntitySet="ticket" />
             <End Role="abgeleitet" EntitySet="abgeleitet" />
           </AssociationSet>
-          <AssociationSet Name="abgeleitet_ibfk_1" Association="Self.abgeleitet_ibfk_1">
-            <End Role="dienstleistung" EntitySet="dienstleistung" />
-            <End Role="abgeleitet" EntitySet="abgeleitet" />
-          </AssociationSet>
-          <AssociationSet Name="arbeitet_ibfk_1" Association="Self.arbeitet_ibfk_1">
-            <End Role="mitarbeiter" EntitySet="mitarbeiter" />
-            <End Role="arbeitet" EntitySet="arbeitet" />
-          </AssociationSet>
-          <AssociationSet Name="bearbeitet_fk_1" Association="Self.bearbeitet_fk_1">
-            <End Role="mitarbeiter" EntitySet="mitarbeiter" />
-            <End Role="bearbeitet" EntitySet="bearbeitet" />
-          </AssociationSet>
-          <AssociationSet Name="bearbeitet_fk_2" Association="Self.bearbeitet_fk_2">
-            <End Role="ticket" EntitySet="ticket" />
-            <End Role="bearbeitet" EntitySet="bearbeitet" />
-          </AssociationSet>
-          <AssociationSet Name="fk_kunde" Association="Self.fk_kunde">
+          <AssociationSet Name="arbeitet_kunde" Association="Self.arbeitet_kunde">
             <End Role="kunde" EntitySet="kunde" />
             <End Role="arbeitet" EntitySet="arbeitet" />
           </AssociationSet>
-          <AssociationSet Name="fk_mitarbeiter" Association="Self.fk_mitarbeiter">
+          <AssociationSet Name="arbeitet_mitarbeiter" Association="Self.arbeitet_mitarbeiter">
             <End Role="mitarbeiter" EntitySet="mitarbeiter" />
             <End Role="arbeitet" EntitySet="arbeitet" />
           </AssociationSet>
-          <AssociationSet Name="mitarbeiter_fk_1" Association="Self.mitarbeiter_fk_1">
+          <AssociationSet Name="bearbeitet_mitarbeiter" Association="Self.bearbeitet_mitarbeiter">
+            <End Role="mitarbeiter" EntitySet="mitarbeiter" />
+            <End Role="bearbeitet" EntitySet="bearbeitet" />
+          </AssociationSet>
+          <AssociationSet Name="bearbeitet_ticket" Association="Self.bearbeitet_ticket">
+            <End Role="ticket" EntitySet="ticket" />
+            <End Role="bearbeitet" EntitySet="bearbeitet" />
+          </AssociationSet>
+          <AssociationSet Name="mitarbeiter_ort" Association="Self.mitarbeiter_ort">
             <End Role="ort" EntitySet="ort" />
             <End Role="mitarbeiter" EntitySet="mitarbeiter" />
           </AssociationSet>
-          <AssociationSet Name="mitarbeiter_fk_2" Association="Self.mitarbeiter_fk_2">
+          <AssociationSet Name="mitarbeiter_rechtegruppe" Association="Self.mitarbeiter_rechtegruppe">
             <End Role="rechtegruppe" EntitySet="rechtegruppe" />
             <End Role="mitarbeiter" EntitySet="mitarbeiter" />
           </AssociationSet>
-          <AssociationSet Name="rechnung_fk_1" Association="Self.rechnung_fk_1">
+          <AssociationSet Name="rechnung_bezahlungsart" Association="Self.rechnung_bezahlungsart">
             <End Role="bezahlungsart" EntitySet="bezahlungsart" />
             <End Role="rechnung" EntitySet="rechnung" />
           </AssociationSet>
-          <AssociationSet Name="rechnung_fk_2" Association="Self.rechnung_fk_2">
+          <AssociationSet Name="rechnung_kunde" Association="Self.rechnung_kunde">
             <End Role="kunde" EntitySet="kunde" />
             <End Role="rechnung" EntitySet="rechnung" />
           </AssociationSet>
-          <AssociationSet Name="rechnung_fk_3" Association="Self.rechnung_fk_3">
+          <AssociationSet Name="rechnung_ticket" Association="Self.rechnung_ticket">
             <End Role="ticket" EntitySet="ticket" />
             <End Role="rechnung" EntitySet="rechnung" />
           </AssociationSet>
-          <AssociationSet Name="residiert_fk1" Association="Self.residiert_fk1">
+          <AssociationSet Name="residiert_kunde" Association="Self.residiert_kunde">
+            <End Role="kunde" EntitySet="kunde" />
+            <End Role="residiert" EntitySet="residiert" />
+          </AssociationSet>
+          <AssociationSet Name="residiert_ort" Association="Self.residiert_ort">
             <End Role="ort" EntitySet="ort" />
             <End Role="residiert" EntitySet="residiert" />
           </AssociationSet>
-          <AssociationSet Name="residiert_fk2" Association="Self.residiert_fk2">
+          <AssociationSet Name="session_kunde" Association="Self.session_kunde">
             <End Role="kunde" EntitySet="kunde" />
-            <End Role="residiert" EntitySet="residiert" />
+            <End Role="session" EntitySet="session" />
           </AssociationSet>
-          <AssociationSet Name="session_ibfk_1" Association="Self.session_ibfk_1">
+          <AssociationSet Name="session_mitarbeiter" Association="Self.session_mitarbeiter">
             <End Role="mitarbeiter" EntitySet="mitarbeiter" />
             <End Role="session" EntitySet="session" />
           </AssociationSet>
-          <AssociationSet Name="ticket_fk_1" Association="Self.ticket_fk_1">
-            <End Role="status" EntitySet="status" />
-            <End Role="ticket" EntitySet="ticket" />
-          </AssociationSet>
-          <AssociationSet Name="ticket_fk_2" Association="Self.ticket_fk_2">
-            <End Role="priorität" EntitySet="priorität" />
-            <End Role="ticket" EntitySet="ticket" />
-          </AssociationSet>
-          <AssociationSet Name="ticket_fk_3" Association="Self.ticket_fk_3">
+          <AssociationSet Name="ticket_art" Association="Self.ticket_art">
             <End Role="art" EntitySet="art" />
             <End Role="ticket" EntitySet="ticket" />
           </AssociationSet>
-          <AssociationSet Name="ticket_fk_4" Association="Self.ticket_fk_4">
-            <End Role="mitarbeiter" EntitySet="mitarbeiter" />
-            <End Role="ticket" EntitySet="ticket" />
-          </AssociationSet>
-          <AssociationSet Name="ticket_fk_5" Association="Self.ticket_fk_5">
+          <AssociationSet Name="ticket_kunde" Association="Self.ticket_kunde">
             <End Role="kunde" EntitySet="kunde" />
             <End Role="ticket" EntitySet="ticket" />
           </AssociationSet>
+          <AssociationSet Name="ticket_mitarbeiter" Association="Self.ticket_mitarbeiter">
+            <End Role="mitarbeiter" EntitySet="mitarbeiter" />
+            <End Role="ticket" EntitySet="ticket" />
+          </AssociationSet>
+          <AssociationSet Name="ticket_prioritaet" Association="Self.ticket_prioritaet">
+            <End Role="priorität" EntitySet="priorität" />
+            <End Role="ticket" EntitySet="ticket" />
+          </AssociationSet>
+          <AssociationSet Name="ticket_status" Association="Self.ticket_status">
+            <End Role="status" EntitySet="status" />
+            <End Role="ticket" EntitySet="ticket" />
+          </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="oberstufe_db1Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
-        <EntityType Name="arbeitet">
+        <EntityType Name="abgeleitet">
           <Key>
-            <PropertyRef Name="FK_Mitarbeiter" />
-            <PropertyRef Name="FK_Kunde" />
+            <PropertyRef Name="FK_Dienstleistung" />
+            <PropertyRef Name="FK_Ticket" />
           </Key>
-          <Property Name="FK_Mitarbeiter" Type="Int32" Nullable="false" />
-          <Property Name="FK_Kunde" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="mitarbeiter" Relationship="Self.arbeitet_ibfk_1" FromRole="arbeitet" ToRole="mitarbeiter" />
-          <NavigationProperty Name="kunde" Relationship="Self.fk_kunde" FromRole="arbeitet" ToRole="kunde" />
-          <NavigationProperty Name="mitarbeiter1" Relationship="Self.fk_mitarbeiter" FromRole="arbeitet" ToRole="mitarbeiter" />
+          <Property Name="FK_Dienstleistung" Type="Int32" Nullable="false" />
+          <Property Name="FK_Ticket" Type="Int32" Nullable="false" />
+          <Property Name="Anzahl" Type="Int32" />
+          <NavigationProperty Name="dienstleistung" Relationship="Self.abgeleitet_dienstleistung" FromRole="abgeleitet" ToRole="dienstleistung" />
+          <NavigationProperty Name="ticket" Relationship="Self.abgeleitet_ticket" FromRole="abgeleitet" ToRole="ticket" />
         </EntityType>
         <EntityType Name="art">
           <Key>
@@ -541,7 +523,7 @@ Warnung 6002: Für Tabelle/Sicht 'def.oberstufe_db1.abgeleitet' ist kein Primär
           <Property Name="PK_Art" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Artname" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
           <Property Name="Beschreibung" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="ticket" Relationship="Self.ticket_fk_3" FromRole="art" ToRole="ticket" />
+          <NavigationProperty Name="ticket" Relationship="Self.ticket_art" FromRole="art" ToRole="ticket" />
         </EntityType>
         <EntityType Name="bezahlungsart">
           <Key>
@@ -550,7 +532,7 @@ Warnung 6002: Für Tabelle/Sicht 'def.oberstufe_db1.abgeleitet' ist kein Primär
           <Property Name="Artname" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
           <Property Name="Beschreibung" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
           <Property Name="PK_Bezahlungsart" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <NavigationProperty Name="rechnung" Relationship="Self.rechnung_fk_1" FromRole="bezahlungsart" ToRole="rechnung" />
+          <NavigationProperty Name="rechnung" Relationship="Self.rechnung_bezahlungsart" FromRole="bezahlungsart" ToRole="rechnung" />
         </EntityType>
         <EntityType Name="dienstleistung">
           <Key>
@@ -559,8 +541,7 @@ Warnung 6002: Für Tabelle/Sicht 'def.oberstufe_db1.abgeleitet' ist kein Primär
           <Property Name="PK_Dienstleistung" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Beschreibung" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
           <Property Name="Kosten" Type="Decimal" />
-          <NavigationProperty Name="abgeleitet" Relationship="Self.abgeleitet_fk_1" FromRole="dienstleistung" ToRole="abgeleitet" />
-          <NavigationProperty Name="abgeleitet1" Relationship="Self.abgeleitet_ibfk_1" FromRole="dienstleistung" ToRole="abgeleitet" />
+          <NavigationProperty Name="abgeleitet" Relationship="Self.abgeleitet_dienstleistung" FromRole="dienstleistung" ToRole="abgeleitet" />
         </EntityType>
         <EntityType Name="kunde">
           <Key>
@@ -571,9 +552,10 @@ Warnung 6002: Für Tabelle/Sicht 'def.oberstufe_db1.abgeleitet' ist kein Primär
           <Property Name="Firmenname" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
           <Property Name="Email" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
           <Property Name="Passwort" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="arbeitet" Relationship="Self.fk_kunde" FromRole="kunde" ToRole="arbeitet" />
-          <NavigationProperty Name="rechnung" Relationship="Self.rechnung_fk_2" FromRole="kunde" ToRole="rechnung" />
-          <NavigationProperty Name="ticket" Relationship="Self.ticket_fk_5" FromRole="kunde" ToRole="ticket" />
+          <NavigationProperty Name="rechnung" Relationship="Self.rechnung_kunde" FromRole="kunde" ToRole="rechnung" />
+          <NavigationProperty Name="session" Relationship="Self.session_kunde" FromRole="kunde" ToRole="session" />
+          <NavigationProperty Name="ticket" Relationship="Self.ticket_kunde" FromRole="kunde" ToRole="ticket" />
+          <NavigationProperty Name="mitarbeiter" Relationship="Self.arbeitet" FromRole="kunde" ToRole="mitarbeiter" />
           <NavigationProperty Name="ort" Relationship="Self.residiert" FromRole="kunde" ToRole="ort" />
         </EntityType>
         <EntityType Name="mitarbeiter">
@@ -588,14 +570,11 @@ Warnung 6002: Für Tabelle/Sicht 'def.oberstufe_db1.abgeleitet' ist kein Primär
           <Property Name="Mobilnummer" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
           <Property Name="Email" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
           <Property Name="Passwort" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-          <Property Name="FK_Ort" Type="Int32" />
-          <Property Name="FK_Rechtegruppe" Type="Int32" />
-          <NavigationProperty Name="arbeitet" Relationship="Self.arbeitet_ibfk_1" FromRole="mitarbeiter" ToRole="arbeitet" />
-          <NavigationProperty Name="arbeitet1" Relationship="Self.fk_mitarbeiter" FromRole="mitarbeiter" ToRole="arbeitet" />
-          <NavigationProperty Name="ort" Relationship="Self.mitarbeiter_fk_1" FromRole="mitarbeiter" ToRole="ort" />
-          <NavigationProperty Name="rechtegruppe" Relationship="Self.mitarbeiter_fk_2" FromRole="mitarbeiter" ToRole="rechtegruppe" />
-          <NavigationProperty Name="session" Relationship="Self.session_ibfk_1" FromRole="mitarbeiter" ToRole="session" />
-          <NavigationProperty Name="ticket" Relationship="Self.ticket_fk_4" FromRole="mitarbeiter" ToRole="ticket" />
+          <NavigationProperty Name="ort" Relationship="Self.mitarbeiter_ort" FromRole="mitarbeiter" ToRole="ort" />
+          <NavigationProperty Name="rechtegruppe" Relationship="Self.mitarbeiter_rechtegruppe" FromRole="mitarbeiter" ToRole="rechtegruppe" />
+          <NavigationProperty Name="session" Relationship="Self.session_mitarbeiter" FromRole="mitarbeiter" ToRole="session" />
+          <NavigationProperty Name="ticket" Relationship="Self.ticket_mitarbeiter" FromRole="mitarbeiter" ToRole="ticket" />
+          <NavigationProperty Name="kunde" Relationship="Self.arbeitet" FromRole="mitarbeiter" ToRole="kunde" />
           <NavigationProperty Name="ticket1" Relationship="Self.bearbeitet" FromRole="mitarbeiter" ToRole="ticket" />
         </EntityType>
         <EntityType Name="ort">
@@ -607,7 +586,7 @@ Warnung 6002: Für Tabelle/Sicht 'def.oberstufe_db1.abgeleitet' ist kein Primär
           <Property Name="PLZ" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
           <Property Name="Straße" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
           <Property Name="Hausnummer" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="mitarbeiter" Relationship="Self.mitarbeiter_fk_1" FromRole="ort" ToRole="mitarbeiter" />
+          <NavigationProperty Name="mitarbeiter" Relationship="Self.mitarbeiter_ort" FromRole="ort" ToRole="mitarbeiter" />
           <NavigationProperty Name="kunde" Relationship="Self.residiert" FromRole="ort" ToRole="kunde" />
         </EntityType>
         <EntityType Name="priorität">
@@ -617,7 +596,7 @@ Warnung 6002: Für Tabelle/Sicht 'def.oberstufe_db1.abgeleitet' ist kein Primär
           <Property Name="PK_Priorität" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Prioritätsname" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
           <Property Name="Beschreibung" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="ticket" Relationship="Self.ticket_fk_2" FromRole="priorität" ToRole="ticket" />
+          <NavigationProperty Name="ticket" Relationship="Self.ticket_prioritaet" FromRole="priorität" ToRole="ticket" />
         </EntityType>
         <EntityType Name="rechnung">
           <Key>
@@ -627,12 +606,9 @@ Warnung 6002: Für Tabelle/Sicht 'def.oberstufe_db1.abgeleitet' ist kein Primär
           <Property Name="Ticketbeschreibung" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
           <Property Name="Abrechnung" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
           <Property Name="Ratenzahlung" Type="Boolean" />
-          <Property Name="FK_Bezahlungsart" Type="Int32" />
-          <Property Name="FK_Kunde" Type="Int32" />
-          <Property Name="FK_Ticket" Type="Int32" />
-          <NavigationProperty Name="bezahlungsart" Relationship="Self.rechnung_fk_1" FromRole="rechnung" ToRole="bezahlungsart" />
-          <NavigationProperty Name="kunde" Relationship="Self.rechnung_fk_2" FromRole="rechnung" ToRole="kunde" />
-          <NavigationProperty Name="ticket" Relationship="Self.rechnung_fk_3" FromRole="rechnung" ToRole="ticket" />
+          <NavigationProperty Name="bezahlungsart" Relationship="Self.rechnung_bezahlungsart" FromRole="rechnung" ToRole="bezahlungsart" />
+          <NavigationProperty Name="kunde" Relationship="Self.rechnung_kunde" FromRole="rechnung" ToRole="kunde" />
+          <NavigationProperty Name="ticket" Relationship="Self.rechnung_ticket" FromRole="rechnung" ToRole="ticket" />
         </EntityType>
         <EntityType Name="rechtegruppe">
           <Key>
@@ -642,7 +618,7 @@ Warnung 6002: Für Tabelle/Sicht 'def.oberstufe_db1.abgeleitet' ist kein Primär
           <Property Name="Bestelllimit" Type="Decimal" />
           <Property Name="Helpdesk_Fernwartung" Type="Boolean" />
           <Property Name="PK_Rechtegruppe" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <NavigationProperty Name="mitarbeiter" Relationship="Self.mitarbeiter_fk_2" FromRole="rechtegruppe" ToRole="mitarbeiter" />
+          <NavigationProperty Name="mitarbeiter" Relationship="Self.mitarbeiter_rechtegruppe" FromRole="rechtegruppe" ToRole="mitarbeiter" />
         </EntityType>
         <EntityType Name="session">
           <Key>
@@ -652,8 +628,8 @@ Warnung 6002: Für Tabelle/Sicht 'def.oberstufe_db1.abgeleitet' ist kein Primär
           <Property Name="sessionhash" Type="String" MaxLength="1073741823" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="expires_at" Type="DateTime" Nullable="false" />
           <Property Name="inserted_at" Type="DateTime" Nullable="false" />
-          <Property Name="FK_Mitarbeiter" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="mitarbeiter" Relationship="Self.session_ibfk_1" FromRole="session" ToRole="mitarbeiter" />
+          <NavigationProperty Name="kunde" Relationship="Self.session_kunde" FromRole="session" ToRole="kunde" />
+          <NavigationProperty Name="mitarbeiter" Relationship="Self.session_mitarbeiter" FromRole="session" ToRole="mitarbeiter" />
         </EntityType>
         <EntityType Name="status">
           <Key>
@@ -663,7 +639,7 @@ Warnung 6002: Für Tabelle/Sicht 'def.oberstufe_db1.abgeleitet' ist kein Primär
           <Property Name="Statusname" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
           <Property Name="Farbe" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
           <Property Name="Beschreibung" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="ticket" Relationship="Self.ticket_fk_1" FromRole="status" ToRole="ticket" />
+          <NavigationProperty Name="ticket" Relationship="Self.ticket_status" FromRole="status" ToRole="ticket" />
         </EntityType>
         <EntityType Name="ticket">
           <Key>
@@ -676,92 +652,16 @@ Warnung 6002: Für Tabelle/Sicht 'def.oberstufe_db1.abgeleitet' ist kein Primär
           <Property Name="InternerStatus" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
           <Property Name="Erstelldatum" Type="DateTime" />
           <Property Name="Bearbeitungsdatum" Type="DateTime" />
-          <Property Name="FK_Status" Type="Int32" />
-          <Property Name="FK_Priorität" Type="Int32" />
-          <Property Name="FK_Art" Type="Int32" />
-          <Property Name="FK_Mitarbeiter" Type="Int32" />
-          <Property Name="FK_Kunde" Type="Int32" />
-          <NavigationProperty Name="art" Relationship="Self.ticket_fk_3" FromRole="ticket" ToRole="art" />
-          <NavigationProperty Name="kunde" Relationship="Self.ticket_fk_5" FromRole="ticket" ToRole="kunde" />
-          <NavigationProperty Name="mitarbeiter" Relationship="Self.ticket_fk_4" FromRole="ticket" ToRole="mitarbeiter" />
-          <NavigationProperty Name="priorität" Relationship="Self.ticket_fk_2" FromRole="ticket" ToRole="priorität" />
-          <NavigationProperty Name="rechnung" Relationship="Self.rechnung_fk_3" FromRole="ticket" ToRole="rechnung" />
-          <NavigationProperty Name="status" Relationship="Self.ticket_fk_1" FromRole="ticket" ToRole="status" />
-          <NavigationProperty Name="abgeleitet" Relationship="Self.abgeleitet_fk_2" FromRole="ticket" ToRole="abgeleitet" />
+          <NavigationProperty Name="abgeleitet" Relationship="Self.abgeleitet_ticket" FromRole="ticket" ToRole="abgeleitet" />
+          <NavigationProperty Name="art" Relationship="Self.ticket_art" FromRole="ticket" ToRole="art" />
+          <NavigationProperty Name="kunde" Relationship="Self.ticket_kunde" FromRole="ticket" ToRole="kunde" />
+          <NavigationProperty Name="mitarbeiter" Relationship="Self.ticket_mitarbeiter" FromRole="ticket" ToRole="mitarbeiter" />
+          <NavigationProperty Name="priorität" Relationship="Self.ticket_prioritaet" FromRole="ticket" ToRole="priorität" />
+          <NavigationProperty Name="rechnung" Relationship="Self.rechnung_ticket" FromRole="ticket" ToRole="rechnung" />
+          <NavigationProperty Name="status" Relationship="Self.ticket_status" FromRole="ticket" ToRole="status" />
           <NavigationProperty Name="mitarbeiter1" Relationship="Self.bearbeitet" FromRole="ticket" ToRole="mitarbeiter" />
         </EntityType>
-        <EntityType Name="abgeleitet">
-          <Key>
-            <PropertyRef Name="FK_Dienstleistung" />
-            <PropertyRef Name="FK_Ticket" />
-          </Key>
-          <Property Name="FK_Dienstleistung" Type="Int32" Nullable="false" />
-          <Property Name="FK_Ticket" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="dienstleistung" Relationship="Self.abgeleitet_fk_1" FromRole="abgeleitet" ToRole="dienstleistung" />
-          <NavigationProperty Name="dienstleistung1" Relationship="Self.abgeleitet_ibfk_1" FromRole="abgeleitet" ToRole="dienstleistung" />
-          <NavigationProperty Name="ticket" Relationship="Self.abgeleitet_fk_2" FromRole="abgeleitet" ToRole="ticket" />
-        </EntityType>
-        <Association Name="arbeitet_ibfk_1">
-          <End Role="mitarbeiter" Type="Self.mitarbeiter" Multiplicity="1" />
-          <End Role="arbeitet" Type="Self.arbeitet" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="mitarbeiter">
-              <PropertyRef Name="PK_Mitarbeiter" />
-            </Principal>
-            <Dependent Role="arbeitet">
-              <PropertyRef Name="FK_Mitarbeiter" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="fk_kunde">
-          <End Role="kunde" Type="Self.kunde" Multiplicity="1" />
-          <End Role="arbeitet" Type="Self.arbeitet" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="kunde">
-              <PropertyRef Name="PK_Kunde" />
-            </Principal>
-            <Dependent Role="arbeitet">
-              <PropertyRef Name="FK_Kunde" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="fk_mitarbeiter">
-          <End Role="mitarbeiter" Type="Self.mitarbeiter" Multiplicity="1" />
-          <End Role="arbeitet" Type="Self.arbeitet" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="mitarbeiter">
-              <PropertyRef Name="PK_Mitarbeiter" />
-            </Principal>
-            <Dependent Role="arbeitet">
-              <PropertyRef Name="FK_Mitarbeiter" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="ticket_fk_3">
-          <End Role="art" Type="Self.art" Multiplicity="0..1" />
-          <End Role="ticket" Type="Self.ticket" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="art">
-              <PropertyRef Name="PK_Art" />
-            </Principal>
-            <Dependent Role="ticket">
-              <PropertyRef Name="FK_Art" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="rechnung_fk_1">
-          <End Role="bezahlungsart" Type="Self.bezahlungsart" Multiplicity="0..1" />
-          <End Role="rechnung" Type="Self.rechnung" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="bezahlungsart">
-              <PropertyRef Name="PK_Bezahlungsart" />
-            </Principal>
-            <Dependent Role="rechnung">
-              <PropertyRef Name="FK_Bezahlungsart" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="abgeleitet_fk_1">
+        <Association Name="abgeleitet_dienstleistung">
           <End Role="dienstleistung" Type="Self.dienstleistung" Multiplicity="1" />
           <End Role="abgeleitet" Type="Self.abgeleitet" Multiplicity="*" />
           <ReferentialConstraint>
@@ -773,127 +673,7 @@ Warnung 6002: Für Tabelle/Sicht 'def.oberstufe_db1.abgeleitet' ist kein Primär
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="abgeleitet_ibfk_1">
-          <End Role="dienstleistung" Type="Self.dienstleistung" Multiplicity="1" />
-          <End Role="abgeleitet" Type="Self.abgeleitet" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="dienstleistung">
-              <PropertyRef Name="PK_Dienstleistung" />
-            </Principal>
-            <Dependent Role="abgeleitet">
-              <PropertyRef Name="FK_Dienstleistung" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="rechnung_fk_2">
-          <End Role="kunde" Type="Self.kunde" Multiplicity="0..1" />
-          <End Role="rechnung" Type="Self.rechnung" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="kunde">
-              <PropertyRef Name="PK_Kunde" />
-            </Principal>
-            <Dependent Role="rechnung">
-              <PropertyRef Name="FK_Kunde" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="ticket_fk_5">
-          <End Role="kunde" Type="Self.kunde" Multiplicity="0..1" />
-          <End Role="ticket" Type="Self.ticket" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="kunde">
-              <PropertyRef Name="PK_Kunde" />
-            </Principal>
-            <Dependent Role="ticket">
-              <PropertyRef Name="FK_Kunde" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="mitarbeiter_fk_1">
-          <End Role="ort" Type="Self.ort" Multiplicity="0..1" />
-          <End Role="mitarbeiter" Type="Self.mitarbeiter" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="ort">
-              <PropertyRef Name="PK_Ort" />
-            </Principal>
-            <Dependent Role="mitarbeiter">
-              <PropertyRef Name="FK_Ort" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="mitarbeiter_fk_2">
-          <End Role="rechtegruppe" Type="Self.rechtegruppe" Multiplicity="0..1" />
-          <End Role="mitarbeiter" Type="Self.mitarbeiter" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="rechtegruppe">
-              <PropertyRef Name="PK_Rechtegruppe" />
-            </Principal>
-            <Dependent Role="mitarbeiter">
-              <PropertyRef Name="FK_Rechtegruppe" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="session_ibfk_1">
-          <End Role="mitarbeiter" Type="Self.mitarbeiter" Multiplicity="1" />
-          <End Role="session" Type="Self.session" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="mitarbeiter">
-              <PropertyRef Name="PK_Mitarbeiter" />
-            </Principal>
-            <Dependent Role="session">
-              <PropertyRef Name="FK_Mitarbeiter" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="ticket_fk_4">
-          <End Role="mitarbeiter" Type="Self.mitarbeiter" Multiplicity="0..1" />
-          <End Role="ticket" Type="Self.ticket" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="mitarbeiter">
-              <PropertyRef Name="PK_Mitarbeiter" />
-            </Principal>
-            <Dependent Role="ticket">
-              <PropertyRef Name="FK_Mitarbeiter" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="ticket_fk_2">
-          <End Role="priorität" Type="Self.priorität" Multiplicity="0..1" />
-          <End Role="ticket" Type="Self.ticket" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="priorität">
-              <PropertyRef Name="PK_Priorität" />
-            </Principal>
-            <Dependent Role="ticket">
-              <PropertyRef Name="FK_Priorität" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="rechnung_fk_3">
-          <End Role="ticket" Type="Self.ticket" Multiplicity="0..1" />
-          <End Role="rechnung" Type="Self.rechnung" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="ticket">
-              <PropertyRef Name="PK_Ticket" />
-            </Principal>
-            <Dependent Role="rechnung">
-              <PropertyRef Name="FK_Ticket" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="ticket_fk_1">
-          <End Role="status" Type="Self.status" Multiplicity="0..1" />
-          <End Role="ticket" Type="Self.ticket" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="status">
-              <PropertyRef Name="PK_Status" />
-            </Principal>
-            <Dependent Role="ticket">
-              <PropertyRef Name="FK_Status" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="abgeleitet_fk_2">
+        <Association Name="abgeleitet_ticket">
           <End Role="ticket" Type="Self.ticket" Multiplicity="1" />
           <End Role="abgeleitet" Type="Self.abgeleitet" Multiplicity="*" />
           <ReferentialConstraint>
@@ -905,16 +685,68 @@ Warnung 6002: Für Tabelle/Sicht 'def.oberstufe_db1.abgeleitet' ist kein Primär
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="ticket_art">
+          <End Role="art" Type="Self.art" Multiplicity="0..1" />
+          <End Role="ticket" Type="Self.ticket" Multiplicity="*" />
+        </Association>
+        <Association Name="rechnung_bezahlungsart">
+          <End Role="bezahlungsart" Type="Self.bezahlungsart" Multiplicity="0..1" />
+          <End Role="rechnung" Type="Self.rechnung" Multiplicity="*" />
+        </Association>
+        <Association Name="rechnung_kunde">
+          <End Role="kunde" Type="Self.kunde" Multiplicity="0..1" />
+          <End Role="rechnung" Type="Self.rechnung" Multiplicity="*" />
+        </Association>
+        <Association Name="session_kunde">
+          <End Role="kunde" Type="Self.kunde" Multiplicity="0..1" />
+          <End Role="session" Type="Self.session" Multiplicity="*" />
+        </Association>
+        <Association Name="ticket_kunde">
+          <End Role="kunde" Type="Self.kunde" Multiplicity="0..1" />
+          <End Role="ticket" Type="Self.ticket" Multiplicity="*" />
+        </Association>
+        <Association Name="mitarbeiter_ort">
+          <End Role="ort" Type="Self.ort" Multiplicity="0..1" />
+          <End Role="mitarbeiter" Type="Self.mitarbeiter" Multiplicity="*" />
+        </Association>
+        <Association Name="mitarbeiter_rechtegruppe">
+          <End Role="rechtegruppe" Type="Self.rechtegruppe" Multiplicity="0..1" />
+          <End Role="mitarbeiter" Type="Self.mitarbeiter" Multiplicity="*" />
+        </Association>
+        <Association Name="session_mitarbeiter">
+          <End Role="mitarbeiter" Type="Self.mitarbeiter" Multiplicity="1" />
+          <End Role="session" Type="Self.session" Multiplicity="*" />
+        </Association>
+        <Association Name="ticket_mitarbeiter">
+          <End Role="mitarbeiter" Type="Self.mitarbeiter" Multiplicity="0..1" />
+          <End Role="ticket" Type="Self.ticket" Multiplicity="*" />
+        </Association>
+        <Association Name="ticket_prioritaet">
+          <End Role="priorität" Type="Self.priorität" Multiplicity="0..1" />
+          <End Role="ticket" Type="Self.ticket" Multiplicity="*" />
+        </Association>
+        <Association Name="rechnung_ticket">
+          <End Role="ticket" Type="Self.ticket" Multiplicity="0..1" />
+          <End Role="rechnung" Type="Self.rechnung" Multiplicity="*" />
+        </Association>
+        <Association Name="ticket_status">
+          <End Role="status" Type="Self.status" Multiplicity="0..1" />
+          <End Role="ticket" Type="Self.ticket" Multiplicity="*" />
+        </Association>
+        <Association Name="arbeitet">
+          <End Role="kunde" Type="Self.kunde" Multiplicity="*" />
+          <End Role="mitarbeiter" Type="Self.mitarbeiter" Multiplicity="*" />
+        </Association>
         <Association Name="bearbeitet">
           <End Role="mitarbeiter" Type="Self.mitarbeiter" Multiplicity="*" />
           <End Role="ticket" Type="Self.ticket" Multiplicity="*" />
         </Association>
         <Association Name="residiert">
-          <End Role="ort" Type="Self.ort" Multiplicity="*" />
           <End Role="kunde" Type="Self.kunde" Multiplicity="*" />
+          <End Role="ort" Type="Self.ort" Multiplicity="*" />
         </Association>
-        <EntityContainer Name="oberstufe_db1Entities1" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="arbeitet" EntityType="Self.arbeitet" />
+        <EntityContainer Name="oberstufe_db1Entities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="abgeleitet" EntityType="Self.abgeleitet" />
           <EntitySet Name="art" EntityType="Self.art" />
           <EntitySet Name="bezahlungsart" EntityType="Self.bezahlungsart" />
           <EntitySet Name="dienstleistung" EntityType="Self.dienstleistung" />
@@ -927,95 +759,91 @@ Warnung 6002: Für Tabelle/Sicht 'def.oberstufe_db1.abgeleitet' ist kein Primär
           <EntitySet Name="session" EntityType="Self.session" />
           <EntitySet Name="status" EntityType="Self.status" />
           <EntitySet Name="ticket" EntityType="Self.ticket" />
-          <EntitySet Name="abgeleitet" EntityType="Self.abgeleitet" />
-          <AssociationSet Name="arbeitet_ibfk_1" Association="Self.arbeitet_ibfk_1">
-            <End Role="mitarbeiter" EntitySet="mitarbeiter" />
-            <End Role="arbeitet" EntitySet="arbeitet" />
+          <AssociationSet Name="abgeleitet_dienstleistung" Association="Self.abgeleitet_dienstleistung">
+            <End Role="dienstleistung" EntitySet="dienstleistung" />
+            <End Role="abgeleitet" EntitySet="abgeleitet" />
           </AssociationSet>
-          <AssociationSet Name="fk_kunde" Association="Self.fk_kunde">
-            <End Role="kunde" EntitySet="kunde" />
-            <End Role="arbeitet" EntitySet="arbeitet" />
+          <AssociationSet Name="abgeleitet_ticket" Association="Self.abgeleitet_ticket">
+            <End Role="ticket" EntitySet="ticket" />
+            <End Role="abgeleitet" EntitySet="abgeleitet" />
           </AssociationSet>
-          <AssociationSet Name="fk_mitarbeiter" Association="Self.fk_mitarbeiter">
-            <End Role="mitarbeiter" EntitySet="mitarbeiter" />
-            <End Role="arbeitet" EntitySet="arbeitet" />
-          </AssociationSet>
-          <AssociationSet Name="ticket_fk_3" Association="Self.ticket_fk_3">
+          <AssociationSet Name="ticket_art" Association="Self.ticket_art">
             <End Role="art" EntitySet="art" />
             <End Role="ticket" EntitySet="ticket" />
           </AssociationSet>
-          <AssociationSet Name="rechnung_fk_1" Association="Self.rechnung_fk_1">
+          <AssociationSet Name="rechnung_bezahlungsart" Association="Self.rechnung_bezahlungsart">
             <End Role="bezahlungsart" EntitySet="bezahlungsart" />
             <End Role="rechnung" EntitySet="rechnung" />
           </AssociationSet>
-          <AssociationSet Name="abgeleitet_fk_1" Association="Self.abgeleitet_fk_1">
-            <End Role="dienstleistung" EntitySet="dienstleistung" />
-            <End Role="abgeleitet" EntitySet="abgeleitet" />
-          </AssociationSet>
-          <AssociationSet Name="abgeleitet_ibfk_1" Association="Self.abgeleitet_ibfk_1">
-            <End Role="dienstleistung" EntitySet="dienstleistung" />
-            <End Role="abgeleitet" EntitySet="abgeleitet" />
-          </AssociationSet>
-          <AssociationSet Name="rechnung_fk_2" Association="Self.rechnung_fk_2">
+          <AssociationSet Name="rechnung_kunde" Association="Self.rechnung_kunde">
             <End Role="kunde" EntitySet="kunde" />
             <End Role="rechnung" EntitySet="rechnung" />
           </AssociationSet>
-          <AssociationSet Name="ticket_fk_5" Association="Self.ticket_fk_5">
+          <AssociationSet Name="session_kunde" Association="Self.session_kunde">
+            <End Role="kunde" EntitySet="kunde" />
+            <End Role="session" EntitySet="session" />
+          </AssociationSet>
+          <AssociationSet Name="ticket_kunde" Association="Self.ticket_kunde">
             <End Role="kunde" EntitySet="kunde" />
             <End Role="ticket" EntitySet="ticket" />
           </AssociationSet>
-          <AssociationSet Name="mitarbeiter_fk_1" Association="Self.mitarbeiter_fk_1">
+          <AssociationSet Name="mitarbeiter_ort" Association="Self.mitarbeiter_ort">
             <End Role="ort" EntitySet="ort" />
             <End Role="mitarbeiter" EntitySet="mitarbeiter" />
           </AssociationSet>
-          <AssociationSet Name="mitarbeiter_fk_2" Association="Self.mitarbeiter_fk_2">
+          <AssociationSet Name="mitarbeiter_rechtegruppe" Association="Self.mitarbeiter_rechtegruppe">
             <End Role="rechtegruppe" EntitySet="rechtegruppe" />
             <End Role="mitarbeiter" EntitySet="mitarbeiter" />
           </AssociationSet>
-          <AssociationSet Name="session_ibfk_1" Association="Self.session_ibfk_1">
+          <AssociationSet Name="session_mitarbeiter" Association="Self.session_mitarbeiter">
             <End Role="mitarbeiter" EntitySet="mitarbeiter" />
             <End Role="session" EntitySet="session" />
           </AssociationSet>
-          <AssociationSet Name="ticket_fk_4" Association="Self.ticket_fk_4">
+          <AssociationSet Name="ticket_mitarbeiter" Association="Self.ticket_mitarbeiter">
             <End Role="mitarbeiter" EntitySet="mitarbeiter" />
             <End Role="ticket" EntitySet="ticket" />
           </AssociationSet>
-          <AssociationSet Name="ticket_fk_2" Association="Self.ticket_fk_2">
+          <AssociationSet Name="ticket_prioritaet" Association="Self.ticket_prioritaet">
             <End Role="priorität" EntitySet="priorität" />
             <End Role="ticket" EntitySet="ticket" />
           </AssociationSet>
-          <AssociationSet Name="rechnung_fk_3" Association="Self.rechnung_fk_3">
+          <AssociationSet Name="rechnung_ticket" Association="Self.rechnung_ticket">
             <End Role="ticket" EntitySet="ticket" />
             <End Role="rechnung" EntitySet="rechnung" />
           </AssociationSet>
-          <AssociationSet Name="ticket_fk_1" Association="Self.ticket_fk_1">
+          <AssociationSet Name="ticket_status" Association="Self.ticket_status">
             <End Role="status" EntitySet="status" />
             <End Role="ticket" EntitySet="ticket" />
           </AssociationSet>
-          <AssociationSet Name="abgeleitet_fk_2" Association="Self.abgeleitet_fk_2">
-            <End Role="ticket" EntitySet="ticket" />
-            <End Role="abgeleitet" EntitySet="abgeleitet" />
+          <AssociationSet Name="arbeitet" Association="Self.arbeitet">
+            <End Role="kunde" EntitySet="kunde" />
+            <End Role="mitarbeiter" EntitySet="mitarbeiter" />
           </AssociationSet>
           <AssociationSet Name="bearbeitet" Association="Self.bearbeitet">
             <End Role="mitarbeiter" EntitySet="mitarbeiter" />
             <End Role="ticket" EntitySet="ticket" />
           </AssociationSet>
           <AssociationSet Name="residiert" Association="Self.residiert">
-            <End Role="ort" EntitySet="ort" />
             <End Role="kunde" EntitySet="kunde" />
+            <End Role="ort" EntitySet="ort" />
           </AssociationSet>
+          <FunctionImport Name="GetDienstleistungenByTicket" ReturnType="Collection(oberstufe_db1Model.GetDienstleistungenByTicket_Result)">
+          <Parameter Name="ticketID" Mode="In" Type="Int32" />
+          </FunctionImport>
         </EntityContainer>
+        <ComplexType Name="GetDienstleistungenByTicket_Result" />
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="oberstufe_db1ModelStoreContainer" CdmEntityContainer="oberstufe_db1Entities1">
-          <EntitySetMapping Name="arbeitet">
-            <EntityTypeMapping TypeName="oberstufe_db1Model.arbeitet">
-              <MappingFragment StoreEntitySet="arbeitet">
-                <ScalarProperty Name="FK_Mitarbeiter" ColumnName="FK_Mitarbeiter" />
-                <ScalarProperty Name="FK_Kunde" ColumnName="FK_Kunde" />
+        <EntityContainerMapping StorageEntityContainer="oberstufe_db1ModelStoreContainer" CdmEntityContainer="oberstufe_db1Entities">
+          <EntitySetMapping Name="abgeleitet">
+            <EntityTypeMapping TypeName="oberstufe_db1Model.abgeleitet">
+              <MappingFragment StoreEntitySet="abgeleitet">
+                <ScalarProperty Name="FK_Dienstleistung" ColumnName="FK_Dienstleistung" />
+                <ScalarProperty Name="FK_Ticket" ColumnName="FK_Ticket" />
+                <ScalarProperty Name="Anzahl" ColumnName="Anzahl" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -1068,8 +896,6 @@ Warnung 6002: Für Tabelle/Sicht 'def.oberstufe_db1.abgeleitet' ist kein Primär
                 <ScalarProperty Name="Mobilnummer" ColumnName="Mobilnummer" />
                 <ScalarProperty Name="Email" ColumnName="Email" />
                 <ScalarProperty Name="Passwort" ColumnName="Passwort" />
-                <ScalarProperty Name="FK_Ort" ColumnName="FK_Ort" />
-                <ScalarProperty Name="FK_Rechtegruppe" ColumnName="FK_Rechtegruppe" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -1100,9 +926,6 @@ Warnung 6002: Für Tabelle/Sicht 'def.oberstufe_db1.abgeleitet' ist kein Primär
                 <ScalarProperty Name="Ticketbeschreibung" ColumnName="Ticketbeschreibung" />
                 <ScalarProperty Name="Abrechnung" ColumnName="Abrechnung" />
                 <ScalarProperty Name="Ratenzahlung" ColumnName="Ratenzahlung" />
-                <ScalarProperty Name="FK_Bezahlungsart" ColumnName="FK_Bezahlungsart" />
-                <ScalarProperty Name="FK_Kunde" ColumnName="FK_Kunde" />
-                <ScalarProperty Name="FK_Ticket" ColumnName="FK_Ticket" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -1123,7 +946,6 @@ Warnung 6002: Für Tabelle/Sicht 'def.oberstufe_db1.abgeleitet' ist kein Primär
                 <ScalarProperty Name="sessionhash" ColumnName="sessionhash" />
                 <ScalarProperty Name="expires_at" ColumnName="expires_at" />
                 <ScalarProperty Name="inserted_at" ColumnName="inserted_at" />
-                <ScalarProperty Name="FK_Mitarbeiter" ColumnName="FK_Mitarbeiter" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -1147,22 +969,124 @@ Warnung 6002: Für Tabelle/Sicht 'def.oberstufe_db1.abgeleitet' ist kein Primär
                 <ScalarProperty Name="InternerStatus" ColumnName="InternerStatus" />
                 <ScalarProperty Name="Erstelldatum" ColumnName="Erstelldatum" />
                 <ScalarProperty Name="Bearbeitungsdatum" ColumnName="Bearbeitungsdatum" />
-                <ScalarProperty Name="FK_Status" ColumnName="FK_Status" />
-                <ScalarProperty Name="FK_Priorität" ColumnName="FK_Priorität" />
-                <ScalarProperty Name="FK_Art" ColumnName="FK_Art" />
-                <ScalarProperty Name="FK_Mitarbeiter" ColumnName="FK_Mitarbeiter" />
-                <ScalarProperty Name="FK_Kunde" ColumnName="FK_Kunde" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="abgeleitet">
-            <EntityTypeMapping TypeName="oberstufe_db1Model.abgeleitet">
-              <MappingFragment StoreEntitySet="abgeleitet">
-                <ScalarProperty Name="FK_Dienstleistung" ColumnName="FK_Dienstleistung" />
-                <ScalarProperty Name="FK_Ticket" ColumnName="FK_Ticket" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
+          <AssociationSetMapping Name="ticket_art" TypeName="oberstufe_db1Model.ticket_art" StoreEntitySet="ticket">
+            <EndProperty Name="art">
+              <ScalarProperty Name="PK_Art" ColumnName="FK_Art" />
+            </EndProperty>
+            <EndProperty Name="ticket">
+              <ScalarProperty Name="PK_Ticket" ColumnName="PK_Ticket" />
+            </EndProperty>
+            <Condition IsNull="false" ColumnName="FK_Art" />
+          </AssociationSetMapping>
+          <AssociationSetMapping Name="rechnung_bezahlungsart" TypeName="oberstufe_db1Model.rechnung_bezahlungsart" StoreEntitySet="rechnung">
+            <EndProperty Name="bezahlungsart">
+              <ScalarProperty Name="PK_Bezahlungsart" ColumnName="FK_Bezahlungsart" />
+            </EndProperty>
+            <EndProperty Name="rechnung">
+              <ScalarProperty Name="Rechnungsnr" ColumnName="Rechnungsnr" />
+            </EndProperty>
+            <Condition IsNull="false" ColumnName="FK_Bezahlungsart" />
+          </AssociationSetMapping>
+          <AssociationSetMapping Name="rechnung_kunde" TypeName="oberstufe_db1Model.rechnung_kunde" StoreEntitySet="rechnung">
+            <EndProperty Name="kunde">
+              <ScalarProperty Name="PK_Kunde" ColumnName="FK_Kunde" />
+            </EndProperty>
+            <EndProperty Name="rechnung">
+              <ScalarProperty Name="Rechnungsnr" ColumnName="Rechnungsnr" />
+            </EndProperty>
+            <Condition IsNull="false" ColumnName="FK_Kunde" />
+          </AssociationSetMapping>
+          <AssociationSetMapping Name="session_kunde" TypeName="oberstufe_db1Model.session_kunde" StoreEntitySet="session">
+            <EndProperty Name="kunde">
+              <ScalarProperty Name="PK_Kunde" ColumnName="FK_Kunde" />
+            </EndProperty>
+            <EndProperty Name="session">
+              <ScalarProperty Name="id" ColumnName="id" />
+            </EndProperty>
+            <Condition IsNull="false" ColumnName="FK_Kunde" />
+          </AssociationSetMapping>
+          <AssociationSetMapping Name="ticket_kunde" TypeName="oberstufe_db1Model.ticket_kunde" StoreEntitySet="ticket">
+            <EndProperty Name="kunde">
+              <ScalarProperty Name="PK_Kunde" ColumnName="FK_Kunde" />
+            </EndProperty>
+            <EndProperty Name="ticket">
+              <ScalarProperty Name="PK_Ticket" ColumnName="PK_Ticket" />
+            </EndProperty>
+            <Condition IsNull="false" ColumnName="FK_Kunde" />
+          </AssociationSetMapping>
+          <AssociationSetMapping Name="mitarbeiter_ort" TypeName="oberstufe_db1Model.mitarbeiter_ort" StoreEntitySet="mitarbeiter">
+            <EndProperty Name="ort">
+              <ScalarProperty Name="PK_Ort" ColumnName="FK_Ort" />
+            </EndProperty>
+            <EndProperty Name="mitarbeiter">
+              <ScalarProperty Name="PK_Mitarbeiter" ColumnName="PK_Mitarbeiter" />
+            </EndProperty>
+            <Condition IsNull="false" ColumnName="FK_Ort" />
+          </AssociationSetMapping>
+          <AssociationSetMapping Name="mitarbeiter_rechtegruppe" TypeName="oberstufe_db1Model.mitarbeiter_rechtegruppe" StoreEntitySet="mitarbeiter">
+            <EndProperty Name="rechtegruppe">
+              <ScalarProperty Name="PK_Rechtegruppe" ColumnName="FK_Rechtegruppe" />
+            </EndProperty>
+            <EndProperty Name="mitarbeiter">
+              <ScalarProperty Name="PK_Mitarbeiter" ColumnName="PK_Mitarbeiter" />
+            </EndProperty>
+            <Condition IsNull="false" ColumnName="FK_Rechtegruppe" />
+          </AssociationSetMapping>
+          <AssociationSetMapping Name="session_mitarbeiter" TypeName="oberstufe_db1Model.session_mitarbeiter" StoreEntitySet="session">
+            <EndProperty Name="mitarbeiter">
+              <ScalarProperty Name="PK_Mitarbeiter" ColumnName="FK_Mitarbeiter" />
+            </EndProperty>
+            <EndProperty Name="session">
+              <ScalarProperty Name="id" ColumnName="id" />
+            </EndProperty>
+          </AssociationSetMapping>
+          <AssociationSetMapping Name="ticket_mitarbeiter" TypeName="oberstufe_db1Model.ticket_mitarbeiter" StoreEntitySet="ticket">
+            <EndProperty Name="mitarbeiter">
+              <ScalarProperty Name="PK_Mitarbeiter" ColumnName="FK_Mitarbeiter" />
+            </EndProperty>
+            <EndProperty Name="ticket">
+              <ScalarProperty Name="PK_Ticket" ColumnName="PK_Ticket" />
+            </EndProperty>
+            <Condition IsNull="false" ColumnName="FK_Mitarbeiter" />
+          </AssociationSetMapping>
+          <AssociationSetMapping Name="ticket_prioritaet" TypeName="oberstufe_db1Model.ticket_prioritaet" StoreEntitySet="ticket">
+            <EndProperty Name="priorität">
+              <ScalarProperty Name="PK_Priorität" ColumnName="FK_Priorität" />
+            </EndProperty>
+            <EndProperty Name="ticket">
+              <ScalarProperty Name="PK_Ticket" ColumnName="PK_Ticket" />
+            </EndProperty>
+            <Condition IsNull="false" ColumnName="FK_Priorität" />
+          </AssociationSetMapping>
+          <AssociationSetMapping Name="rechnung_ticket" TypeName="oberstufe_db1Model.rechnung_ticket" StoreEntitySet="rechnung">
+            <EndProperty Name="ticket">
+              <ScalarProperty Name="PK_Ticket" ColumnName="FK_Ticket" />
+            </EndProperty>
+            <EndProperty Name="rechnung">
+              <ScalarProperty Name="Rechnungsnr" ColumnName="Rechnungsnr" />
+            </EndProperty>
+            <Condition IsNull="false" ColumnName="FK_Ticket" />
+          </AssociationSetMapping>
+          <AssociationSetMapping Name="ticket_status" TypeName="oberstufe_db1Model.ticket_status" StoreEntitySet="ticket">
+            <EndProperty Name="status">
+              <ScalarProperty Name="PK_Status" ColumnName="FK_Status" />
+            </EndProperty>
+            <EndProperty Name="ticket">
+              <ScalarProperty Name="PK_Ticket" ColumnName="PK_Ticket" />
+            </EndProperty>
+            <Condition IsNull="false" ColumnName="FK_Status" />
+          </AssociationSetMapping>
+          <AssociationSetMapping Name="arbeitet" TypeName="oberstufe_db1Model.arbeitet" StoreEntitySet="arbeitet">
+            <EndProperty Name="kunde">
+              <ScalarProperty Name="PK_Kunde" ColumnName="FK_Kunde" />
+            </EndProperty>
+            <EndProperty Name="mitarbeiter">
+              <ScalarProperty Name="PK_Mitarbeiter" ColumnName="FK_Mitarbeiter" />
+            </EndProperty>
+          </AssociationSetMapping>
           <AssociationSetMapping Name="bearbeitet" TypeName="oberstufe_db1Model.bearbeitet" StoreEntitySet="bearbeitet">
             <EndProperty Name="mitarbeiter">
               <ScalarProperty Name="PK_Mitarbeiter" ColumnName="FK_Mitarbeiter" />
@@ -1172,11 +1096,11 @@ Warnung 6002: Für Tabelle/Sicht 'def.oberstufe_db1.abgeleitet' ist kein Primär
             </EndProperty>
           </AssociationSetMapping>
           <AssociationSetMapping Name="residiert" TypeName="oberstufe_db1Model.residiert" StoreEntitySet="residiert">
-            <EndProperty Name="ort">
-              <ScalarProperty Name="PK_Ort" ColumnName="FK_Ort" />
-            </EndProperty>
             <EndProperty Name="kunde">
               <ScalarProperty Name="PK_Kunde" ColumnName="FK_Kunde" />
+            </EndProperty>
+            <EndProperty Name="ort">
+              <ScalarProperty Name="PK_Ort" ColumnName="FK_Ort" />
             </EndProperty>
           </AssociationSetMapping>
         </EntityContainerMapping>
@@ -1194,9 +1118,9 @@ Warnung 6002: Für Tabelle/Sicht 'def.oberstufe_db1.abgeleitet' ist kein Primär
       <DesignerInfoPropertySet>
         <DesignerProperty Name="ValidateOnBuild" Value="true" />
         <DesignerProperty Name="EnablePluralization" Value="false" />
-        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="false" />
         <DesignerProperty Name="UseLegacyProvider" Value="false" />
-        <DesignerProperty Name="CodeGenerationStrategy" Value="Kein" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
       </DesignerInfoPropertySet>
     </Options>
     <!-- Diagram content (shape and connector positions) -->

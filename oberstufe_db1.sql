@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Erstellungszeit: 14. Mrz 2025 um 12:53
+-- Erstellungszeit: 14. Mrz 2025 um 17:23
 -- Server-Version: 10.4.32-MariaDB
 -- PHP-Version: 8.2.12
 
@@ -32,26 +32,26 @@ USE `oberstufe_db1`;
 DROP TABLE IF EXISTS `abgeleitet`;
 CREATE TABLE `abgeleitet` (
   `FK_Dienstleistung` int(11) NOT NULL,
-  `FK_Ticket` int(11) NOT NULL
+  `FK_Ticket` int(11) NOT NULL,
+  `Anzahl` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Daten für Tabelle `abgeleitet`
 --
 
-INSERT INTO `abgeleitet` (`FK_Dienstleistung`, `FK_Ticket`) VALUES
-(3, 2),
-(3, 3),
-(14, 1),
-(11, 1),
-(9, 1),
-(1, 46),
-(2, 46),
-(3, 46),
-(1, 48),
-(2, 48),
-(3, 48),
-(3, 48);
+INSERT INTO `abgeleitet` (`FK_Dienstleistung`, `FK_Ticket`, `Anzahl`) VALUES
+(1, 46, 1),
+(1, 48, 1),
+(2, 46, 1),
+(2, 48, 1),
+(3, 2, 1),
+(3, 3, 1),
+(3, 46, 1),
+(3, 48, 2),
+(9, 1, 1),
+(11, 1, 1),
+(14, 1, 1);
 
 -- --------------------------------------------------------
 
@@ -280,56 +280,56 @@ CREATE TABLE `mitarbeiter` (
 --
 
 INSERT INTO `mitarbeiter` (`PK_Mitarbeiter`, `Vorname`, `Nachname`, `Position`, `Festnetznummer`, `Mobilnummer`, `Email`, `Passwort`, `FK_Ort`, `FK_Rechtegruppe`) VALUES
-(1, 'Max', 'Mustermann', 'Techniker', '030-1234567', '0176-12345678', 'max@techcorp.de', 'test', 1, 1),
-(2, 'Erika', 'Mustermann', 'Sekretärin', '040-9876543', '0176-98765432', 'erika@meditech.de', 'test', 2, 2),
-(3, 'Hans', 'Müller', 'Entwickler', '089-5555555', '0176-55555555', 'hans@edusoft.de', 'Hann1bal_@frica', 3, 1),
-(4, 'Julia', 'Schmidt', 'Projektleiterin', '0221-6666666', '0176-66666666', 'julia@healthinc.de', 'Cr1ms0n_P1rate77', 4, 3),
-(5, 'Peter', 'Beispiel', 'Manager', '069-7777777', '0176-77777777', 'peter@ecosolutions.de', 'Dr@cula_Vlad45', 5, 5),
-(6, 'John Quincy', 'Adams', 'Präsident', '030-1111116', '0176-1234572', 'john.quincy.adams@example.com', 'Att1laTheHun$', 1, 1),
-(7, 'Andrew', 'Jackson', 'Präsident', '030-1111117', '0176-1234573', 'andrew.jackson@example.com', 'BlackB3@rdPirate', 1, 1),
-(8, 'Martin', 'Van Buren', 'Präsident', '030-1111118', '0176-1234574', 'martin.vanburen@example.com', 'RedPh@ntom66', 1, 1),
-(9, 'William Henry', 'Harrison', 'Präsident', '030-1111119', '0176-1234575', 'william.harrison@example.com', 'JaggedCrownK1ng', 1, 1),
-(10, 'John', 'Tyler', 'Präsident', '030-1111120', '0176-1234576', 'john.tyler@example.com', 'L1ttleM0hawkChief', 1, 1),
-(11, 'James Knox', 'Polk', 'Präsident', '030-1111121', '0176-1234577', 'james.polk@example.com', 'Th3Rav3nMarauder', 1, 1),
-(12, 'Zachary', 'Taylor', 'Präsident', '030-1111122', '0176-1234578', 'zachary.taylor@example.com', 'B0rch_Tusklord', 1, 1),
-(13, 'Millard', 'Fillmore', 'Präsident', '030-1111123', '0176-1234579', 'millard.fillmore@example.com', 'Night0fW0lves', 1, 1),
-(14, 'Franklin', 'Pierce', 'Präsident', '030-1111124', '0176-1234580', 'franklin.pierce@example.com', 'Bl@ckHand4Ever', 1, 1),
-(15, 'James', 'Buchanan', 'Präsident', '030-1111125', '0176-1234581', 'james.buchanan@example.com', 'L0neJ@ckalAlpha', 1, 1),
-(16, 'Abraham', 'Lincoln', 'Präsident', '030-1111126', '0176-1234582', 'abraham.lincoln@example.com', 'W0lfspadeKing', 1, 1),
-(17, 'Andrew', 'Johnson', 'Präsident', '030-1111127', '0176-1234583', 'andrew.johnson@example.com', 'Wraith0fEmpire', 1, 1),
-(18, 'Ulysses Simpson', 'Grant', 'Präsident', '030-1111128', '0176-1234584', 'ulysses.grant@example.com', 'M0ng00se@ntiHero', 1, 1),
-(19, 'Rutherford Birchard', 'Hayes', 'Präsident', '030-1111129', '0176-1234585', 'rutherford.hayes@example.com', 'Cr1mson_Corsair', 1, 1),
-(20, 'James Abram', 'Garfield', 'Präsident', '030-1111130', '0176-1234586', 'james.garfield@example.com', 'Ph@nt0mStrik3r', 1, 1),
-(21, 'Chester Alan', 'Arthur', 'Präsident', '030-1111131', '0176-1234587', 'chester.arthur@example.com', 'Gr1mShad0wKing', 1, 1),
-(22, 'Grover', 'Cleveland', 'Präsident', '030-1111132', '0176-1234588', 'grover.cleveland@example.com', 'D@rkRe@perXX', 1, 1),
-(23, 'Benjamin', 'Harrison', 'Präsident', '030-1111133', '0176-1234589', 'benjamin.harrison@example.com', 'F@ngofWolfblade', 1, 1),
-(24, 'William', 'McKinley', 'Präsident', '030-1111134', '0176-1234590', 'william.mckinley@example.com', 'R3dDr@gonWarlord', 1, 1),
-(25, 'Theodore', 'Roosevelt', 'Präsident', '030-1111135', '0176-1234591', 'theodore.roosevelt@example.com', 'Gh0st0fKnights', 1, 1),
-(26, 'William Howard', 'Taft', 'Präsident', '030-1111136', '0176-1234592', 'william.taft@example.com', 'Des3rtGh0st22', 1, 1),
-(27, 'Woodrow', 'Wilson', 'Präsident', '030-1111137', '0176-1234593', 'woodrow.wilson@example.com', 'V@lkyrieM@rauder', 1, 1),
-(28, 'Warren Gamaliel', 'Harding', 'Präsident', '030-1111138', '0176-1234594', 'warren.harding@example.com', 'D@rkHorseRider', 1, 1),
-(29, 'Calvin', 'Coolidge', 'Präsident', '030-1111139', '0176-1234595', 'calvin.coolidge@example.com', 'Ch@otic@ngel', 1, 1),
-(30, 'Herbert Clark', 'Hoover', 'Präsident', '030-1111140', '0176-1234596', 'herbert.hoover@example.com', 'Gr3yGh0st13', 1, 1),
-(31, 'Franklin Delano', 'Roosevelt', 'Präsident', '030-1111141', '0176-1234597', 'franklin.roosevelt@example.com', 'L0n3Sc0rpi0n', 1, 1),
-(32, 'Harry S', 'Truman', 'Präsident', '030-1111142', '0176-1234598', 'harry.truman@example.com', 'Sh@d0wMast3r', 1, 1),
-(33, 'Dwight David', 'Eisenhower', 'Präsident', '030-1111143', '0176-1234599', 'dwight.eisenhower@example.com', 'NightShade33', 1, 1),
-(34, 'John Fitzgerald', 'Kennedy', 'Präsident', '030-1111144', '0176-1240000', 'john.kennedy@example.com', 'M0rningStar99', 1, 1),
-(35, 'Lyndon Baines', 'Johnson', 'Präsident', '030-1111145', '0176-1240001', 'lyndon.johnson@example.com', 'St0rmRaven23', 1, 1),
-(36, 'Richard Milhous', 'Nixon', 'Präsident', '030-1111146', '0176-1240002', 'richard.nixon@example.com', 'F@lconStriker', 1, 1),
-(37, 'Gerald', 'Ford', 'Präsident', '030-1111147', '0176-1240003', 'gerald.ford@example.com', 'R0gueCr0wned', 1, 1),
-(38, 'James Earl', 'Carter', 'Präsident', '030-1111148', '0176-1240004', 'james.carter@example.com', 'CrimsonR1sing', 1, 1),
-(39, 'Ronald Wilson', 'Reagan', 'Präsident', '030-1111149', '0176-1240005', 'ronald.reagan@example.com', 'Nightf@llR0gue', 1, 1),
-(40, 'George Herbert Walker', 'Bush', 'Präsident', '030-1111150', '0176-1240006', 'george.bush@example.com', 'Jaguar@ssassin', 1, 1),
-(41, 'William Jefferson', 'Clinton', 'Präsident', '030-1111151', '0176-1240007', 'william.clinton@example.com', 'S0ldier0fChaos', 1, 1),
-(42, 'George Walker', 'Bush', 'Präsident', '030-1111152', '0176-1240008', 'george.walker.bush@example.com', 'Gh0stB@ndit', 1, 1),
-(43, 'Barack Hussein', 'Obama', 'Präsident', '030-1111153', '0176-1240009', 'barack.obama@example.com', 'Sc@rletBlade', 1, 1),
-(44, 'Donald John', 'Trump', 'Präsident', '030-1111154', '0176-1240010', 'donald.trump@example.com', 'L3gend$Pirate', 1, 1),
-(45, 'Joseph Robinette', 'Biden Junior', 'Präsident', '030-1111155', '0176-1240011', 'joseph.biden@example.com', 'Bl00dCursedK1ng', 1, 1),
-(46, 'George', 'Washington', 'Präsident', '030-1111111', '0176-1234567', 'george.washington@example.com', 'DarkWolf$hadow', 1, 1),
-(47, 'John', 'Adams', 'Präsident', '030-1111112', '0176-1234568', 'john.adams@example.com', 'M0untainTiger', 1, 1),
-(48, 'Thomas', 'Jefferson', 'Präsident', '030-1111113', '0176-1234569', 'thomas.jefferson@example.com', 'F1ery@ssassin', 1, 1),
-(49, 'James', 'Madison', 'Präsident', '030-1111114', '0176-1234570', 'james.madison@example.com', 'Wh1teF@ngRaider', 1, 1),
-(50, 'James', 'Monroe', 'Präsident', '030-1111115', '0176-1234571', 'james.monroe@example.com', 'S0ulCr0wnXX', 1, 1);
+(1, 'Max', 'Mustermann', 'Techniker', '030-1234567', '0176-12345678', 'max@techcorp.de', 'a94a8fe5ccb19ba61c4c0873d391e987982fbbd3', 1, 1),
+(2, 'Erika', 'Mustermann', 'Sekretärin', '040-9876543', '0176-98765432', 'erika@meditech.de', 'a94a8fe5ccb19ba61c4c0873d391e987982fbbd3', 2, 2),
+(3, 'Hans', 'Müller', 'Entwickler', '089-5555555', '0176-55555555', 'hans@edusoft.de', 'd1bd0728db4531d015b499e0a02f281a91fb507c', 3, 1),
+(4, 'Julia', 'Schmidt', 'Projektleiterin', '0221-6666666', '0176-66666666', 'julia@healthinc.de', '899bf9c46e95583d54e4f838664bc3a112120811', 4, 3),
+(5, 'Peter', 'Beispiel', 'Manager', '069-7777777', '0176-77777777', 'peter@ecosolutions.de', '332aa1470f5edc79d776e0caf88fa0ce5ada48e5', 5, 5),
+(6, 'John Quincy', 'Adams', 'Präsident', '030-1111116', '0176-1234572', 'john.quincy.adams@example.com', '68645a5be4dbcf249475d2634a1bb15a34559464', 1, 1),
+(7, 'Andrew', 'Jackson', 'Präsident', '030-1111117', '0176-1234573', 'andrew.jackson@example.com', 'b6e948c1e71fd16091fc78d24f4495b82d5f5cc7', 1, 1),
+(8, 'Martin', 'Van Buren', 'Präsident', '030-1111118', '0176-1234574', 'martin.vanburen@example.com', '6bcd329ced7161fb2e04c7eaa71fda55888f298a', 1, 1),
+(9, 'William Henry', 'Harrison', 'Präsident', '030-1111119', '0176-1234575', 'william.harrison@example.com', 'fafb70a27fa4d3395946582fa17cdf6a46d6f761', 1, 1),
+(10, 'John', 'Tyler', 'Präsident', '030-1111120', '0176-1234576', 'john.tyler@example.com', 'ac74f2edf20f4a13f1227d1558a283ad87b0546d', 1, 1),
+(11, 'James Knox', 'Polk', 'Präsident', '030-1111121', '0176-1234577', 'james.polk@example.com', '412a7276f87640a11282e9ac8096703533ce8864', 1, 1),
+(12, 'Zachary', 'Taylor', 'Präsident', '030-1111122', '0176-1234578', 'zachary.taylor@example.com', '8356f8fa35f5e8134d5a4a9a1b2bbbd2ee5e1508', 1, 1),
+(13, 'Millard', 'Fillmore', 'Präsident', '030-1111123', '0176-1234579', 'millard.fillmore@example.com', '8fde0a22fcd3e272b1c56e55faa4bdca8479af53', 1, 1),
+(14, 'Franklin', 'Pierce', 'Präsident', '030-1111124', '0176-1234580', 'franklin.pierce@example.com', 'a4c5ad7783137e642b59f037d27809ae328ebcbe', 1, 1),
+(15, 'James', 'Buchanan', 'Präsident', '030-1111125', '0176-1234581', 'james.buchanan@example.com', '94518326d0ef268b11e070dcc36c5fa9bd54d3a0', 1, 1),
+(16, 'Abraham', 'Lincoln', 'Präsident', '030-1111126', '0176-1234582', 'abraham.lincoln@example.com', '80e7c235b6db817ac92c21831e2e14cc12ca5713', 1, 1),
+(17, 'Andrew', 'Johnson', 'Präsident', '030-1111127', '0176-1234583', 'andrew.johnson@example.com', '0501a19f7eaa4c4a1f11f1f8e298a7ebf4f2b398', 1, 1),
+(18, 'Ulysses Simpson', 'Grant', 'Präsident', '030-1111128', '0176-1234584', 'ulysses.grant@example.com', '8b46ca796e9127ef26d3ada0534fc15eb970fb54', 1, 1),
+(19, 'Rutherford Birchard', 'Hayes', 'Präsident', '030-1111129', '0176-1234585', 'rutherford.hayes@example.com', '468fecf7513b8577f29b4a41f806aed7b3f07523', 1, 1),
+(20, 'James Abram', 'Garfield', 'Präsident', '030-1111130', '0176-1234586', 'james.garfield@example.com', '4251d30c20236b7d80a55a6682edd7acf07c0150', 1, 1),
+(21, 'Chester Alan', 'Arthur', 'Präsident', '030-1111131', '0176-1234587', 'chester.arthur@example.com', '3341bbf1aa62e8d3b214439ae6e382f296c4dc77', 1, 1),
+(22, 'Grover', 'Cleveland', 'Präsident', '030-1111132', '0176-1234588', 'grover.cleveland@example.com', 'fce63cd91ab1f0d266584ca39be1cad256430f16', 1, 1),
+(23, 'Benjamin', 'Harrison', 'Präsident', '030-1111133', '0176-1234589', 'benjamin.harrison@example.com', '7fae53632d6a3144c266933f8a8e90bfd0a833af', 1, 1),
+(24, 'William', 'McKinley', 'Präsident', '030-1111134', '0176-1234590', 'william.mckinley@example.com', 'b36a779563b06f23a75b506a2ef4944bd5ae7a40', 1, 1),
+(25, 'Theodore', 'Roosevelt', 'Präsident', '030-1111135', '0176-1234591', 'theodore.roosevelt@example.com', '00b6761be28ed08e12f6ae2ececd7953c0b36ab8', 1, 1),
+(26, 'William Howard', 'Taft', 'Präsident', '030-1111136', '0176-1234592', 'william.taft@example.com', 'b8d261a21fa87688947a1be9ddf2305c86c0d27c', 1, 1),
+(27, 'Woodrow', 'Wilson', 'Präsident', '030-1111137', '0176-1234593', 'woodrow.wilson@example.com', '5226c5751edea66e3fb95da072172fd8309296d6', 1, 1),
+(28, 'Warren Gamaliel', 'Harding', 'Präsident', '030-1111138', '0176-1234594', 'warren.harding@example.com', 'bc5762fe70c730faaad14c2738777ab14ba39b6f', 1, 1),
+(29, 'Calvin', 'Coolidge', 'Präsident', '030-1111139', '0176-1234595', 'calvin.coolidge@example.com', '79654b104b5885a3c1a29ec2cfb3d3b3bff063fa', 1, 1),
+(30, 'Herbert Clark', 'Hoover', 'Präsident', '030-1111140', '0176-1234596', 'herbert.hoover@example.com', 'e54bd42bc35c8f0d3a68835afb1a630130bf4fd9', 1, 1),
+(31, 'Franklin Delano', 'Roosevelt', 'Präsident', '030-1111141', '0176-1234597', 'franklin.roosevelt@example.com', 'd2193641070514cfb0c1e69cb9b6749bae211ff2', 1, 1),
+(32, 'Harry S', 'Truman', 'Präsident', '030-1111142', '0176-1234598', 'harry.truman@example.com', 'f9fed9be84b3b2884b18ebc767c72ccdd6a5e607', 1, 1),
+(33, 'Dwight David', 'Eisenhower', 'Präsident', '030-1111143', '0176-1234599', 'dwight.eisenhower@example.com', 'd778e453d77411f6f1a7634485e09abde119a847', 1, 1),
+(34, 'John Fitzgerald', 'Kennedy', 'Präsident', '030-1111144', '0176-1240000', 'john.kennedy@example.com', '47f7cb289e03d7cfe599642ab32bdc008ba0e316', 1, 1),
+(35, 'Lyndon Baines', 'Johnson', 'Präsident', '030-1111145', '0176-1240001', 'lyndon.johnson@example.com', '431aba28ba3144f0cee139c21a4cf427f0c1d41f', 1, 1),
+(36, 'Richard Milhous', 'Nixon', 'Präsident', '030-1111146', '0176-1240002', 'richard.nixon@example.com', 'e97e76d9598e8c1cfe77d90596f37bc87a6647a5', 1, 1),
+(37, 'Gerald', 'Ford', 'Präsident', '030-1111147', '0176-1240003', 'gerald.ford@example.com', 'e1ac42d6578e184a5bef80b60fdbb033b1801b40', 1, 1),
+(38, 'James Earl', 'Carter', 'Präsident', '030-1111148', '0176-1240004', 'james.carter@example.com', '8013e884a94f18b55ecbc047b79c826f397a980e', 1, 1),
+(39, 'Ronald Wilson', 'Reagan', 'Präsident', '030-1111149', '0176-1240005', 'ronald.reagan@example.com', '89fe9969006d15f8e89a443e8ba2c050d91aa67a', 1, 1),
+(40, 'George Herbert Walker', 'Bush', 'Präsident', '030-1111150', '0176-1240006', 'george.bush@example.com', '7a91b5fc2d3242efc494d48c13cc4a66ebf50e52', 1, 1),
+(41, 'William Jefferson', 'Clinton', 'Präsident', '030-1111151', '0176-1240007', 'william.clinton@example.com', 'c3ed1a80817136b39491b7d7bad9e9548521bad2', 1, 1),
+(42, 'George Walker', 'Bush', 'Präsident', '030-1111152', '0176-1240008', 'george.walker.bush@example.com', 'e86d611b96072901d5a1e497fa07d998f82b0862', 1, 1),
+(43, 'Barack Hussein', 'Obama', 'Präsident', '030-1111153', '0176-1240009', 'barack.obama@example.com', 'ec2c84317f324e211140294d4cd8fc92477e73e1', 1, 1),
+(44, 'Donald John', 'Trump', 'Präsident', '030-1111154', '0176-1240010', 'donald.trump@example.com', 'f1d352b3a93ab0f06994357c3a6781408c485f7e', 1, 1),
+(45, 'Joseph Robinette', 'Biden Junior', 'Präsident', '030-1111155', '0176-1240011', 'joseph.biden@example.com', '158e732362f64510fd72eb06fb7de0c29350bfcb', 1, 1),
+(46, 'George', 'Washington', 'Präsident', '030-1111111', '0176-1234567', 'george.washington@example.com', '87714e51593d49bb8fb6c8d30a8dbc8480057f95', 1, 1),
+(47, 'John', 'Adams', 'Präsident', '030-1111112', '0176-1234568', 'john.adams@example.com', 'c95f67b11b7d68f81627fd43d82ac303d46899f7', 1, 1),
+(48, 'Thomas', 'Jefferson', 'Präsident', '030-1111113', '0176-1234569', 'thomas.jefferson@example.com', '7df6f485fd81173ef767fd64102cc8fedcd266ae', 1, 1),
+(49, 'James', 'Madison', 'Präsident', '030-1111114', '0176-1234570', 'james.madison@example.com', '7a711545ae4cade33e7db80232d8379619b50479', 1, 1),
+(50, 'James', 'Monroe', 'Präsident', '030-1111115', '0176-1234571', 'james.monroe@example.com', '7604cb327ffbdf7ecacb283be39586c9b880b3ce', 1, 1);
 
 -- --------------------------------------------------------
 
@@ -444,7 +444,7 @@ INSERT INTO `rechtegruppe` (`Administrationsrechte`, `Bestelllimit`, `Helpdesk_F
 DROP TABLE IF EXISTS `residiert`;
 CREATE TABLE `residiert` (
   `FK_Kunde` int(11) NOT NULL,
-  `FK_Ort` int(255) NOT NULL
+  `FK_Ort` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
@@ -543,15 +543,15 @@ INSERT INTO `ticket` (`PK_Ticket`, `Ticket_Titel`, `Beschreibung`, `InterneNotiz
 -- Indizes für die Tabelle `abgeleitet`
 --
 ALTER TABLE `abgeleitet`
-  ADD KEY `abgeleitet_fk_2` (`FK_Ticket`),
-  ADD KEY `FK_Dienstleistung` (`FK_Dienstleistung`);
+  ADD PRIMARY KEY (`FK_Dienstleistung`,`FK_Ticket`),
+  ADD KEY `abgeleitet_ticket` (`FK_Ticket`);
 
 --
 -- Indizes für die Tabelle `arbeitet`
 --
 ALTER TABLE `arbeitet`
   ADD PRIMARY KEY (`FK_Mitarbeiter`,`FK_Kunde`),
-  ADD KEY `fk_kunde` (`FK_Kunde`);
+  ADD KEY `arbeitet_kunde` (`FK_Kunde`);
 
 --
 -- Indizes für die Tabelle `art`
@@ -564,7 +564,7 @@ ALTER TABLE `art`
 --
 ALTER TABLE `bearbeitet`
   ADD PRIMARY KEY (`FK_Mitarbeiter`,`FK_Ticket`),
-  ADD KEY `bearbeitet_fk_2` (`FK_Ticket`);
+  ADD KEY `bearbeitet_ticket` (`FK_Ticket`);
 
 --
 -- Indizes für die Tabelle `bezahlungsart`
@@ -623,9 +623,8 @@ ALTER TABLE `rechtegruppe`
 -- Indizes für die Tabelle `residiert`
 --
 ALTER TABLE `residiert`
-  ADD PRIMARY KEY (`FK_Kunde`,`FK_Ort`) USING BTREE,
-  ADD KEY `FK_Kunde` (`FK_Kunde`,`FK_Ort`) USING BTREE,
-  ADD KEY `residiert_fk1` (`FK_Ort`);
+  ADD PRIMARY KEY (`FK_Kunde`,`FK_Ort`),
+  ADD KEY `residiert_ort` (`FK_Ort`);
 
 --
 -- Indizes für die Tabelle `session`
@@ -736,63 +735,61 @@ ALTER TABLE `ticket`
 -- Constraints der Tabelle `abgeleitet`
 --
 ALTER TABLE `abgeleitet`
-  ADD CONSTRAINT `abgeleitet_fk_1` FOREIGN KEY (`FK_Dienstleistung`) REFERENCES `dienstleistung` (`PK_Dienstleistung`),
-  ADD CONSTRAINT `abgeleitet_fk_2` FOREIGN KEY (`FK_Ticket`) REFERENCES `ticket` (`PK_Ticket`),
-  ADD CONSTRAINT `abgeleitet_ibfk_1` FOREIGN KEY (`FK_Dienstleistung`) REFERENCES `dienstleistung` (`PK_Dienstleistung`);
+  ADD CONSTRAINT `abgeleitet_dienstleistung` FOREIGN KEY (`FK_Dienstleistung`) REFERENCES `dienstleistung` (`PK_Dienstleistung`),
+  ADD CONSTRAINT `abgeleitet_ticket` FOREIGN KEY (`FK_Ticket`) REFERENCES `ticket` (`PK_Ticket`);
 
 --
 -- Constraints der Tabelle `arbeitet`
 --
 ALTER TABLE `arbeitet`
-  ADD CONSTRAINT `arbeitet_ibfk_1` FOREIGN KEY (`FK_Mitarbeiter`) REFERENCES `mitarbeiter` (`PK_Mitarbeiter`),
-  ADD CONSTRAINT `fk_kunde` FOREIGN KEY (`FK_Kunde`) REFERENCES `kunde` (`PK_Kunde`),
-  ADD CONSTRAINT `fk_mitarbeiter` FOREIGN KEY (`FK_Mitarbeiter`) REFERENCES `mitarbeiter` (`PK_Mitarbeiter`);
+  ADD CONSTRAINT `arbeitet_kunde` FOREIGN KEY (`FK_Kunde`) REFERENCES `kunde` (`PK_Kunde`),
+  ADD CONSTRAINT `arbeitet_mitarbeiter` FOREIGN KEY (`FK_Mitarbeiter`) REFERENCES `mitarbeiter` (`PK_Mitarbeiter`);
 
 --
 -- Constraints der Tabelle `bearbeitet`
 --
 ALTER TABLE `bearbeitet`
-  ADD CONSTRAINT `bearbeitet_fk_1` FOREIGN KEY (`FK_Mitarbeiter`) REFERENCES `mitarbeiter` (`PK_Mitarbeiter`),
-  ADD CONSTRAINT `bearbeitet_fk_2` FOREIGN KEY (`FK_Ticket`) REFERENCES `ticket` (`PK_Ticket`);
+  ADD CONSTRAINT `bearbeitet_mitarbeiter` FOREIGN KEY (`FK_Mitarbeiter`) REFERENCES `mitarbeiter` (`PK_Mitarbeiter`),
+  ADD CONSTRAINT `bearbeitet_ticket` FOREIGN KEY (`FK_Ticket`) REFERENCES `ticket` (`PK_Ticket`);
 
 --
 -- Constraints der Tabelle `mitarbeiter`
 --
 ALTER TABLE `mitarbeiter`
-  ADD CONSTRAINT `mitarbeiter_fk_1` FOREIGN KEY (`FK_Ort`) REFERENCES `ort` (`PK_Ort`),
-  ADD CONSTRAINT `mitarbeiter_fk_2` FOREIGN KEY (`FK_Rechtegruppe`) REFERENCES `rechtegruppe` (`PK_Rechtegruppe`);
+  ADD CONSTRAINT `mitarbeiter_ort` FOREIGN KEY (`FK_Ort`) REFERENCES `ort` (`PK_Ort`),
+  ADD CONSTRAINT `mitarbeiter_rechtegruppe` FOREIGN KEY (`FK_Rechtegruppe`) REFERENCES `rechtegruppe` (`PK_Rechtegruppe`);
 
 --
 -- Constraints der Tabelle `rechnung`
 --
 ALTER TABLE `rechnung`
-  ADD CONSTRAINT `rechnung_fk_1` FOREIGN KEY (`FK_Bezahlungsart`) REFERENCES `bezahlungsart` (`PK_Bezahlungsart`),
-  ADD CONSTRAINT `rechnung_fk_2` FOREIGN KEY (`FK_Kunde`) REFERENCES `kunde` (`PK_Kunde`),
-  ADD CONSTRAINT `rechnung_fk_3` FOREIGN KEY (`FK_Ticket`) REFERENCES `ticket` (`PK_Ticket`);
+  ADD CONSTRAINT `rechnung_bezahlungsart` FOREIGN KEY (`FK_Bezahlungsart`) REFERENCES `bezahlungsart` (`PK_Bezahlungsart`),
+  ADD CONSTRAINT `rechnung_kunde` FOREIGN KEY (`FK_Kunde`) REFERENCES `kunde` (`PK_Kunde`),
+  ADD CONSTRAINT `rechnung_ticket` FOREIGN KEY (`FK_Ticket`) REFERENCES `ticket` (`PK_Ticket`);
 
 --
 -- Constraints der Tabelle `residiert`
 --
 ALTER TABLE `residiert`
-  ADD CONSTRAINT `residiert_fk1` FOREIGN KEY (`FK_Ort`) REFERENCES `ort` (`PK_Ort`),
-  ADD CONSTRAINT `residiert_fk2` FOREIGN KEY (`FK_Kunde`) REFERENCES `kunde` (`PK_Kunde`);
+  ADD CONSTRAINT `residiert_kunde` FOREIGN KEY (`FK_Kunde`) REFERENCES `kunde` (`PK_Kunde`),
+  ADD CONSTRAINT `residiert_ort` FOREIGN KEY (`FK_Ort`) REFERENCES `ort` (`PK_Ort`);
 
 --
 -- Constraints der Tabelle `session`
 --
 ALTER TABLE `session`
-  ADD CONSTRAINT `session_ibfk_1` FOREIGN KEY (`FK_Mitarbeiter`) REFERENCES `mitarbeiter` (`PK_Mitarbeiter`),
-  ADD CONSTRAINT `session_ibfk_2` FOREIGN KEY (`FK_Kunde`) REFERENCES `kunde` (`PK_Kunde`);
+  ADD CONSTRAINT `session_kunde` FOREIGN KEY (`FK_Kunde`) REFERENCES `kunde` (`PK_Kunde`),
+  ADD CONSTRAINT `session_mitarbeiter` FOREIGN KEY (`FK_Mitarbeiter`) REFERENCES `mitarbeiter` (`PK_Mitarbeiter`);
 
 --
 -- Constraints der Tabelle `ticket`
 --
 ALTER TABLE `ticket`
-  ADD CONSTRAINT `ticket_fk_1` FOREIGN KEY (`FK_Status`) REFERENCES `status` (`PK_Status`),
-  ADD CONSTRAINT `ticket_fk_2` FOREIGN KEY (`FK_Priorität`) REFERENCES `priorität` (`PK_Priorität`),
-  ADD CONSTRAINT `ticket_fk_3` FOREIGN KEY (`FK_Art`) REFERENCES `art` (`PK_Art`),
-  ADD CONSTRAINT `ticket_fk_4` FOREIGN KEY (`FK_Mitarbeiter`) REFERENCES `mitarbeiter` (`PK_Mitarbeiter`),
-  ADD CONSTRAINT `ticket_fk_5` FOREIGN KEY (`FK_Kunde`) REFERENCES `kunde` (`PK_Kunde`);
+  ADD CONSTRAINT `ticket_art` FOREIGN KEY (`FK_Art`) REFERENCES `art` (`PK_Art`),
+  ADD CONSTRAINT `ticket_kunde` FOREIGN KEY (`FK_Kunde`) REFERENCES `kunde` (`PK_Kunde`),
+  ADD CONSTRAINT `ticket_mitarbeiter` FOREIGN KEY (`FK_Mitarbeiter`) REFERENCES `mitarbeiter` (`PK_Mitarbeiter`),
+  ADD CONSTRAINT `ticket_prioritaet` FOREIGN KEY (`FK_Priorität`) REFERENCES `priorität` (`PK_Priorität`),
+  ADD CONSTRAINT `ticket_status` FOREIGN KEY (`FK_Status`) REFERENCES `status` (`PK_Status`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

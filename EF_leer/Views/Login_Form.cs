@@ -16,7 +16,7 @@ namespace EF_leer
 {
     public partial class Login_Form : Form
     {
-        oberstufe_db1Entities1 data = new oberstufe_db1Entities1();
+        oberstufe_db1Entities data = new oberstufe_db1Entities();
         NetworkCredential creds = new NetworkCredential();
 
         public Login_Form()
@@ -45,6 +45,9 @@ namespace EF_leer
             string email = EMail_Field.Text;
             string hashed_password = LoginHelper.hashPassword(Password_Field.Text);
             dynamic match = null;
+
+            
+
 
             match = data.mitarbeiter.FirstOrDefault(mitarbeiter => mitarbeiter.Email.Equals(email) && mitarbeiter.Passwort.Equals(hashed_password));
             if (match != null)

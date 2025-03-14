@@ -12,7 +12,7 @@ namespace EF_leer
 {
     public partial class Rechnung_Form : Form
     {
-        oberstufe_db1Entities1 Datenbank = new oberstufe_db1Entities1();
+        oberstufe_db1Entities Datenbank = new oberstufe_db1Entities();
         public Rechnung_Form()
         {
             InitializeComponent();
