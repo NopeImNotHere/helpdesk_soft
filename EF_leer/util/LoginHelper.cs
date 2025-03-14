@@ -1,18 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.CompilerServices;
 using System.Security.Cryptography;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace EF_leer.util
 {
     public static class LoginHelper
     {
-        public static string hashPassword(string password)
+        public static string HashPassword(string password)
         {
-            using(SHA1 hasher =  SHA1.Create())
+            using (SHA1 hasher = SHA1.Create())
             {
                 byte[] inputBytes = Encoding.UTF8.GetBytes(password);
                 byte[] outputBytes = hasher.ComputeHash(inputBytes);
@@ -20,16 +17,16 @@ namespace EF_leer.util
                 StringBuilder hashStringBuilder = new StringBuilder();
                 foreach (byte b in outputBytes)
                 {
-                    hashStringBuilder.Append(b.ToString("x2")); 
+                    hashStringBuilder.Append(b.ToString("x2"));
                 }
 
                 return hashStringBuilder.ToString();
             }
         }
 
-        public static string createSessionHash(int userID, string passwordHash)
+        public static string CreateSessionHash(int userID, string passwordHash)
         {
-            using(SHA256 hasher = SHA256.Create())
+            using (SHA256 hasher = SHA256.Create())
             {
                 byte[] userIdBytes = Encoding.UTF8.GetBytes(userID.ToString());
                 byte[] passwordHashBytes = Encoding.UTF8.GetBytes(passwordHash);

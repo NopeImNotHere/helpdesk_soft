@@ -5,7 +5,6 @@ namespace EF_leer
 {
     public partial class Main_Form : Form
     {
-        public bool isLoggedIn = false;
         public Main_Form(string launchFormName)
         {
             InitializeComponent();
@@ -52,5 +51,14 @@ namespace EF_leer
             windowLauncher("Mitarbeiter");
         }
 
+        private void rechnungToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            windowLauncher("Rechnung");
+        }
+
+        private void ticketToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            windowLauncher("Ticket");
+        }
     }
 }

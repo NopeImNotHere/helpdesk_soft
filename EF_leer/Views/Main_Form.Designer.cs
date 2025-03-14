@@ -32,6 +32,8 @@ namespace EF_leer
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.menüsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.mitarbeiterToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.rechnungToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.ticketToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -48,7 +50,9 @@ namespace EF_leer
             // menüsToolStripMenuItem
             // 
             this.menüsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.mitarbeiterToolStripMenuItem});
+            this.mitarbeiterToolStripMenuItem,
+            this.rechnungToolStripMenuItem,
+            this.ticketToolStripMenuItem});
             this.menüsToolStripMenuItem.Name = "menüsToolStripMenuItem";
             this.menüsToolStripMenuItem.Size = new System.Drawing.Size(58, 20);
             this.menüsToolStripMenuItem.Text = "Menü\'s";
@@ -59,6 +63,20 @@ namespace EF_leer
             this.mitarbeiterToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.mitarbeiterToolStripMenuItem.Text = "Mitarbeiter";
             this.mitarbeiterToolStripMenuItem.Click += new System.EventHandler(this.mitarbeiterToolStripMenuItem_Click);
+            // 
+            // rechnungToolStripMenuItem
+            // 
+            this.rechnungToolStripMenuItem.Name = "rechnungToolStripMenuItem";
+            this.rechnungToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.rechnungToolStripMenuItem.Text = "Rechnung";
+            this.rechnungToolStripMenuItem.Click += new System.EventHandler(this.rechnungToolStripMenuItem_Click);
+            // 
+            // ticketToolStripMenuItem
+            // 
+            this.ticketToolStripMenuItem.Name = "ticketToolStripMenuItem";
+            this.ticketToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.ticketToolStripMenuItem.Text = "Ticket";
+            this.ticketToolStripMenuItem.Click += new System.EventHandler(this.ticketToolStripMenuItem_Click);
             // 
             // Main_Form
             // 
@@ -82,6 +100,8 @@ namespace EF_leer
         private System.Windows.Forms.MenuStrip menuStrip1;
         private System.Windows.Forms.ToolStripMenuItem menüsToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem mitarbeiterToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem rechnungToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem ticketToolStripMenuItem;
     }
 }
 
