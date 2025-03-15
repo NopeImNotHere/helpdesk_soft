@@ -11,6 +11,7 @@ namespace EF_leer
     {
         oberstufe_db1Entities data = new oberstufe_db1Entities();
         NetworkCredential creds = new NetworkCredential();
+        bool isLoggedIn = false;
 
         public Login_Form()
         {
@@ -19,9 +20,17 @@ namespace EF_leer
         }
         protected override void OnFormClosing(FormClosingEventArgs e)
         {
-            DialogResult result = MessageBox.Show("Willst du diese App verlassen", "Exit", MessageBoxButtons.YesNo);
+            DialogResult result;
+            if (CredentialManager.GetCredentials("sessionHash") == null)
+            {
+                result = MessageBox.Show("Willst du diese App verlassen", "Exit", MessageBoxButtons.YesNo);
+            }
+            else
+            {
+                result = DialogResult.No;
+            }
 
-            if (result == DialogResult.No)
+            if (result == DialogResult.No && isLoggedIn)
             {
                 if (CredentialManager.GetCredentials("sessionHash") != null)
                 {
@@ -38,48 +47,73 @@ namespace EF_leer
             string email = EMail_Field.Text;
             string hashed_password = LoginHelper.HashPassword(Password_Field.Text);
             dynamic match = null;
+            string sessionHash = "";
+            mitarbeiter sessionMitarbeiter = null;
+            kunde sessionKunde = null;
 
             match = data.mitarbeiter.FirstOrDefault(mitarbeiter => mitarbeiter.Email.Equals(email) && mitarbeiter.Passwort.Equals(hashed_password));
             if (match != null)
             {
-                mitarbeiter mitarbeiter = (mitarbeiter)match;
-                string sessionHash = LoginHelper.CreateSessionHash(mitarbeiter.PK_Mitarbeiter, hashed_password);
+                sessionMitarbeiter = (mitarbeiter)match;
+                sessionHash = LoginHelper.CreateSessionHash(sessionMitarbeiter.PK_Mitarbeiter, hashed_password);
                 creds.UserName = email;
                 creds.Password = sessionHash;
                 CredentialManager.SaveCredentials("sessionHash", creds);
-
-                session newSession = new session
-                {
-                    sessionhash = sessionHash,
-                    expires_at = DateTime.Now.AddHours(3),
-                    inserted_at = DateTime.Now,
-                    mitarbeiter = mitarbeiter,
-                    kunde = null
-                };
-                data.session.Add(newSession);
-                this.Close();
             }
 
             match = data.kunde.FirstOrDefault(kunde => kunde.Email.Equals(email) && kunde.Passwort.Equals(hashed_password));
             if (match != null)
             {
-                kunde kunde = (kunde)match;
-                string sessionHash = LoginHelper.CreateSessionHash(kunde.PK_Kunde, hashed_password);
+                sessionKunde = (kunde)match;
+                sessionHash = LoginHelper.CreateSessionHash(sessionKunde.PK_Kunde, hashed_password);
                 creds.UserName = email;
                 creds.Password = sessionHash;
                 CredentialManager.SaveCredentials("sessionHash", creds);
-
-                session newSession = new session
-                {
-                    sessionhash = sessionHash,
-                    expires_at = DateTime.Now.AddHours(3),
-                    inserted_at = DateTime.Now,
-                    kunde = kunde,
-                    mitarbeiter = null
-                };
-                data.session.Add(newSession);
-                this.Close();
             }
+
+            if (CredentialManager.GetCredentials("sessionHash") == null)
+            {
+                MessageBox.Show("Entweder die EMail oder das Passwort ist falsch", "Falscher Login", MessageBoxButtons.OK);
+                return;
+            }
+
+            if (data.session.FirstOrDefault(s => s.sessionhash == sessionHash) == null)
+            {
+                CreateNewSession(sessionHash, DateTime.Now.AddHours(3), sessionMitarbeiter, sessionKunde);
+            }
+            else if (data.session
+                .FirstOrDefault(s => s.sessionhash == sessionHash) != null &&
+                    data.session
+                .FirstOrDefault(s => s.sessionhash == sessionHash).expires_at < DateTime.Now)
+            {
+                RemoveOldSession(sessionHash);
+                CreateNewSession(sessionHash, DateTime.Now.AddHours(3), sessionMitarbeiter, sessionKunde);
+            }
+
+            isLoggedIn = true;
+            this.Close();
+        }
+        private void CreateNewSession(string sessionHash, DateTime expireTime, mitarbeiter mitarbeiter, kunde kunde)
+        {
+            session newSession = new session
+            {
+                sessionhash = sessionHash,
+                expires_at = expireTime,
+                inserted_at = DateTime.Now,
+                mitarbeiter = mitarbeiter,
+                kunde = kunde
+            };
+            data.session.Add(newSession);
+            data.SaveChanges();
+        }
+
+        private void RemoveOldSession(string sessionHash)
+        {
+            session session = data.session.Where(s => s.sessionhash == sessionHash).First();
+            data.session.Remove(session);
+            data.SaveChanges();
         }
     }
+
+
 }

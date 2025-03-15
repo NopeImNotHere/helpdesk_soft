@@ -44,7 +44,7 @@ namespace EF_leer
             this.Login_BTN.Location = new System.Drawing.Point(108, 254);
             this.Login_BTN.Name = "Login_BTN";
             this.Login_BTN.Size = new System.Drawing.Size(145, 23);
-            this.Login_BTN.TabIndex = 0;
+            this.Login_BTN.TabIndex = 2;
             this.Login_BTN.Text = "Anmelden";
             this.Login_BTN.UseVisualStyleBackColor = true;
             this.Login_BTN.Click += new System.EventHandler(this.Login_Click);
@@ -62,7 +62,7 @@ namespace EF_leer
             this.EMail_Field.Location = new System.Drawing.Point(108, 150);
             this.EMail_Field.Name = "EMail_Field";
             this.EMail_Field.Size = new System.Drawing.Size(145, 20);
-            this.EMail_Field.TabIndex = 2;
+            this.EMail_Field.TabIndex = 0;
             // 
             // label1
             // 

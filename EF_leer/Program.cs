@@ -1,7 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using AdysTech.CredentialManager;
+using System;
 using System.Windows.Forms;
 
 namespace EF_leer
@@ -24,6 +22,11 @@ namespace EF_leer
             {
                 Application.Run(new Main_Form(""));
             }
+        }
+
+        private static void OnApplicationExit(object sender, EventArgs e)
+        {
+            CredentialManager.RemoveCredentials("sessionHash");
         }
     }
 }

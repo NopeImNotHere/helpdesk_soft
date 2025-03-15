@@ -31,16 +31,17 @@ namespace EF_leer
         {
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.menüsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.mitarbeiterToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.rechnungToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ticketToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.profileStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // menuStrip1
             // 
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.menüsToolStripMenuItem});
+            this.menüsToolStripMenuItem,
+            this.profileStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Size = new System.Drawing.Size(800, 24);
@@ -50,19 +51,11 @@ namespace EF_leer
             // menüsToolStripMenuItem
             // 
             this.menüsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.mitarbeiterToolStripMenuItem,
             this.rechnungToolStripMenuItem,
             this.ticketToolStripMenuItem});
             this.menüsToolStripMenuItem.Name = "menüsToolStripMenuItem";
             this.menüsToolStripMenuItem.Size = new System.Drawing.Size(58, 20);
             this.menüsToolStripMenuItem.Text = "Menü\'s";
-            // 
-            // mitarbeiterToolStripMenuItem
-            // 
-            this.mitarbeiterToolStripMenuItem.Name = "mitarbeiterToolStripMenuItem";
-            this.mitarbeiterToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.mitarbeiterToolStripMenuItem.Text = "Mitarbeiter";
-            this.mitarbeiterToolStripMenuItem.Click += new System.EventHandler(this.mitarbeiterToolStripMenuItem_Click);
             // 
             // rechnungToolStripMenuItem
             // 
@@ -77,6 +70,14 @@ namespace EF_leer
             this.ticketToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.ticketToolStripMenuItem.Text = "Ticket";
             this.ticketToolStripMenuItem.Click += new System.EventHandler(this.ticketToolStripMenuItem_Click);
+            // 
+            // profileStripMenuItem
+            // 
+            this.profileStripMenuItem.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
+            this.profileStripMenuItem.Name = "profileStripMenuItem";
+            this.profileStripMenuItem.Size = new System.Drawing.Size(47, 20);
+            this.profileStripMenuItem.Text = "Profil";
+            this.profileStripMenuItem.Click += new System.EventHandler(this.profileStripMenuItem_Click);
             // 
             // Main_Form
             // 
@@ -99,9 +100,9 @@ namespace EF_leer
 
         private System.Windows.Forms.MenuStrip menuStrip1;
         private System.Windows.Forms.ToolStripMenuItem menüsToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem mitarbeiterToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem rechnungToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem ticketToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem profileStripMenuItem;
     }
 }
 

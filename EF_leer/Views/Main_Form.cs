@@ -1,14 +1,30 @@
-﻿using System;
+﻿using AdysTech.CredentialManager;
+using System;
+using System.Linq;
+using System.Net;
 using System.Windows.Forms;
 
 namespace EF_leer
 {
     public partial class Main_Form : Form
     {
+        oberstufe_db1Entities data = new oberstufe_db1Entities();
         public Main_Form(string launchFormName)
         {
             InitializeComponent();
             windowLauncher(launchFormName);
+
+            NetworkCredential creds = CredentialManager.GetCredentials("sessionHash");
+            string sessionHash = creds.Password;
+            session session = data.session.Where(s => s.sessionhash == sessionHash).First();
+            if (session.kunde != null)
+            {
+                profileStripMenuItem.Text = $"Logged als {session.kunde.Firmenname}";
+            }
+            else
+            {
+                profileStripMenuItem.Text = $"Logged als {session.mitarbeiter.Vorname} {session.mitarbeiter.Nachname}";
+            }
         }
 
         public void windowLauncher(string formName)
@@ -46,11 +62,6 @@ namespace EF_leer
 
         }
 
-        private void mitarbeiterToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            windowLauncher("Mitarbeiter");
-        }
-
         private void rechnungToolStripMenuItem_Click(object sender, EventArgs e)
         {
             windowLauncher("Rechnung");
@@ -59,6 +70,11 @@ namespace EF_leer
         private void ticketToolStripMenuItem_Click(object sender, EventArgs e)
         {
             windowLauncher("Ticket");
+        }
+
+        private void profileStripMenuItem_Click(object sender, EventArgs e)
+        {
+            windowLauncher("Mitarbeiter");
         }
     }
 }
