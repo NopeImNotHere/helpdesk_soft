@@ -8,9 +8,12 @@ namespace EF_leer
     public partial class Ticket_Form : Form
     {
         oberstufe_db1Entities daten = new oberstufe_db1Entities();
+        List<dienstleistung> ausgewählteDienstleistungen = new List<dienstleistung>();
         public Ticket_Form()
         {
             InitializeComponent();
+
+            ticketBindingSource.DataSource = daten.ticket.ToList();
 
 
             List<kunde> Kunde = daten.kunde.ToList();
@@ -32,6 +35,15 @@ namespace EF_leer
             comboBoxStatus.DataSource = Status;
             comboBoxStatus.DisplayMember = "Statusname";
             comboBoxStatus.ValueMember = "PK_Status";
+
+            List<dienstleistung> Dienstleistungen = daten.dienstleistung.ToList();
+            comboBoxDienst.DataSource = Dienstleistungen;
+            comboBoxDienst.DisplayMember = "Beschreibung";
+            comboBoxDienst.ValueMember = "PK_Dienstleistung";
+
+
+            listBox1.DisplayMember = "Beschreibung";
+
         }
 
         private void Ticket_Form_Load(object sender, EventArgs e)
@@ -41,20 +53,59 @@ namespace EF_leer
 
         private void button1_Click(object sender, EventArgs e)
         {
-            ticket Neu = new ticket
+            
+                ticket Neu = new ticket
+                {
+                    kunde = comboBoxKunde.SelectedItem as kunde,
+                    Ticket_Titel = textBoxTitel.Text,
+                    art = comboBoxArt.SelectedItem as art,
+                    priorität = comboBoxPrio.SelectedItem as priorität,
+                    status = comboBoxStatus.SelectedItem as status,
+                    Beschreibung = richTextBoxBesch.Text,
+                    InterneNotiz = richTextBoxIntNotiz.Text,
+                    InternerStatus = richTextBoxIntStatus.Text,
+                    Erstelldatum = DateTime.Now
+                };
+                daten.ticket.Add(Neu);
+
+                daten.SaveChanges();
+
+                ticket NeustTicket = daten.ticket.OrderByDescending(t => t.Erstelldatum).FirstOrDefault();
+                if (ausgewählteDienstleistungen != null && NeustTicket != null)
+                {
+                    foreach (var Dienst in ausgewählteDienstleistungen)
+                    {
+                        abgeleitet abgel = new abgeleitet
+                        {
+                            FK_Dienstleistung = Dienst.PK_Dienstleistung,
+                            FK_Ticket = NeustTicket.PK_Ticket
+
+                        };
+                        daten.abgeleitet.Add(abgel);
+                        
+                    }
+                    daten.SaveChanges();
+                }
+
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            if (comboBoxDienst.SelectedIndex != null)
             {
-                kunde = comboBoxKunde.SelectedItem as kunde,
-                Ticket_Titel = textBoxTitel.Text,
-                art = comboBoxArt.SelectedItem as art,
-                priorität = comboBoxPrio.SelectedItem as priorität,
-                status = comboBoxStatus.SelectedItem as status,
-                Beschreibung = richTextBoxBesch.Text,
-                InterneNotiz = richTextBoxIntNotiz.Text,
-                InternerStatus = richTextBoxIntStatus.Text,
-                Erstelldatum = new DateTime()
-            };
-            daten.ticket.Add(Neu);
-            daten.SaveChanges();
+                ausgewählteDienstleistungen.Add(comboBoxDienst.SelectedItem as dienstleistung);
+                string ausgDienstleistung = comboBoxDienst.Text;
+                listBox1.Items.Add(ausgDienstleistung);
+            }
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            ticket aktTicket = ticketBindingSource.Current as ticket;
+            int aktTicketID = aktTicket.PK_Ticket;
+
+            Rechnung_Form FormRechnung = new Rechnung_Form();
+            FormRechnung.Show();
         }
     }
 }

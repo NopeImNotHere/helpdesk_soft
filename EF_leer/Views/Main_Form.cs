@@ -14,7 +14,7 @@ namespace EF_leer
             InitializeComponent();
             windowLauncher(launchFormName);
 
-            NetworkCredential creds = CredentialManager.GetCredentials("sessionHash");
+            /*NetworkCredential creds = CredentialManager.GetCredentials("sessionHash");
             string sessionHash = creds.Password;
             session session = data.session.Where(s => s.sessionhash == sessionHash).First();
             if (session.kunde != null)
@@ -24,7 +24,7 @@ namespace EF_leer
             else
             {
                 profileStripMenuItem.Text = $"Logged als {session.mitarbeiter.Vorname} {session.mitarbeiter.Nachname}";
-            }
+            }*/
         }
 
         public void windowLauncher(string formName)

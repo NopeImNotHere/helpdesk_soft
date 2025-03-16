@@ -270,10 +270,12 @@
       <DependentUpon>Model1.edmx</DependentUpon>
     </None>
     <None Include="packages.config" />
+    <None Include="Properties\DataSources\abgeleitet.datasource" />
     <None Include="Properties\DataSources\arbeitet.datasource" />
     <None Include="Properties\DataSources\art.datasource" />
     <None Include="Properties\DataSources\bezahlungsart.datasource" />
     <None Include="Properties\DataSources\dienstleistung.datasource" />
+    <None Include="Properties\DataSources\GetDienstleistungenByTicket_Result.datasource" />
     <None Include="Properties\DataSources\kunde.datasource" />
     <None Include="Properties\DataSources\mitarbeiter.datasource" />
     <None Include="Properties\DataSources\ort.datasource" />
