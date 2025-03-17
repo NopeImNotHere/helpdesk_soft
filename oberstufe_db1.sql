@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Erstellungszeit: 14. Mrz 2025 um 17:23
+-- Erstellungszeit: 17. Mrz 2025 um 12:21
 -- Server-Version: 10.4.32-MariaDB
 -- PHP-Version: 8.2.12
 
@@ -476,6 +476,14 @@ CREATE TABLE `session` (
   `FK_Kunde` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+--
+-- Daten für Tabelle `session`
+--
+
+INSERT INTO `session` (`id`, `sessionhash`, `expires_at`, `inserted_at`, `FK_Mitarbeiter`, `FK_Kunde`) VALUES
+(24, 'fc2ee83b100138995d600c1d3ee9c9462d20b9ac70f3a49be7a766cd480d8b1c', '2025-03-15 14:56:21', '2025-03-15 11:56:21', 1, NULL),
+(25, '49e5078be8e3743c856121c83ae5df1f824387ef16aeb67a1cf324624a8470bf', '2025-03-15 15:30:26', '2025-03-15 12:30:26', 1, NULL);
+
 -- --------------------------------------------------------
 
 --
@@ -533,7 +541,8 @@ INSERT INTO `ticket` (`PK_Ticket`, `Ticket_Titel`, `Beschreibung`, `InterneNotiz
 (3, 'Netzwerkinstallation', 'Neues Netzwerk muss installiert werden', 'Kabel fehlen', 'Geschlossen', '2024-09-02 20:00:00', '2024-09-02 20:00:00', 3, 3, 3, 3, 1),
 (4, 'TimonDefekt', 'Hardwareproblem an PC', 'Ersatzteil bestellt', 'Wartend', '2024-09-04 00:00:00', '2024-09-04 00:00:00', 1, 2, 3, 10, 5),
 (46, 'TEsttest', 'tesdt', 'test', 'test', '2322-12-31 22:22:00', '2322-12-31 22:22:00', 1, 1, 1, 8, 1),
-(48, 'test', 'ttest', 'test', 'test', '1212-12-12 12:12:00', '1212-12-12 12:12:00', 1, 1, 1, 2, 1);
+(48, 'test', 'ttest', 'test', 'test', '1212-12-12 12:12:00', '1212-12-12 12:12:00', 1, 1, 1, 2, 1),
+(49, 'AS', 'ASDFAD', 'sdfsdfs', 'fssdsdfsdfd', '2025-03-17 12:18:52', NULL, 1, 1, 1, NULL, 1);
 
 --
 -- Indizes der exportierten Tabellen
@@ -713,7 +722,7 @@ ALTER TABLE `rechtegruppe`
 -- AUTO_INCREMENT für Tabelle `session`
 --
 ALTER TABLE `session`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
 
 --
 -- AUTO_INCREMENT für Tabelle `status`
@@ -725,7 +734,7 @@ ALTER TABLE `status`
 -- AUTO_INCREMENT für Tabelle `ticket`
 --
 ALTER TABLE `ticket`
-  MODIFY `PK_Ticket` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=49;
+  MODIFY `PK_Ticket` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=50;
 
 --
 -- Constraints der exportierten Tabellen

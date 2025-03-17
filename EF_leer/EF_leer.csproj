@@ -270,7 +270,6 @@
       <DependentUpon>Model1.edmx</DependentUpon>
     </None>
     <None Include="packages.config" />
-    <None Include="Properties\DataSources\abgeleitet.datasource" />
     <None Include="Properties\DataSources\arbeitet.datasource" />
     <None Include="Properties\DataSources\art.datasource" />
     <None Include="Properties\DataSources\bezahlungsart.datasource" />
