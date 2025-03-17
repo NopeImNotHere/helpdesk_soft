@@ -14,17 +14,21 @@ namespace EF_leer
             InitializeComponent();
             windowLauncher(launchFormName);
 
-            /*NetworkCredential creds = CredentialManager.GetCredentials("sessionHash");
-            string sessionHash = creds.Password;
-            session session = data.session.Where(s => s.sessionhash == sessionHash).First();
-            if (session.kunde != null)
-            {
-                profileStripMenuItem.Text = $"Logged als {session.kunde.Firmenname}";
+            
+            if (CredentialManager.GetCredentials("sessionHash") != null) { 
+                NetworkCredential creds = CredentialManager.GetCredentials("sessionHash");
+                string sessionHash = creds.Password;
+                session session = data.session.Where(s => s.sessionhash == sessionHash).First();
+                
+                if (session.kunde != null)
+                {
+                    profileStripMenuItem.Text = $"Logged als {session.kunde.Firmenname}";
+                }
+                else
+                {
+                    profileStripMenuItem.Text = $"Logged als {session.mitarbeiter.Vorname} {session.mitarbeiter.Nachname}";
+                }
             }
-            else
-            {
-                profileStripMenuItem.Text = $"Logged als {session.mitarbeiter.Vorname} {session.mitarbeiter.Nachname}";
-            }*/
         }
 
         public void windowLauncher(string formName)
