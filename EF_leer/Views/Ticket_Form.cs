@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
+using AdysTech.CredentialManager;
+using System.Net;
 
 namespace EF_leer
 {
@@ -15,7 +17,7 @@ namespace EF_leer
 
             ticketBindingSource.DataSource = daten.ticket.ToList();
 
-
+         
             List<kunde> Kunde = daten.kunde.ToList();
             comboBoxKunde.DataSource = Kunde;
             comboBoxKunde.DisplayMember = "Firmenname";
@@ -53,9 +55,13 @@ namespace EF_leer
 
         private void button1_Click(object sender, EventArgs e)
         {
-            
-                ticket Neu = new ticket
+            /*NetworkCredential creds = CredentialManager.GetCredentials("sessionHash");
+            string sessionHash = creds.Password;
+            session session = daten.session.Where(s => s.sessionhash == sessionHash).First();*/
+
+            ticket Neu = new ticket
                 {
+                    
                     kunde = comboBoxKunde.SelectedItem as kunde,
                     Ticket_Titel = textBoxTitel.Text,
                     art = comboBoxArt.SelectedItem as art,
@@ -64,28 +70,38 @@ namespace EF_leer
                     Beschreibung = richTextBoxBesch.Text,
                     InterneNotiz = richTextBoxIntNotiz.Text,
                     InternerStatus = richTextBoxIntStatus.Text,
-                    Erstelldatum = DateTime.Now
-                };
+                    Erstelldatum = DateTime.Now,
+                    //mitarbeiter = session.mitarbeiter as mitarbeiter
+            };
                 daten.ticket.Add(Neu);
 
                 daten.SaveChanges();
 
                 ticket NeustTicket = daten.ticket.OrderByDescending(t => t.Erstelldatum).FirstOrDefault();
-                if (ausgewählteDienstleistungen != null && NeustTicket != null)
-                {
-                    foreach (var Dienst in ausgewählteDienstleistungen)
-                    {
-                        abgeleitet abgel = new abgeleitet
-                        {
-                            FK_Dienstleistung = Dienst.PK_Dienstleistung,
-                            FK_Ticket = NeustTicket.PK_Ticket
+            if (ausgewählteDienstleistungen != null && NeustTicket != null)
+            {
+                Dictionary<int, int> dienstleistungsZähler = new Dictionary<int, int>();
 
-                        };
-                        daten.abgeleitet.Add(abgel);
-                        
+                foreach (var Dienst in ausgewählteDienstleistungen)
+                {
+                    if (!dienstleistungsZähler.ContainsKey(Dienst.PK_Dienstleistung))
+                    {
+                        dienstleistungsZähler[Dienst.PK_Dienstleistung] = 0;
                     }
+
+                    dienstleistungsZähler[Dienst.PK_Dienstleistung]++;
+
+                    abgeleitet abgel = new abgeleitet
+                    {
+                        FK_Dienstleistung = Dienst.PK_Dienstleistung,
+                        FK_Ticket = NeustTicket.PK_Ticket,
+                        Anzahl = 1
+                    };
+
+                    daten.abgeleitet.Add(abgel);
                     daten.SaveChanges();
                 }
+            }
 
         }
 
