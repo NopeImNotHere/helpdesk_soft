@@ -43,8 +43,8 @@ namespace EF_leer.Views
             System.Windows.Forms.Label ticket_TitelLabel;
             System.Windows.Forms.Label pK_TicketLabel;
             System.Windows.Forms.Label beschreibungLabel2;
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Rechnung_Form));
             System.Windows.Forms.Label beschreibungLabel3;
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Rechnung_Form));
             this.rechnungBindingNavigator = new System.Windows.Forms.BindingNavigator(this.components);
             this.bindingNavigatorAddNewItem = new System.Windows.Forms.ToolStripButton();
             this.rechnungBindingSource = new System.Windows.Forms.BindingSource(this.components);
@@ -221,6 +221,15 @@ namespace EF_leer.Views
             beschreibungLabel2.TabIndex = 56;
             beschreibungLabel2.Text = "Beschreibung:";
             // 
+            // beschreibungLabel3
+            // 
+            beschreibungLabel3.AutoSize = true;
+            beschreibungLabel3.Location = new System.Drawing.Point(45, 208);
+            beschreibungLabel3.Name = "beschreibungLabel3";
+            beschreibungLabel3.Size = new System.Drawing.Size(75, 13);
+            beschreibungLabel3.TabIndex = 57;
+            beschreibungLabel3.Text = "Beschreibung:";
+            // 
             // rechnungBindingNavigator
             // 
             this.rechnungBindingNavigator.AddNewItem = this.bindingNavigatorAddNewItem;
@@ -263,12 +272,13 @@ namespace EF_leer.Views
             // rechnungBindingSource
             // 
             this.rechnungBindingSource.DataSource = typeof(EF_leer.rechnung);
+            this.rechnungBindingSource.CurrentChanged += new System.EventHandler(this.rechnungBindingSource_CurrentChanged);
             // 
             // bindingNavigatorCountItem
             // 
             this.bindingNavigatorCountItem.Name = "bindingNavigatorCountItem";
-            this.bindingNavigatorCountItem.Size = new System.Drawing.Size(44, 22);
-            this.bindingNavigatorCountItem.Text = "von {0}";
+            this.bindingNavigatorCountItem.Size = new System.Drawing.Size(35, 22);
+            this.bindingNavigatorCountItem.Text = "of {0}";
             this.bindingNavigatorCountItem.ToolTipText = "Die Gesamtanzahl der Elemente.";
             // 
             // bindingNavigatorDeleteItem
@@ -506,15 +516,6 @@ namespace EF_leer.Views
             // ticketBindingSource
             // 
             this.ticketBindingSource.DataSource = typeof(EF_leer.ticket);
-            // 
-            // beschreibungLabel3
-            // 
-            beschreibungLabel3.AutoSize = true;
-            beschreibungLabel3.Location = new System.Drawing.Point(45, 208);
-            beschreibungLabel3.Name = "beschreibungLabel3";
-            beschreibungLabel3.Size = new System.Drawing.Size(75, 13);
-            beschreibungLabel3.TabIndex = 57;
-            beschreibungLabel3.Text = "Beschreibung:";
             // 
             // beschreibungTextBox3
             // 

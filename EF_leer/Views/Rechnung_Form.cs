@@ -31,7 +31,7 @@ namespace EF_leer.Views
 
             foreach (var Data in Datenbank.rechnung)
             {
-                if (Data.ticket.PK_Ticket/*?????????*/ == TicketId)
+                if (Data.ticket.PK_Ticket == TicketId)
                 {
                     rechnungBindingSource.DataSource = Data;
                 }
@@ -63,23 +63,26 @@ namespace EF_leer.Views
         private void rechnungBindingSource_CurrentChanged(object sender, EventArgs e)
         {
             rechnung CurrentRechnung = rechnungBindingSource.Current as rechnung;
-            int CurrentTicketId = Convert.ToInt32(CurrentRechnung.ticket.PK_Ticket/*???????*/);
-            List<int> DienstleistungId = new List<int>();
+            int CurrentTicketId = CurrentRechnung.ticket.PK_Ticket;
+            List<KeyValuePair<int,int>> DienstleistungIdUndAnzahl = new List<KeyValuePair<int,int>>();
             List<dienstleistung> Dienstleistungen = new List<dienstleistung>();
-            foreach (var Data in Datenbank.abgeleitet)
+            foreach (abgeleitet abgeleitet in Datenbank.abgeleitet)
             {
-                if (Data.FK_Ticket == CurrentTicketId)
+                if (abgeleitet.FK_Ticket == CurrentTicketId)
                 {
-                    DienstleistungId.Add(Data.FK_Dienstleistung);
+                    DienstleistungIdUndAnzahl.Add(new KeyValuePair<int,int>(abgeleitet.FK_Dienstleistung, (int)abgeleitet.Anzahl));
                 }
             }
-            foreach (var Data in Datenbank.dienstleistung)
+            foreach (dienstleistung Data in Datenbank.dienstleistung)
             {
-                foreach (var Bata in DienstleistungId)
+                foreach(KeyValuePair<int,int> IdUndAnzahl in DienstleistungIdUndAnzahl)
                 {
-                    if (Data.PK_Dienstleistung == Bata)
+                    if(Data.PK_Dienstleistung == IdUndAnzahl.Key)
                     {
-                        Dienstleistungen.Add(Data);
+                        for(int i = 1; i <= IdUndAnzahl.Value; i++)
+                        {
+                            Dienstleistungen.Add(Data);
+                        }
                     }
                 }
             }
