@@ -95,24 +95,13 @@ namespace EF_leer
                     {
                         FK_Dienstleistung = Dienst.PK_Dienstleistung,
                         FK_Ticket = NeustTicket.PK_Ticket,
-                        Anzahl = dienstleistungsZähler[Dienst.PK_Dienstleistung]
+                        Anzahl = 1
                     };
 
                     daten.abgeleitet.Add(abgel);
-                    try
-                    {
-                        daten.SaveChanges();
-                    }
-                    catch 
-                    {
-
-                    }
+                    daten.SaveChanges();
                 }
             }
-            this.Hide();  // Aktuelles Formular ausblenden
-            Ticket_Form newForm = new Ticket_Form();
-            newForm.Show(); // Neues Formular starten
-            this.Close(); // Altes Formular schließen
 
         }
 
@@ -133,25 +122,6 @@ namespace EF_leer
 
             Rechnung_Form FormRechnung = new Rechnung_Form();
             FormRechnung.Show();
-        }
-
-        private void ticketBindingSource_CurrentChanged(object sender, EventArgs e)
-        {
-            ticket aktTIcket = ticketBindingSource.Current as ticket;
-            int ticketID = aktTIcket.PK_Ticket;
-            using (var context = new oberstufe_db1Entities())
-            {
-                var dienstleistungen = context.dienstleistung
-                    .Join(context.abgeleitet,
-                        d => d.PK_Dienstleistung,
-                        a => a.FK_Dienstleistung,
-                        (d, a) => new { dienstleistung = d, abgeleitet = a })
-                    .Where(x => x.abgeleitet.FK_Ticket == ticketID)
-                    .Select(x => x.dienstleistung)
-                    .ToList();
-
-                dienstleistungBindingSource.DataSource = dienstleistungen;
-            }
         }
     }
 }
