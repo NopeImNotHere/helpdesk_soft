@@ -99,20 +99,21 @@ namespace EF_leer.Views
                     };
 
                     daten.abgeleitet.Add(abgel);
+                    
                     try
                     {
                         daten.SaveChanges();
                     }
-                    catch 
+                    catch
                     {
 
                     }
+                    this.Hide();
+                    Ticket_Form newFormT = new Ticket_Form();
+                    newFormT.Show();
+                    this.Close();
                 }
             }
-            this.Hide();  // Aktuelles Formular ausblenden
-            Ticket_Form newForm = new Ticket_Form();
-            newForm.Show(); // Neues Formular starten
-            this.Close(); // Altes Formular schließen
 
         }
 
@@ -131,27 +132,8 @@ namespace EF_leer.Views
             ticket aktTicket = ticketBindingSource.Current as ticket;
             int aktTicketID = aktTicket.PK_Ticket;
 
-            Rechnung_Form FormRechnung = new Rechnung_Form();
+            Rechnung_Form FormRechnung = new Rechnung_Form(aktTicketID);
             FormRechnung.Show();
-        }
-
-        private void ticketBindingSource_CurrentChanged(object sender, EventArgs e)
-        {
-            ticket aktTIcket = ticketBindingSource.Current as ticket;
-            int ticketID = aktTIcket.PK_Ticket;
-            using (var context = new oberstufe_db1Entities())
-            {
-                var dienstleistungen = context.dienstleistung
-                    .Join(context.abgeleitet,
-                        d => d.PK_Dienstleistung,
-                        a => a.FK_Dienstleistung,
-                        (d, a) => new { dienstleistung = d, abgeleitet = a })
-                    .Where(x => x.abgeleitet.FK_Ticket == ticketID)
-                    .Select(x => x.dienstleistung)
-                    .ToList();
-
-                dienstleistungBindingSource.DataSource = dienstleistungen;
-            }
         }
     }
 }
