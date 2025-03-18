@@ -49,6 +49,12 @@ namespace EF_leer.Views
         {
             string email = EMail_Field.Text;
             string hashed_password = LoginHelper.HashPassword(Password_Field.Text);
+            if (email == string.Empty || Password_Field.Text == string.Empty)
+            {
+                MessageBox.Show("Entweder die EMail oder das Passwort ist falsch", "Falscher Login", MessageBoxButtons.OK);
+                return;
+            }
+
             dynamic match = null;
             string sessionHash = "";
             mitarbeiter sessionMitarbeiter = null;

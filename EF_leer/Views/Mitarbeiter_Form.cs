@@ -1,12 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
+﻿using System.Windows.Forms;
 
 namespace EF_leer.Views
 {
@@ -15,6 +7,11 @@ namespace EF_leer.Views
         public Mitarbeiter_Form()
         {
             InitializeComponent();
+        }
+
+        public Mitarbeiter_Form(mitarbeiter mitarbeiter) : base()
+        {
+
         }
     }
 }

@@ -14,12 +14,13 @@ namespace EF_leer.Views
             InitializeComponent();
             windowLauncher(launchFormName);
 
-            
-            if (CredentialManager.GetCredentials("sessionHash") != null) { 
+
+            if (CredentialManager.GetCredentials("sessionHash") != null && !System.Diagnostics.Debugger.IsAttached)
+            {
                 NetworkCredential creds = CredentialManager.GetCredentials("sessionHash");
                 string sessionHash = creds.Password;
                 session session = data.session.Where(s => s.sessionhash == sessionHash).First();
-                
+
                 if (session.kunde != null)
                 {
                     profileStripMenuItem.Text = $"Logged als {session.kunde.Firmenname}";
@@ -28,6 +29,12 @@ namespace EF_leer.Views
                 {
                     profileStripMenuItem.Text = $"Logged als {session.mitarbeiter.Vorname} {session.mitarbeiter.Nachname}";
                 }
+            }
+            else if (CredentialManager.GetCredentials("sessionHash") == null && !System.Diagnostics.Debugger.IsAttached)
+            {
+                MessageBox.Show("Illegaler Zugriff schließe Programm");
+                this.Close();
+                return;
             }
         }
 
@@ -62,6 +69,7 @@ namespace EF_leer.Views
             childForm.MdiParent = this;
             childForm.FormBorderStyle = FormBorderStyle.None;
             childForm.Dock = DockStyle.Fill;
+            this.ClientSize = childForm.Size;
             childForm.Show();
 
         }
