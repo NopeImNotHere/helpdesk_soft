@@ -13,9 +13,15 @@ namespace EF_leer.Views
         {
             InitializeComponent();
             windowLauncher(launchFormName);
+            this.FormClosing += Main_Form_FormClosing;
 
-
-            if (CredentialManager.GetCredentials("sessionHash") != null && !System.Diagnostics.Debugger.IsAttached)
+            if (CredentialManager.GetCredentials("sessionHash") == null && !System.Diagnostics.Debugger.IsAttached)
+            {
+                MessageBox.Show("Illegaler Zugriff schließe Programm");
+                this.Close();
+                return;
+            }
+            else if (CredentialManager.GetCredentials("sessionHash") != null)
             {
                 NetworkCredential creds = CredentialManager.GetCredentials("sessionHash");
                 string sessionHash = creds.Password;
@@ -30,12 +36,11 @@ namespace EF_leer.Views
                     profileStripMenuItem.Text = $"Logged als {session.mitarbeiter.Vorname} {session.mitarbeiter.Nachname}";
                 }
             }
-            else if (CredentialManager.GetCredentials("sessionHash") == null && !System.Diagnostics.Debugger.IsAttached)
-            {
-                MessageBox.Show("Illegaler Zugriff schließe Programm");
-                this.Close();
-                return;
-            }
+        }
+
+        private void Main_Form_FormClosing(object sender, FormClosingEventArgs e)
+        {
+
         }
 
         public void windowLauncher(string formName)
@@ -60,6 +65,10 @@ namespace EF_leer.Views
                     form = new Mitarbeiter_Form();
                     ShowChildForm(form);
                     break;
+                case "Kunde":
+                    form = new Kunde_Form();
+                    ShowChildForm(form);
+                    break;
                 default:
                     break;
             }
@@ -71,6 +80,28 @@ namespace EF_leer.Views
             childForm.Dock = DockStyle.Fill;
             this.ClientSize = childForm.Size;
             childForm.Show();
+            if (childForm is Mitarbeiter_Form form)
+            {
+                form.FormClosed += (s, e) =>
+                {
+                    if (form.isLoggedOut)
+                    {
+                        this.Hide();
+                        windowLauncher("Login");
+                    }
+                };
+            }
+            else if (childForm is Kunde_Form form2)
+            {
+                form2.FormClosed += (s, e) =>
+                {
+                    if (form2.isLoggedOut)
+                    {
+                        this.Hide();
+                        windowLauncher("Login");
+                    }
+                };
+            }
 
         }
 
@@ -86,7 +117,22 @@ namespace EF_leer.Views
 
         private void profileStripMenuItem_Click(object sender, EventArgs e)
         {
-            windowLauncher("Mitarbeiter");
+            NetworkCredential creds = CredentialManager.GetCredentials("sessionHash");
+            if (creds == null)
+            {
+                windowLauncher("Mitarbeiter");
+            }
+
+            string sessionHash = creds.Password;
+            session session = data.session.Where(s => s.sessionhash == sessionHash).First();
+            if (session.mitarbeiter != null)
+            {
+                windowLauncher("Mitarbeiter");
+            }
+            else if (session.kunde != null)
+            {
+                windowLauncher("Kunde");
+            }
         }
     }
 }

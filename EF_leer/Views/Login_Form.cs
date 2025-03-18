@@ -11,7 +11,6 @@ namespace EF_leer.Views
     {
         oberstufe_db1Entities data = new oberstufe_db1Entities();
         NetworkCredential creds = new NetworkCredential();
-        bool isLoggedIn = false;
 
         public Login_Form()
         {
@@ -21,8 +20,6 @@ namespace EF_leer.Views
         }
         protected override void OnFormClosing(FormClosingEventArgs e)
         {
-
-
             DialogResult result;
             if (CredentialManager.GetCredentials("sessionHash") == null)
             {
@@ -33,7 +30,7 @@ namespace EF_leer.Views
                 result = DialogResult.No;
             }
 
-            if (result == DialogResult.No && isLoggedIn)
+            if (result == DialogResult.No)
             {
                 if (CredentialManager.GetCredentials("sessionHash") != null)
                 {
@@ -99,7 +96,10 @@ namespace EF_leer.Views
                 CreateNewSession(sessionHash, DateTime.Now.AddHours(3), sessionMitarbeiter, sessionKunde);
             }
 
-            isLoggedIn = true;
+            if (this.Owner is Main_Form main)
+            {
+                main.Show();
+            }
             this.Close();
         }
         private void CreateNewSession(string sessionHash, DateTime expireTime, mitarbeiter mitarbeiter, kunde kunde)

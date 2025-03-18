@@ -1,7 +1,7 @@
 ﻿using AdysTech.CredentialManager;
+using EF_leer.Views;
 using System;
 using System.Windows.Forms;
-using EF_leer.Views;
 
 namespace EF_leer
 {
@@ -15,6 +15,7 @@ namespace EF_leer
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
+            Application.ApplicationExit += new EventHandler(OnApplicationExit);
             if (args.Length != 0)
             {
                 Application.Run(new Main_Form(args[0]));
@@ -27,7 +28,10 @@ namespace EF_leer
 
         private static void OnApplicationExit(object sender, EventArgs e)
         {
-            CredentialManager.RemoveCredentials("sessionHash");
+            if (CredentialManager.GetCredentials("sessionHash") != null)
+            {
+                CredentialManager.RemoveCredentials("sessionHash");
+            }
         }
     }
 }

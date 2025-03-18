@@ -221,6 +221,12 @@
     <Compile Include="Views\Login_Form.Designer.cs">
       <DependentUpon>Login_Form.cs</DependentUpon>
     </Compile>
+    <Compile Include="Views\Kunde.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\Kunde.Designer.cs">
+      <DependentUpon>Kunde.cs</DependentUpon>
+    </Compile>
     <Compile Include="Views\Mitarbeiter_Form.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -255,6 +261,9 @@
     </Compile>
     <EmbeddedResource Include="Views\Main_Form.resx">
       <DependentUpon>Main_Form.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\Kunde.resx">
+      <DependentUpon>Kunde.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Views\Mitarbeiter_Form.resx">
       <DependentUpon>Mitarbeiter_Form.cs</DependentUpon>
