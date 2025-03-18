@@ -44,6 +44,7 @@ namespace EF_leer
             System.Windows.Forms.Label pK_TicketLabel;
             System.Windows.Forms.Label beschreibungLabel2;
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Rechnung_Form));
+            System.Windows.Forms.Label beschreibungLabel3;
             this.rechnungBindingNavigator = new System.Windows.Forms.BindingNavigator(this.components);
             this.bindingNavigatorAddNewItem = new System.Windows.Forms.ToolStripButton();
             this.rechnungBindingSource = new System.Windows.Forms.BindingSource(this.components);
@@ -72,6 +73,14 @@ namespace EF_leer
             this.abgeleitetBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.ticketbeschreibungTextBox = new System.Windows.Forms.RichTextBox();
             this.beschreibungTextBox2 = new System.Windows.Forms.TextBox();
+            this.dienstleistungBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.dienstleistungDataGridView = new System.Windows.Forms.DataGridView();
+            this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ticketBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.beschreibungTextBox3 = new System.Windows.Forms.TextBox();
             ratenzahlungLabel = new System.Windows.Forms.Label();
             rechnungsnrLabel = new System.Windows.Forms.Label();
             ticketbeschreibungLabel = new System.Windows.Forms.Label();
@@ -85,10 +94,14 @@ namespace EF_leer
             ticket_TitelLabel = new System.Windows.Forms.Label();
             pK_TicketLabel = new System.Windows.Forms.Label();
             beschreibungLabel2 = new System.Windows.Forms.Label();
+            beschreibungLabel3 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.rechnungBindingNavigator)).BeginInit();
             this.rechnungBindingNavigator.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.rechnungBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.abgeleitetBindingSource)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dienstleistungBindingSource)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dienstleistungDataGridView)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.ticketBindingSource)).BeginInit();
             this.SuspendLayout();
             // 
             // ratenzahlungLabel
@@ -234,7 +247,7 @@ namespace EF_leer
             this.rechnungBindingNavigator.MovePreviousItem = this.bindingNavigatorMovePreviousItem;
             this.rechnungBindingNavigator.Name = "rechnungBindingNavigator";
             this.rechnungBindingNavigator.PositionItem = this.bindingNavigatorPositionItem;
-            this.rechnungBindingNavigator.Size = new System.Drawing.Size(800, 25);
+            this.rechnungBindingNavigator.Size = new System.Drawing.Size(961, 25);
             this.rechnungBindingNavigator.TabIndex = 0;
             this.rechnungBindingNavigator.Text = "bindingNavigator1";
             // 
@@ -294,6 +307,7 @@ namespace EF_leer
             // 
             this.bindingNavigatorPositionItem.AccessibleName = "Position";
             this.bindingNavigatorPositionItem.AutoSize = false;
+            this.bindingNavigatorPositionItem.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.bindingNavigatorPositionItem.Name = "bindingNavigatorPositionItem";
             this.bindingNavigatorPositionItem.Size = new System.Drawing.Size(50, 23);
             this.bindingNavigatorPositionItem.Text = "0";
@@ -446,11 +460,78 @@ namespace EF_leer
             this.beschreibungTextBox2.Size = new System.Drawing.Size(100, 20);
             this.beschreibungTextBox2.TabIndex = 57;
             // 
+            // dienstleistungBindingSource
+            // 
+            this.dienstleistungBindingSource.DataSource = typeof(EF_leer.dienstleistung);
+            // 
+            // dienstleistungDataGridView
+            // 
+            this.dienstleistungDataGridView.AutoGenerateColumns = false;
+            this.dienstleistungDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dienstleistungDataGridView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.dataGridViewTextBoxColumn1,
+            this.dataGridViewTextBoxColumn2,
+            this.dataGridViewTextBoxColumn3,
+            this.dataGridViewTextBoxColumn4});
+            this.dienstleistungDataGridView.DataSource = this.dienstleistungBindingSource;
+            this.dienstleistungDataGridView.Location = new System.Drawing.Point(641, 23);
+            this.dienstleistungDataGridView.Name = "dienstleistungDataGridView";
+            this.dienstleistungDataGridView.Size = new System.Drawing.Size(300, 220);
+            this.dienstleistungDataGridView.TabIndex = 57;
+            // 
+            // dataGridViewTextBoxColumn1
+            // 
+            this.dataGridViewTextBoxColumn1.DataPropertyName = "PK_Dienstleistung";
+            this.dataGridViewTextBoxColumn1.HeaderText = "PK_Dienstleistung";
+            this.dataGridViewTextBoxColumn1.Name = "dataGridViewTextBoxColumn1";
+            // 
+            // dataGridViewTextBoxColumn2
+            // 
+            this.dataGridViewTextBoxColumn2.DataPropertyName = "Beschreibung";
+            this.dataGridViewTextBoxColumn2.HeaderText = "Beschreibung";
+            this.dataGridViewTextBoxColumn2.Name = "dataGridViewTextBoxColumn2";
+            // 
+            // dataGridViewTextBoxColumn3
+            // 
+            this.dataGridViewTextBoxColumn3.DataPropertyName = "Kosten";
+            this.dataGridViewTextBoxColumn3.HeaderText = "Kosten";
+            this.dataGridViewTextBoxColumn3.Name = "dataGridViewTextBoxColumn3";
+            // 
+            // dataGridViewTextBoxColumn4
+            // 
+            this.dataGridViewTextBoxColumn4.DataPropertyName = "abgeleitet";
+            this.dataGridViewTextBoxColumn4.HeaderText = "abgeleitet";
+            this.dataGridViewTextBoxColumn4.Name = "dataGridViewTextBoxColumn4";
+            // 
+            // ticketBindingSource
+            // 
+            this.ticketBindingSource.DataSource = typeof(EF_leer.ticket);
+            // 
+            // beschreibungLabel3
+            // 
+            beschreibungLabel3.AutoSize = true;
+            beschreibungLabel3.Location = new System.Drawing.Point(45, 208);
+            beschreibungLabel3.Name = "beschreibungLabel3";
+            beschreibungLabel3.Size = new System.Drawing.Size(75, 13);
+            beschreibungLabel3.TabIndex = 57;
+            beschreibungLabel3.Text = "Beschreibung:";
+            // 
+            // beschreibungTextBox3
+            // 
+            this.beschreibungTextBox3.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.ticketBindingSource, "Beschreibung", true));
+            this.beschreibungTextBox3.Location = new System.Drawing.Point(126, 205);
+            this.beschreibungTextBox3.Name = "beschreibungTextBox3";
+            this.beschreibungTextBox3.Size = new System.Drawing.Size(100, 20);
+            this.beschreibungTextBox3.TabIndex = 58;
+            // 
             // Rechnung_Form
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 996);
+            this.ClientSize = new System.Drawing.Size(961, 996);
+            this.Controls.Add(beschreibungLabel3);
+            this.Controls.Add(this.beschreibungTextBox3);
+            this.Controls.Add(this.dienstleistungDataGridView);
             this.Controls.Add(beschreibungLabel2);
             this.Controls.Add(this.beschreibungTextBox2);
             this.Controls.Add(this.ticketbeschreibungTextBox);
@@ -485,6 +566,9 @@ namespace EF_leer
             this.rechnungBindingNavigator.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.rechnungBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.abgeleitetBindingSource)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dienstleistungBindingSource)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dienstleistungDataGridView)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.ticketBindingSource)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -520,5 +604,13 @@ namespace EF_leer
         private System.Windows.Forms.TextBox pK_TicketTextBox;
         private System.Windows.Forms.RichTextBox ticketbeschreibungTextBox;
         private System.Windows.Forms.TextBox beschreibungTextBox2;
+        private System.Windows.Forms.BindingSource dienstleistungBindingSource;
+        private System.Windows.Forms.DataGridView dienstleistungDataGridView;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn1;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn2;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn3;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn4;
+        private System.Windows.Forms.BindingSource ticketBindingSource;
+        private System.Windows.Forms.TextBox beschreibungTextBox3;
     }
 }

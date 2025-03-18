@@ -132,7 +132,7 @@ namespace EF_leer
             ticket aktTicket = ticketBindingSource.Current as ticket;
             int aktTicketID = aktTicket.PK_Ticket;
 
-            Rechnung_Form FormRechnung = new Rechnung_Form();
+            Rechnung_Form FormRechnung = new Rechnung_Form(aktTicketID);
             FormRechnung.Show();
         }
     }
