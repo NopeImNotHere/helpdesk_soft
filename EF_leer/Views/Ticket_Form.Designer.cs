@@ -1,5 +1,5 @@
 ﻿
-namespace EF_leer
+namespace EF_leer.Views
 {
     partial class Ticket_Form
     {

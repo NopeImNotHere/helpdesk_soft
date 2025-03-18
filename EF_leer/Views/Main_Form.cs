@@ -4,7 +4,7 @@ using System.Linq;
 using System.Net;
 using System.Windows.Forms;
 
-namespace EF_leer
+namespace EF_leer.Views
 {
     public partial class Main_Form : Form
     {

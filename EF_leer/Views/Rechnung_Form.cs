@@ -8,7 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace EF_leer
+namespace EF_leer.Views
 {
     public partial class Rechnung_Form : Form
     {

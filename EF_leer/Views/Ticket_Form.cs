@@ -5,7 +5,7 @@ using System.Windows.Forms;
 using AdysTech.CredentialManager;
 using System.Net;
 
-namespace EF_leer
+namespace EF_leer.Views
 {
     public partial class Ticket_Form : Form
     {
