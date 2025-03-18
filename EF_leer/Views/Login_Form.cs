@@ -17,10 +17,6 @@ namespace EF_leer
         {
             InitializeComponent();
 
-            if (this.Owner is Main_Form)
-            {
-                MessageBox.Show((this.Owner as Main_Form).asda);
-            }
 
         }
         protected override void OnFormClosing(FormClosingEventArgs e)

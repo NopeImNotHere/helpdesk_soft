@@ -95,11 +95,23 @@ namespace EF_leer
                     {
                         FK_Dienstleistung = Dienst.PK_Dienstleistung,
                         FK_Ticket = NeustTicket.PK_Ticket,
-                        Anzahl = 1
+                        Anzahl = dienstleistungsZähler[Dienst.PK_Dienstleistung]
                     };
 
                     daten.abgeleitet.Add(abgel);
-                    daten.SaveChanges();
+                    
+                    try
+                    {
+                        daten.SaveChanges();
+                    }
+                    catch
+                    {
+
+                    }
+                    this.Hide();
+                    Ticket_Form newFormT = new Ticket_Form();
+                    newFormT.Show();
+                    this.Close();
                 }
             }
 
