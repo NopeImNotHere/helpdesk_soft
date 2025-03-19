@@ -135,5 +135,31 @@ namespace EF_leer.Views
             Rechnung_Form FormRechnung = new Rechnung_Form(aktTicketID);
             FormRechnung.Show();
         }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            var aktuellTicket = ticketBindingSource.Current as ticket;
+            daten.SaveChanges();
+            ticketBindingSource.ResetBindings(false);
+        }
+
+        private void ticketBindingSource_CurrentChanged(object sender, EventArgs e)
+        {
+            var aktTIcket = ticketBindingSource.Current as ticket;
+            var ticketID = aktTIcket.PK_Ticket;
+            using (var daten = new oberstufe_db1Entities())
+            {
+                var dienstleistungen = daten.dienstleistung
+                    .Join(daten.abgeleitet,
+                        d => d.PK_Dienstleistung,
+                        a => a.FK_Dienstleistung,
+                        (d, a) => new { Dienstleistung = d, Abgeleitet = a })
+                    .Where(x => x.Abgeleitet.FK_Ticket == ticketID)
+                    .Select(x => x.Dienstleistung)
+                    .ToList();
+
+                dienstleistungBindingSource.DataSource = dienstleistungen;
+            }
+        }
     }
 }
