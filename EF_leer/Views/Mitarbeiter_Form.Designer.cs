@@ -43,9 +43,6 @@ namespace EF_leer.Views
             this.dataGridViewTextBoxColumn17 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn18 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn19 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn20 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn21 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn22 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.rechnungBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -54,15 +51,10 @@ namespace EF_leer.Views
             this.dataGridViewTextBoxColumn5 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn6 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn7 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn8 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn9 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn10 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn11 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn12 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn13 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn14 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn15 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ticketBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.label2 = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
+            this.ticketUeberKundenOrt = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.ticketDataGridView)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.rechnungDataGridView)).BeginInit();
             this.panel1.SuspendLayout();
@@ -81,20 +73,13 @@ namespace EF_leer.Views
             this.dataGridViewTextBoxColumn4,
             this.dataGridViewTextBoxColumn5,
             this.dataGridViewTextBoxColumn6,
-            this.dataGridViewTextBoxColumn7,
-            this.dataGridViewTextBoxColumn8,
-            this.dataGridViewTextBoxColumn9,
-            this.dataGridViewTextBoxColumn10,
-            this.dataGridViewTextBoxColumn11,
-            this.dataGridViewTextBoxColumn12,
-            this.dataGridViewTextBoxColumn13,
-            this.dataGridViewTextBoxColumn14,
-            this.dataGridViewTextBoxColumn15});
+            this.dataGridViewTextBoxColumn7});
             this.ticketDataGridView.DataSource = this.ticketBindingSource;
             this.ticketDataGridView.Location = new System.Drawing.Point(12, 12);
             this.ticketDataGridView.Name = "ticketDataGridView";
             this.ticketDataGridView.Size = new System.Drawing.Size(300, 418);
             this.ticketDataGridView.TabIndex = 1;
+            this.ticketDataGridView.Click += new System.EventHandler(this.ticketDataGridView_Click);
             // 
             // rechnungDataGridView
             // 
@@ -104,10 +89,7 @@ namespace EF_leer.Views
             this.dataGridViewTextBoxColumn16,
             this.dataGridViewTextBoxColumn17,
             this.dataGridViewTextBoxColumn18,
-            this.dataGridViewTextBoxColumn19,
-            this.dataGridViewTextBoxColumn20,
-            this.dataGridViewTextBoxColumn21,
-            this.dataGridViewTextBoxColumn22});
+            this.dataGridViewTextBoxColumn19});
             this.rechnungDataGridView.DataSource = this.rechnungBindingSource;
             this.rechnungDataGridView.Location = new System.Drawing.Point(535, 12);
             this.rechnungDataGridView.Name = "rechnungDataGridView";
@@ -116,6 +98,9 @@ namespace EF_leer.Views
             // 
             // panel1
             // 
+            this.panel1.Controls.Add(this.ticketUeberKundenOrt);
+            this.panel1.Controls.Add(this.label3);
+            this.panel1.Controls.Add(this.label2);
             this.panel1.Controls.Add(this.button7);
             this.panel1.Controls.Add(this.button4);
             this.panel1.Controls.Add(this.button3);
@@ -167,6 +152,7 @@ namespace EF_leer.Views
             this.button2.TabIndex = 2;
             this.button2.Text = "Zur Rechnungs Übersicht";
             this.button2.UseVisualStyleBackColor = true;
+            this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
             // button1
             // 
@@ -177,6 +163,7 @@ namespace EF_leer.Views
             this.button1.TabIndex = 1;
             this.button1.Text = "Zur Ticket Übersicht";
             this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // label1
             // 
@@ -212,24 +199,6 @@ namespace EF_leer.Views
             this.dataGridViewTextBoxColumn19.DataPropertyName = "Ratenzahlung";
             this.dataGridViewTextBoxColumn19.HeaderText = "Ratenzahlung";
             this.dataGridViewTextBoxColumn19.Name = "dataGridViewTextBoxColumn19";
-            // 
-            // dataGridViewTextBoxColumn20
-            // 
-            this.dataGridViewTextBoxColumn20.DataPropertyName = "bezahlungsart";
-            this.dataGridViewTextBoxColumn20.HeaderText = "bezahlungsart";
-            this.dataGridViewTextBoxColumn20.Name = "dataGridViewTextBoxColumn20";
-            // 
-            // dataGridViewTextBoxColumn21
-            // 
-            this.dataGridViewTextBoxColumn21.DataPropertyName = "kunde";
-            this.dataGridViewTextBoxColumn21.HeaderText = "kunde";
-            this.dataGridViewTextBoxColumn21.Name = "dataGridViewTextBoxColumn21";
-            // 
-            // dataGridViewTextBoxColumn22
-            // 
-            this.dataGridViewTextBoxColumn22.DataPropertyName = "ticket";
-            this.dataGridViewTextBoxColumn22.HeaderText = "ticket";
-            this.dataGridViewTextBoxColumn22.Name = "dataGridViewTextBoxColumn22";
             // 
             // rechnungBindingSource
             // 
@@ -277,57 +246,44 @@ namespace EF_leer.Views
             this.dataGridViewTextBoxColumn7.HeaderText = "Bearbeitungsdatum";
             this.dataGridViewTextBoxColumn7.Name = "dataGridViewTextBoxColumn7";
             // 
-            // dataGridViewTextBoxColumn8
-            // 
-            this.dataGridViewTextBoxColumn8.DataPropertyName = "abgeleitet";
-            this.dataGridViewTextBoxColumn8.HeaderText = "abgeleitet";
-            this.dataGridViewTextBoxColumn8.Name = "dataGridViewTextBoxColumn8";
-            // 
-            // dataGridViewTextBoxColumn9
-            // 
-            this.dataGridViewTextBoxColumn9.DataPropertyName = "art";
-            this.dataGridViewTextBoxColumn9.HeaderText = "art";
-            this.dataGridViewTextBoxColumn9.Name = "dataGridViewTextBoxColumn9";
-            // 
-            // dataGridViewTextBoxColumn10
-            // 
-            this.dataGridViewTextBoxColumn10.DataPropertyName = "kunde";
-            this.dataGridViewTextBoxColumn10.HeaderText = "kunde";
-            this.dataGridViewTextBoxColumn10.Name = "dataGridViewTextBoxColumn10";
-            // 
-            // dataGridViewTextBoxColumn11
-            // 
-            this.dataGridViewTextBoxColumn11.DataPropertyName = "mitarbeiter";
-            this.dataGridViewTextBoxColumn11.HeaderText = "mitarbeiter";
-            this.dataGridViewTextBoxColumn11.Name = "dataGridViewTextBoxColumn11";
-            // 
-            // dataGridViewTextBoxColumn12
-            // 
-            this.dataGridViewTextBoxColumn12.DataPropertyName = "priorität";
-            this.dataGridViewTextBoxColumn12.HeaderText = "priorität";
-            this.dataGridViewTextBoxColumn12.Name = "dataGridViewTextBoxColumn12";
-            // 
-            // dataGridViewTextBoxColumn13
-            // 
-            this.dataGridViewTextBoxColumn13.DataPropertyName = "rechnung";
-            this.dataGridViewTextBoxColumn13.HeaderText = "rechnung";
-            this.dataGridViewTextBoxColumn13.Name = "dataGridViewTextBoxColumn13";
-            // 
-            // dataGridViewTextBoxColumn14
-            // 
-            this.dataGridViewTextBoxColumn14.DataPropertyName = "status";
-            this.dataGridViewTextBoxColumn14.HeaderText = "status";
-            this.dataGridViewTextBoxColumn14.Name = "dataGridViewTextBoxColumn14";
-            // 
-            // dataGridViewTextBoxColumn15
-            // 
-            this.dataGridViewTextBoxColumn15.DataPropertyName = "mitarbeiter1";
-            this.dataGridViewTextBoxColumn15.HeaderText = "mitarbeiter1";
-            this.dataGridViewTextBoxColumn15.Name = "dataGridViewTextBoxColumn15";
-            // 
             // ticketBindingSource
             // 
             this.ticketBindingSource.DataSource = typeof(EF_leer.ticket);
+            // 
+            // label2
+            // 
+            this.label2.Dock = System.Windows.Forms.DockStyle.Top;
+            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label2.Location = new System.Drawing.Point(0, 226);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(200, 26);
+            this.label2.TabIndex = 8;
+            this.label2.Text = "Search";
+            this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // label3
+            // 
+            this.label3.Dock = System.Windows.Forms.DockStyle.Top;
+            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label3.Location = new System.Drawing.Point(0, 252);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(200, 19);
+            this.label3.TabIndex = 9;
+            this.label3.Text = "Tickets über Kunden Ort:";
+            this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // ticketUeberKundenOrt
+            // 
+            this.ticketUeberKundenOrt.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
+            this.ticketUeberKundenOrt.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource;
+            this.ticketUeberKundenOrt.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.ticketUeberKundenOrt.Location = new System.Drawing.Point(0, 271);
+            this.ticketUeberKundenOrt.Name = "ticketUeberKundenOrt";
+            this.ticketUeberKundenOrt.Size = new System.Drawing.Size(200, 20);
+            this.ticketUeberKundenOrt.TabIndex = 10;
+            this.ticketUeberKundenOrt.TextChanged += new System.EventHandler(this.ticketUeberKundenOrt_TextChanged);
+            this.ticketUeberKundenOrt.Enter += new System.EventHandler(this.ticketUeberKundenOrt_Enter);
+            this.ticketUeberKundenOrt.Leave += new System.EventHandler(this.ticketUeberKundenOrt_Leave);
             // 
             // Mitarbeiter_Form
             // 
@@ -342,6 +298,7 @@ namespace EF_leer.Views
             ((System.ComponentModel.ISupportInitialize)(this.ticketDataGridView)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.rechnungDataGridView)).EndInit();
             this.panel1.ResumeLayout(false);
+            this.panel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.rechnungBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.ticketBindingSource)).EndInit();
             this.ResumeLayout(false);
@@ -352,30 +309,8 @@ namespace EF_leer.Views
 
         private System.Windows.Forms.BindingSource ticketBindingSource;
         private System.Windows.Forms.DataGridView ticketDataGridView;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn1;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn2;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn3;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn4;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn5;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn6;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn7;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn8;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn9;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn10;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn11;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn12;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn13;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn14;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn15;
         private System.Windows.Forms.BindingSource rechnungBindingSource;
         private System.Windows.Forms.DataGridView rechnungDataGridView;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn16;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn17;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn18;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn19;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn20;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn21;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn22;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Label label1;
@@ -383,5 +318,19 @@ namespace EF_leer.Views
         private System.Windows.Forms.Button button4;
         private System.Windows.Forms.Button button3;
         private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn1;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn2;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn3;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn4;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn5;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn6;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn7;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn16;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn17;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn18;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn19;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.TextBox ticketUeberKundenOrt;
+        private System.Windows.Forms.Label label3;
     }
 }

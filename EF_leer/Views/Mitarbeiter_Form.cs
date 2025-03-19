@@ -1,4 +1,6 @@
 ﻿using AdysTech.CredentialManager;
+using System;
+using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using System.Net;
@@ -8,41 +10,61 @@ namespace EF_leer.Views
 {
     public partial class Mitarbeiter_Form : Form
     {
-        oberstufe_db1Entities data = new oberstufe_db1Entities();
+        private static readonly Random _rand = new Random();
+        private oberstufe_db1Entities data = new oberstufe_db1Entities();
+        private string currentHint = "";
         public bool isLoggedOut = false;
         public Mitarbeiter_Form()
         {
             NetworkCredential credentials = CredentialManager.GetCredentials("sessionHash");
             if (credentials == null)
             {
-                this.ClientSize = new Size(800, 400);
-                this.Text = "Centered Elements";
-
-                Label Warning = new Label();
-                Warning.Text = "Im Debug mode wenn sie sich nicht angemeldet haben über Login einmal haben Sie keine Anmeldedaten";
-                Warning.Font = new Font(Warning.Font.FontFamily, 20, FontStyle.Bold);
-                Warning.Size = new Size(700, 100);
-                Warning.TextAlign = ContentAlignment.MiddleCenter;
-                Warning.AutoSize = false;
-
-                Button Return = new Button();
-                Return.Text = "Zurückkehren";
-                Return.Font = new Font(Return.Font.FontFamily, 16, FontStyle.Bold);
-                Return.Click += Return_Click;
-                Return.Size = new Size(200, 50);
-
-                Warning.Location = new Point((this.ClientSize.Width - Warning.Width) / 2, (this.ClientSize.Height / 2) - 100);
-                Return.Location = new Point((this.ClientSize.Width - Return.Width) / 2, (this.ClientSize.Height / 2) + 20);
-
-                this.Controls.Add(Warning);
-                this.Controls.Add(Return);
-
+                OpenErrorScreen();
                 return;
             }
             InitializeComponent();
             string hash = credentials.Password;
             mitarbeiter mitarbeiter = data.session.Where(s => s.sessionhash == hash).First().mitarbeiter;
             LoadData(mitarbeiter);
+
+            List<ort> orte = data.ort.ToList();
+            AutoCompleteStringCollection orteCollection = new AutoCompleteStringCollection();
+            orteCollection.AddRange(orte.Select(o => o.Stadt).ToArray());
+            orteCollection.AddRange(orte.Select(o => o.PLZ).ToArray());
+            ticketUeberKundenOrt.AutoCompleteCustomSource = orteCollection;
+
+            int count = orte.Count;
+            string randomStadt = orteCollection[_rand.Next(0, count)];
+            string randomPLZ = orteCollection[_rand.Next(count, count * 2)];
+            currentHint = $"{randomStadt} oder {randomPLZ}";
+            ticketUeberKundenOrt.Text = currentHint;
+            ticketUeberKundenOrt.ForeColor = Color.Gray;
+
+        }
+
+        private void OpenErrorScreen()
+        {
+            this.ClientSize = new Size(800, 400);
+            this.Text = "Centered Elements";
+
+            Label Warning = new Label();
+            Warning.Text = "Im Debug mode wenn sie sich nicht angemeldet haben über Login einmal haben Sie keine Anmeldedaten";
+            Warning.Font = new Font(Warning.Font.FontFamily, 20, FontStyle.Bold);
+            Warning.Size = new Size(700, 100);
+            Warning.TextAlign = ContentAlignment.MiddleCenter;
+            Warning.AutoSize = false;
+
+            System.Windows.Forms.Button Return = new System.Windows.Forms.Button();
+            Return.Text = "Zurückkehren";
+            Return.Font = new Font(Return.Font.FontFamily, 16, FontStyle.Bold);
+            Return.Click += Return_Click;
+            Return.Size = new Size(200, 50);
+
+            Warning.Location = new Point((this.ClientSize.Width - Warning.Width) / 2, (this.ClientSize.Height / 2) - 100);
+            Return.Location = new Point((this.ClientSize.Width - Return.Width) / 2, (this.ClientSize.Height / 2) + 20);
+
+            this.Controls.Add(Warning);
+            this.Controls.Add(Return);
         }
 
         private void Return_Click(object sender, System.EventArgs e)
@@ -59,7 +81,8 @@ namespace EF_leer.Views
         public void LoadData(mitarbeiter mitarbeiter)
         {
             ticketBindingSource.DataSource = mitarbeiter.ticket;
-            rechnungBindingSource.DataSource = mitarbeiter.ticket.Where(t => t.rechnung != null).Select(t => t.rechnung).ToList();
+            List<rechnung> rechnungen = mitarbeiter.ticket.SelectMany(t => t.rechnung).ToList();
+            rechnungBindingSource.DataSource = rechnungen;
         }
 
         private void button7_Click(object sender, System.EventArgs e)
@@ -67,6 +90,70 @@ namespace EF_leer.Views
             CredentialManager.RemoveCredentials("sessionHash");
             isLoggedOut = true;
             this.Close();
+        }
+
+        private void button1_Click(object sender, System.EventArgs e)
+        {
+            if (this.MdiParent is Main_Form form)
+            {
+                this.Close();
+                form.windowLauncher("Ticket");
+            }
+        }
+
+        private void button2_Click(object sender, System.EventArgs e)
+        {
+            if (this.MdiParent is Main_Form form)
+            {
+                this.Close();
+                form.windowLauncher("Rechnung");
+            }
+        }
+
+        private void ticketDataGridView_Click(object sender, System.EventArgs e)
+        {
+            ticket ClickedTicket = (ticket)ticketBindingSource.Current;
+            if (ClickedTicket.rechnung != null)
+            {
+                List<rechnung> rechnungen = rechnungBindingSource.DataSource as List<rechnung>;
+                int rowIndex = 0;
+                for (int i = 0; i < rechnungen.Count; i++)
+                {
+                    if (rechnungen[i].Rechnungsnr == ClickedTicket.rechnung.First().Rechnungsnr)
+                    {
+                        rowIndex = i;
+                        break;
+                    }
+                }
+                rechnungDataGridView.ClearSelection();
+                if (rowIndex >= 0)
+                {
+                    rechnungDataGridView.Rows[rowIndex].Selected = true;
+                }
+            }
+        }
+
+        private void ticketUeberKundenOrt_TextChanged(object sender, System.EventArgs e)
+        {
+            string searchOrt = ticketUeberKundenOrt.Text;
+        }
+
+        private void ticketUeberKundenOrt_Leave(object sender, System.EventArgs e)
+        {
+            if (string.IsNullOrWhiteSpace(ticketUeberKundenOrt.Text))
+            {
+                ticketUeberKundenOrt.Text = currentHint;
+                ticketUeberKundenOrt.ForeColor = Color.Gray;
+            }
+        }
+
+        private void ticketUeberKundenOrt_Enter(object sender, System.EventArgs e)
+        {
+            if (ticketUeberKundenOrt.Text == currentHint)
+            {
+                ticketUeberKundenOrt.Text = "";
+                ticketUeberKundenOrt.ForeColor = Color.Black;
+            }
         }
     }
 }

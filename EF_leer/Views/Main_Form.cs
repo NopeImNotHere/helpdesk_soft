@@ -13,7 +13,6 @@ namespace EF_leer.Views
         {
             InitializeComponent();
             windowLauncher(launchFormName);
-            this.FormClosing += Main_Form_FormClosing;
 
             if (CredentialManager.GetCredentials("sessionHash") == null && !System.Diagnostics.Debugger.IsAttached)
             {
@@ -38,11 +37,6 @@ namespace EF_leer.Views
             }
         }
 
-        private void Main_Form_FormClosing(object sender, FormClosingEventArgs e)
-        {
-
-        }
-
         public void windowLauncher(string formName)
         {
             Form form;
@@ -65,10 +59,10 @@ namespace EF_leer.Views
                     form = new Mitarbeiter_Form();
                     ShowChildForm(form);
                     break;
-                case "Kunde":
+                /*case "Kunde":
                     form = new Kunde_Form();
                     ShowChildForm(form);
-                    break;
+                break;*/
                 default:
                     break;
             }
@@ -91,7 +85,7 @@ namespace EF_leer.Views
                     }
                 };
             }
-            else if (childForm is Kunde_Form form2)
+            /*else if (childForm is Kunde_Form form2)
             {
                 form2.FormClosed += (s, e) =>
                 {
@@ -101,7 +95,7 @@ namespace EF_leer.Views
                         windowLauncher("Login");
                     }
                 };
-            }
+            }*/
 
         }
 
