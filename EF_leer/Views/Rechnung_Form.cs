@@ -29,7 +29,7 @@ namespace EF_leer.Views
         {
             InitializeComponent();
 
-            foreach (var Data in Datenbank.rechnung)
+            foreach (var Data in Datenbank.rechnung.ToList())
             {
                 if (Data.ticket.PK_Ticket == TicketId)
                 {
