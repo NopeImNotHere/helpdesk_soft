@@ -10,10 +10,12 @@ namespace EF_leer.Views
 {
     public partial class Mitarbeiter_Form : Form
     {
+        private mitarbeiter currentMitarbeiter;
         private static readonly Random _rand = new Random();
         private oberstufe_db1Entities data = new oberstufe_db1Entities();
         private string currentHint = "";
         public bool isLoggedOut = false;
+        
         public Mitarbeiter_Form()
         {
             NetworkCredential credentials = CredentialManager.GetCredentials("sessionHash");
@@ -40,6 +42,21 @@ namespace EF_leer.Views
             ticketUeberKundenOrt.Text = currentHint;
             ticketUeberKundenOrt.ForeColor = Color.Gray;
 
+        }
+
+
+        public Mitarbeiter_Form(mitarbeiter mitarbeiter)
+        {
+            InitializeComponent();
+            LoadData(mitarbeiter);
+        }
+
+        public void LoadData(mitarbeiter mitarbeiter)
+        {
+            ticketBindingSource.DataSource = mitarbeiter.ticket;
+            List<rechnung> rechnungen = mitarbeiter.ticket.SelectMany(t => t.rechnung).ToList();
+            rechnungBindingSource.DataSource = rechnungen;
+            currentMitarbeiter = mitarbeiter;
         }
 
         private void OpenErrorScreen()
@@ -70,19 +87,6 @@ namespace EF_leer.Views
         private void Return_Click(object sender, System.EventArgs e)
         {
             this.Close();
-        }
-
-        public Mitarbeiter_Form(mitarbeiter mitarbeiter)
-        {
-            InitializeComponent();
-            LoadData(mitarbeiter);
-        }
-
-        public void LoadData(mitarbeiter mitarbeiter)
-        {
-            ticketBindingSource.DataSource = mitarbeiter.ticket;
-            List<rechnung> rechnungen = mitarbeiter.ticket.SelectMany(t => t.rechnung).ToList();
-            rechnungBindingSource.DataSource = rechnungen;
         }
 
         private void button7_Click(object sender, System.EventArgs e)
@@ -136,6 +140,38 @@ namespace EF_leer.Views
         private void ticketUeberKundenOrt_TextChanged(object sender, System.EventArgs e)
         {
             string searchOrt = ticketUeberKundenOrt.Text;
+            if(searchOrt == string.Empty || searchOrt == currentHint)
+            {
+                return;
+            }
+            ort dataOrt = new ort();
+            foreach(ort ort in data.ort.ToList())
+            {
+                if(ort.Stadt.Contains(searchOrt) || ort.PLZ.Contains(searchOrt))
+                {
+                    dataOrt = ort;
+                }
+            }
+
+            kunde dataKunde = new kunde();
+            foreach(kunde kunde in data.kunde.ToList())
+            {
+                if(kunde.ort.Contains(dataOrt))
+                {
+                    dataKunde = kunde;
+                }
+            }
+
+            List<ticket> filteredTickets = new List<ticket>();
+            foreach(ticket ticket in dataKunde.ticket.ToList())
+            {
+                if(ticket.mitarbeiter == currentMitarbeiter)
+                {
+                    filteredTickets.Add(ticket);
+                }
+            }
+
+            ticketBindingSource.DataSource = filteredTickets;
         }
 
         private void ticketUeberKundenOrt_Leave(object sender, System.EventArgs e)
