@@ -56,6 +56,8 @@ namespace EF_leer.Views
                     ShowChildForm(form);
                     break;
                 case "Mitarbeiter":
+                    form = new Login_Form("max@techcorp.de", "test");
+                    form.Owner = this;
                     form = new Mitarbeiter_Form();
                     ShowChildForm(form);
                     break;
