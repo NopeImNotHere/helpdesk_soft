@@ -84,37 +84,37 @@ namespace EF_leer.Views
             this.Controls.Add(Return);
         }
 
-        private void Return_Click(object sender, System.EventArgs e)
+        private void Return_Click(object sender, EventArgs e)
         {
             this.Close();
         }
 
-        private void button7_Click(object sender, System.EventArgs e)
+        private void button7_Click(object sender, EventArgs e)
         {
             CredentialManager.RemoveCredentials("sessionHash");
             isLoggedOut = true;
             this.Close();
         }
 
-        private void button1_Click(object sender, System.EventArgs e)
+        private void button1_Click(object sender, EventArgs e)
         {
             if (this.MdiParent is Main_Form form)
             {
                 this.Close();
-                form.windowLauncher("Ticket");
+                form.windowLauncher(new Ticket_Form(), false);
             }
         }
 
-        private void button2_Click(object sender, System.EventArgs e)
+        private void button2_Click(object sender, EventArgs e)
         {
             if (this.MdiParent is Main_Form form)
             {
                 this.Close();
-                form.windowLauncher("Rechnung");
+                form.windowLauncher(new Rechnung_Form(), false);
             }
         }
 
-        private void ticketDataGridView_Click(object sender, System.EventArgs e)
+        private void ticketDataGridView_Click(object sender, EventArgs e)
         {
             ticket ClickedTicket = (ticket)ticketBindingSource.Current;
             if (ClickedTicket.rechnung != null)
@@ -137,7 +137,7 @@ namespace EF_leer.Views
             }
         }
 
-        private void ticketUeberKundenOrt_TextChanged(object sender, System.EventArgs e)
+        private void ticketUeberKundenOrt_TextChanged(object sender, EventArgs e)
         {
             string searchOrt = ticketUeberKundenOrt.Text;
             if(searchOrt == string.Empty || searchOrt == currentHint)
@@ -190,6 +190,26 @@ namespace EF_leer.Views
             {
                 ticketUeberKundenOrt.Text = "";
                 ticketUeberKundenOrt.ForeColor = Color.Black;
+            }
+        }
+
+        private void rechnungDataGridView_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            rechnung rechnung = rechnungBindingSource.Current as rechnung;
+            if(this.MdiParent != null && this.MdiParent is Main_Form)
+            {
+                (this.MdiParent as Main_Form).windowLauncher(new Rechnung_Form(rechnung.ticket.PK_Ticket), false);
+                this.Close();
+            }
+        }
+
+        private void ticketDataGridView_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            ticket ticket = ticketBindingSource.Current as ticket;
+            if (this.MdiParent != null && this.MdiParent is Main_Form)
+            {
+                (this.MdiParent as Main_Form).windowLauncher(new Ticket_Form(ticket), false);
+                this.Close();
             }
         }
     }

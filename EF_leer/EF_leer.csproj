@@ -41,7 +41,7 @@
     <LangVersion>7.3</LangVersion>
     <ErrorReport>prompt</ErrorReport>
     <Prefer32Bit>true</Prefer32Bit>
-    <StartArguments>Ticket</StartArguments>
+    <StartArguments>EF_leer.Views.Ticket_Form false</StartArguments>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Rechnung|AnyCPU'">
     <DebugSymbols>true</DebugSymbols>
@@ -52,7 +52,7 @@
     <LangVersion>7.3</LangVersion>
     <ErrorReport>prompt</ErrorReport>
     <Prefer32Bit>true</Prefer32Bit>
-    <StartArguments>Rechnung</StartArguments>
+    <StartArguments>EF_leer.Views.Rechnung_Form false</StartArguments>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Login|AnyCPU'">
     <DebugSymbols>true</DebugSymbols>
@@ -63,7 +63,7 @@
     <LangVersion>7.3</LangVersion>
     <ErrorReport>prompt</ErrorReport>
     <Prefer32Bit>true</Prefer32Bit>
-    <StartArguments>Login</StartArguments>
+    <StartArguments>EF_leer.Views.Login_Form True</StartArguments>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Mitarbeiter|AnyCPU'">
     <DebugSymbols>true</DebugSymbols>
@@ -74,7 +74,7 @@
     <LangVersion>7.3</LangVersion>
     <ErrorReport>prompt</ErrorReport>
     <Prefer32Bit>true</Prefer32Bit>
-    <StartArguments>Mitarbeiter</StartArguments>
+    <StartArguments>EF_leer.Views.Mitarbeiter_Form false</StartArguments>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="AdysTech.CredentialManager, Version=2.6.0.0, Culture=neutral, PublicKeyToken=42b78d2d57493ebe, processorArchitecture=MSIL">

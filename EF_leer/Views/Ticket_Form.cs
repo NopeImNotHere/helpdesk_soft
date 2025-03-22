@@ -48,12 +48,21 @@ namespace EF_leer.Views
 
         }
 
+        public Ticket_Form(ticket ticket) : this()
+        {
+            List<ticket> tickets = (List<ticket>)ticketBindingSource.DataSource;
+            ticket bindingTicket = tickets.Where(t => t.PK_Ticket == ticket.PK_Ticket).First();
+            int pos = tickets.IndexOf(bindingTicket);
+            ticketBindingSource.Position = pos;
+            tabControl1.SelectedIndex = 1;
+        }
+
         private void Ticket_Form_Load(object sender, EventArgs e)
         {
 
         }
 
-        private async void button1_Click(object sender, EventArgs e)
+        private void button1_Click(object sender, EventArgs e)
         {
             /*NetworkCredential creds = CredentialManager.GetCredentials("sessionHash");
             string sessionHash = creds.Password;

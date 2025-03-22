@@ -9,11 +9,9 @@ namespace EF_leer.Views
     public partial class Main_Form : Form
     {
         oberstufe_db1Entities data = new oberstufe_db1Entities();
-        public Main_Form(string launchFormName)
-        {
-            InitializeComponent();
-            windowLauncher(launchFormName);
 
+        private Main_Form()
+        {
             if (CredentialManager.GetCredentials("sessionHash") == null && !System.Diagnostics.Debugger.IsAttached)
             {
                 MessageBox.Show("Illegaler Zugriff schließe Programm");
@@ -36,37 +34,27 @@ namespace EF_leer.Views
                 }
             }
         }
-
-        public void windowLauncher(string formName)
+        public Main_Form(Form form, bool isDialog) : base()
         {
-            Form form;
-            switch (formName)
+            InitializeComponent();
+            windowLauncher(form, isDialog);
+        }
+
+        public void windowLauncher(Form form, bool isDialog)
+        {
+            if(form == null)
             {
-                case "Login":
-                    form = new Login_Form();
-                    form.Owner = this;
-                    form.ShowDialog();
-                    break;
-                case "Rechnung":
-                    form = new Rechnung_Form();
-                    ShowChildForm(form);
-                    break;
-                case "Ticket":
-                    form = new Ticket_Form();
-                    ShowChildForm(form);
-                    break;
-                case "Mitarbeiter":
-                    form = new Login_Form("max@techcorp.de", "test");
-                    form.Owner = this;
-                    form = new Mitarbeiter_Form();
-                    ShowChildForm(form);
-                    break;
-                /*case "Kunde":
-                    form = new Kunde_Form();
-                    ShowChildForm(form);
-                break;*/
-                default:
-                    break;
+                form = new Main_Form();
+                isDialog = false;
+            }
+
+            if(isDialog)
+            {
+                form.Owner = this;
+                form.ShowDialog();
+            } else
+            {
+                ShowChildForm(form);
             }
         }
         private void ShowChildForm(Form childForm)
@@ -76,39 +64,28 @@ namespace EF_leer.Views
             childForm.Dock = DockStyle.Fill;
             this.ClientSize = childForm.Size;
             childForm.Show();
-            if (childForm is Mitarbeiter_Form form)
+            if (childForm is Mitarbeiter_Form form /*||childForm is Kunde_Form form*/)
             {
                 form.FormClosed += (s, e) =>
                 {
                     if (form.isLoggedOut)
                     {
                         this.Hide();
-                        windowLauncher("Login");
+                        windowLauncher(new Login_Form(), true);
                     }
                 };
             }
-            /*else if (childForm is Kunde_Form form2)
-            {
-                form2.FormClosed += (s, e) =>
-                {
-                    if (form2.isLoggedOut)
-                    {
-                        this.Hide();
-                        windowLauncher("Login");
-                    }
-                };
-            }*/
 
         }
 
         private void rechnungToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            windowLauncher("Rechnung");
+            windowLauncher(new Rechnung_Form(), false);
         }
 
         private void ticketToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            windowLauncher("Ticket");
+            windowLauncher(new Ticket_Form(), false);
         }
 
         private void profileStripMenuItem_Click(object sender, EventArgs e)
@@ -116,18 +93,18 @@ namespace EF_leer.Views
             NetworkCredential creds = CredentialManager.GetCredentials("sessionHash");
             if (creds == null)
             {
-                windowLauncher("Mitarbeiter");
+                windowLauncher(new Mitarbeiter_Form(), false);
             }
 
             string sessionHash = creds.Password;
             session session = data.session.Where(s => s.sessionhash == sessionHash).First();
             if (session.mitarbeiter != null)
             {
-                windowLauncher("Mitarbeiter");
+                windowLauncher(new Mitarbeiter_Form(session.mitarbeiter), false);
             }
             else if (session.kunde != null)
             {
-                windowLauncher("Kunde");
+               //windowLauncher(new );
             }
         }
     }

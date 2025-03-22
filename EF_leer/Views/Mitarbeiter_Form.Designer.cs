@@ -81,6 +81,7 @@ namespace EF_leer.Views
             this.ticketDataGridView.Name = "ticketDataGridView";
             this.ticketDataGridView.Size = new System.Drawing.Size(300, 418);
             this.ticketDataGridView.TabIndex = 1;
+            this.ticketDataGridView.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.ticketDataGridView_CellClick);
             this.ticketDataGridView.Click += new System.EventHandler(this.ticketDataGridView_Click);
             // 
             // rechnungDataGridView
@@ -99,6 +100,7 @@ namespace EF_leer.Views
             this.rechnungDataGridView.Name = "rechnungDataGridView";
             this.rechnungDataGridView.Size = new System.Drawing.Size(300, 418);
             this.rechnungDataGridView.TabIndex = 2;
+            this.rechnungDataGridView.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.rechnungDataGridView_CellClick);
             // 
             // panel1
             // 

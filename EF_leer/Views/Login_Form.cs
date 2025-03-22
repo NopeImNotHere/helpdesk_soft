@@ -18,15 +18,6 @@ namespace EF_leer.Views
 
 
         }
-
-        public Login_Form(string username, string password)
-        {
-            InitializeComponent();
-            EMail_Field.Text = username;
-            Password_Field.Text = password;
-            System.Threading.Thread.Sleep(5);
-            Login_Click(this, EventArgs.Empty);
-        }
         protected override void OnFormClosing(FormClosingEventArgs e)
         {
             DialogResult result;
