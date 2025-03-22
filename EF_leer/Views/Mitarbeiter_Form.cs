@@ -180,6 +180,7 @@ namespace EF_leer.Views
             {
                 ticketUeberKundenOrt.Text = currentHint;
                 ticketUeberKundenOrt.ForeColor = Color.Gray;
+                ticketBindingSource.DataSource = currentMitarbeiter.ticket;
             }
         }
 
