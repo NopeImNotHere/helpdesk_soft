@@ -17,7 +17,7 @@ namespace EF_leer.Views
 
             ticketBindingSource.DataSource = daten.ticket.ToList();
 
-         
+
             List<kunde> Kunde = daten.kunde.ToList();
             comboBoxKunde.DataSource = Kunde;
             comboBoxKunde.DisplayMember = "Firmenname";
@@ -53,31 +53,33 @@ namespace EF_leer.Views
 
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private async void button1_Click(object sender, EventArgs e)
         {
             /*NetworkCredential creds = CredentialManager.GetCredentials("sessionHash");
             string sessionHash = creds.Password;
             session session = daten.session.Where(s => s.sessionhash == sessionHash).First();*/
 
             ticket Neu = new ticket
-                {
-                    
-                    kunde = comboBoxKunde.SelectedItem as kunde,
-                    Ticket_Titel = textBoxTitel.Text,
-                    art = comboBoxArt.SelectedItem as art,
-                    priorität = comboBoxPrio.SelectedItem as priorität,
-                    status = comboBoxStatus.SelectedItem as status,
-                    Beschreibung = richTextBoxBesch.Text,
-                    InterneNotiz = richTextBoxIntNotiz.Text,
-                    InternerStatus = richTextBoxIntStatus.Text,
-                    Erstelldatum = DateTime.Now,
-                    //mitarbeiter = session.mitarbeiter as mitarbeiter
+            {
+
+                kunde = comboBoxKunde.SelectedItem as kunde,
+                Ticket_Titel = textBoxTitel.Text,
+                art = comboBoxArt.SelectedItem as art,
+                priorität = comboBoxPrio.SelectedItem as priorität,
+                status = comboBoxStatus.SelectedItem as status,
+                Beschreibung = richTextBoxBesch.Text,
+                InterneNotiz = richTextBoxIntNotiz.Text,
+                InternerStatus = richTextBoxIntStatus.Text,
+                Erstelldatum = DateTime.Now
+                //mitarbeiter = session.mitarbeiter as mitarbeiter
             };
-                daten.ticket.Add(Neu);
+            daten.ticket.Add(Neu);
 
-                daten.SaveChanges();
+            if(daten.SaveChanges() != 0)
+            {
 
-                ticket NeustTicket = daten.ticket.OrderByDescending(t => t.Erstelldatum).FirstOrDefault();
+
+            ticket NeustTicket = daten.ticket.Where(t => t.Erstelldatum == Neu.Erstelldatum).First();
             if (ausgewählteDienstleistungen != null && NeustTicket != null)
             {
                 Dictionary<int, int> dienstleistungsZähler = new Dictionary<int, int>();
@@ -99,20 +101,15 @@ namespace EF_leer.Views
                     };
 
                     daten.abgeleitet.Add(abgel);
-                    
-                    try
-                    {
-                        daten.SaveChanges();
-                    }
-                    catch
-                    {
 
-                    }
-                    this.Hide();
+                    daten.SaveChanges();
+                    //this.Hide();
                     Ticket_Form newFormT = new Ticket_Form();
                     newFormT.Show();
                     this.Close();
                 }
+            }
+
             }
 
         }
@@ -149,17 +146,34 @@ namespace EF_leer.Views
             var ticketID = aktTIcket.PK_Ticket;
             using (var daten = new oberstufe_db1Entities())
             {
-                var dienstleistungen = daten.dienstleistung
-                    .Join(daten.abgeleitet,
-                        d => d.PK_Dienstleistung,
-                        a => a.FK_Dienstleistung,
-                        (d, a) => new { Dienstleistung = d, Abgeleitet = a })
-                    .Where(x => x.Abgeleitet.FK_Ticket == ticketID)
-                    .Select(x => x.Dienstleistung)
-                    .ToList();
+                List<KeyValuePair<int, int>> DienstleistungIdUndAnzahl = new List<KeyValuePair<int, int>>();
+                List<dienstleistung> Dienstleistungen = new List<dienstleistung>();
+                foreach (abgeleitet abgeleitet in daten.abgeleitet)
+                {
+                    if (abgeleitet.FK_Ticket == ticketID)
+                    {
+                        DienstleistungIdUndAnzahl.Add(new KeyValuePair<int, int>(abgeleitet.FK_Dienstleistung, (int)abgeleitet.Anzahl));
+                    }
+                }
+                foreach (dienstleistung Data in daten.dienstleistung)
+                {
+                    foreach (KeyValuePair<int, int> IdUndAnzahl in DienstleistungIdUndAnzahl)
+                    {
+                        if (Data.PK_Dienstleistung == IdUndAnzahl.Key)
+                        {
+                            for (int i = 1; i <= IdUndAnzahl.Value; i++)
+                            {
+                                Dienstleistungen.Add(Data);
+                            }
+                        }
+                    }
+                }
 
-                dienstleistungBindingSource.DataSource = dienstleistungen;
+
+                dienstleistungBindingSource.DataSource = Dienstleistungen;
             }
+
+
         }
     }
 }
