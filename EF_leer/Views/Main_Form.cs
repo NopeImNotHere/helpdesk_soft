@@ -64,7 +64,7 @@ namespace EF_leer.Views
             childForm.Dock = DockStyle.Fill;
             this.ClientSize = childForm.Size;
             childForm.Show();
-            if (childForm is Mitarbeiter_Form form /*||childForm is Kunde_Form form*/)
+            if (childForm is Mitarbeiter_Form form)
             {
                 form.FormClosed += (s, e) =>
                 {
@@ -100,7 +100,7 @@ namespace EF_leer.Views
             session session = data.session.Where(s => s.sessionhash == sessionHash).First();
             if (session.mitarbeiter != null)
             {
-                windowLauncher(new Mitarbeiter_Form(session.mitarbeiter), false);
+                windowLauncher(new Mitarbeiter_Form(), false);
             }
             else if (session.kunde != null)
             {

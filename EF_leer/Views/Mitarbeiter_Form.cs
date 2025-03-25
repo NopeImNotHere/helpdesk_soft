@@ -41,14 +41,6 @@ namespace EF_leer.Views
             currentHint = $"{randomStadt} oder {randomPLZ}";
             ticketUeberKundenOrt.Text = currentHint;
             ticketUeberKundenOrt.ForeColor = Color.Gray;
-
-        }
-
-
-        public Mitarbeiter_Form(mitarbeiter mitarbeiter)
-        {
-            InitializeComponent();
-            LoadData(mitarbeiter);
         }
 
         public void LoadData(mitarbeiter mitarbeiter)
@@ -153,17 +145,10 @@ namespace EF_leer.Views
                 }
             }
 
-            kunde dataKunde = new kunde();
-            foreach(kunde kunde in data.kunde.ToList())
-            {
-                if(kunde.ort.Contains(dataOrt))
-                {
-                    dataKunde = kunde;
-                }
-            }
+            List<ticket> kundeTicket = dataOrt.kunde.SelectMany(k => k.ticket).ToList();
 
             List<ticket> filteredTickets = new List<ticket>();
-            foreach(ticket ticket in dataKunde.ticket.ToList())
+            foreach(ticket ticket in kundeTicket)
             {
                 if(ticket.mitarbeiter == currentMitarbeiter)
                 {
