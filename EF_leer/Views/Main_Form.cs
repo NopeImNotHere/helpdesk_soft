@@ -107,5 +107,10 @@ namespace EF_leer.Views
                //windowLauncher(new );
             }
         }
+
+        private void neuErstellenToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            windowLauncher(new Erstellen(), false);
+        }
     }
 }
