@@ -209,6 +209,12 @@
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="util\LoginHelper.cs" />
+    <Compile Include="Views\MitarbeiterData_Form.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\MitarbeiterData_Form.Designer.cs">
+      <DependentUpon>MitarbeiterData_Form.cs</DependentUpon>
+    </Compile>
     <Compile Include="Views\Main_Form.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -241,6 +247,15 @@
     <Compile Include="Views\Ticket_Form.Designer.cs">
       <DependentUpon>Ticket_Form.cs</DependentUpon>
     </Compile>
+    <Compile Include="Views\KundeData_Form.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\KundeData_Form.Designer.cs">
+      <DependentUpon>KundeData_Form.cs</DependentUpon>
+    </Compile>
+    <EmbeddedResource Include="Views\MitarbeiterData_Form.resx">
+      <DependentUpon>MitarbeiterData_Form.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Views\Login_Form.resx">
       <DependentUpon>Login_Form.cs</DependentUpon>
     </EmbeddedResource>
@@ -264,6 +279,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Views\Ticket_Form.resx">
       <DependentUpon>Ticket_Form.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\KundeData_Form.resx">
+      <DependentUpon>KundeData_Form.cs</DependentUpon>
     </EmbeddedResource>
     <EntityDeploy Include="Model1.edmx">
       <Generator>EntityModelCodeGenerator</Generator>

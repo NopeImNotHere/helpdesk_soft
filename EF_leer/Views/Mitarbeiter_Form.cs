@@ -197,5 +197,13 @@ namespace EF_leer.Views
                 this.Close();
             }
         }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            if (this.MdiParent != null && this.MdiParent is Main_Form)
+            {
+                (this.MdiParent as Main_Form).windowLauncher(new MitarbeiterData_Form(currentMitarbeiter), true);
+            }
+        }
     }
 }
