@@ -16,7 +16,7 @@ namespace EF_leer
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.ApplicationExit += new EventHandler(OnApplicationExit);
+            //Application.ApplicationExit += new EventHandler(OnApplicationExit);
             Type type = Type.GetType(args[0]);
             Application.Run(new Main_Form((Form)Activator.CreateInstance(type), Convert.ToBoolean(args[1])));
         }

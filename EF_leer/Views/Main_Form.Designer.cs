@@ -34,6 +34,7 @@ namespace EF_leer.Views
             this.rechnungToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ticketToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.profileStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.neuErstellenToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -52,7 +53,8 @@ namespace EF_leer.Views
             // 
             this.menüsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.rechnungToolStripMenuItem,
-            this.ticketToolStripMenuItem});
+            this.ticketToolStripMenuItem,
+            this.neuErstellenToolStripMenuItem});
             this.menüsToolStripMenuItem.Name = "menüsToolStripMenuItem";
             this.menüsToolStripMenuItem.Size = new System.Drawing.Size(58, 20);
             this.menüsToolStripMenuItem.Text = "Menü\'s";
@@ -79,6 +81,13 @@ namespace EF_leer.Views
             this.profileStripMenuItem.Text = "Profil";
             this.profileStripMenuItem.Click += new System.EventHandler(this.profileStripMenuItem_Click);
             // 
+            // neuErstellenToolStripMenuItem
+            // 
+            this.neuErstellenToolStripMenuItem.Name = "neuErstellenToolStripMenuItem";
+            this.neuErstellenToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.neuErstellenToolStripMenuItem.Text = "Neu erstellen";
+            this.neuErstellenToolStripMenuItem.Click += new System.EventHandler(this.neuErstellenToolStripMenuItem_Click);
+            // 
             // Main_Form
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -103,6 +112,7 @@ namespace EF_leer.Views
         private System.Windows.Forms.ToolStripMenuItem rechnungToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem ticketToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem profileStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem neuErstellenToolStripMenuItem;
     }
 }
 

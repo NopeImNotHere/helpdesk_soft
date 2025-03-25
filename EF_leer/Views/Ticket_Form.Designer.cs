@@ -73,9 +73,9 @@ namespace EF_leer.Views
             this.Kunde = new System.Windows.Forms.Label();
             this.comboBoxKunde = new System.Windows.Forms.ComboBox();
             this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.dienstleistungDataGridView = new System.Windows.Forms.DataGridView();
+            this.button4 = new System.Windows.Forms.Button();
             this.button3 = new System.Windows.Forms.Button();
-            this.statusnameTextBox = new System.Windows.Forms.TextBox();
-            this.prioritätsnameTextBox = new System.Windows.Forms.TextBox();
             this.emailTextBox1 = new System.Windows.Forms.TextBox();
             this.festnetznummerTextBox = new System.Windows.Forms.TextBox();
             this.mobilnummerTextBox = new System.Windows.Forms.TextBox();
@@ -86,7 +86,6 @@ namespace EF_leer.Views
             this.emailTextBox = new System.Windows.Forms.TextBox();
             this.firmennameTextBox = new System.Windows.Forms.TextBox();
             this.kundennummerTextBox = new System.Windows.Forms.TextBox();
-            this.artnameTextBox = new System.Windows.Forms.TextBox();
             this.beschreibungTextBox = new System.Windows.Forms.TextBox();
             this.erstelldatumDateTimePicker = new System.Windows.Forms.DateTimePicker();
             this.interneNotizTextBox = new System.Windows.Forms.TextBox();
@@ -106,14 +105,18 @@ namespace EF_leer.Views
             this.bindingNavigatorMoveLastItem = new System.Windows.Forms.ToolStripButton();
             this.bindingNavigatorSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.bindingSource1 = new System.Windows.Forms.BindingSource(this.components);
-            this.button4 = new System.Windows.Forms.Button();
-            this.ticketBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.dienstleistungBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.dienstleistungDataGridView = new System.Windows.Forms.DataGridView();
+            this.comboArt = new System.Windows.Forms.ComboBox();
+            this.comboPrio = new System.Windows.Forms.ComboBox();
+            this.comboStatus = new System.Windows.Forms.ComboBox();
             this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dienstleistungBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.ticketBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.artBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.prioritätBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.statusBindingSource = new System.Windows.Forms.BindingSource(this.components);
             beschreibungLabel = new System.Windows.Forms.Label();
             erstelldatumLabel = new System.Windows.Forms.Label();
             interneNotizLabel = new System.Windows.Forms.Label();
@@ -136,12 +139,15 @@ namespace EF_leer.Views
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabPage2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dienstleistungDataGridView)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.bindingNavigator1)).BeginInit();
             this.bindingNavigator1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.bindingSource1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.ticketBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dienstleistungBindingSource)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dienstleistungDataGridView)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.ticketBindingSource)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.artBindingSource)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.prioritätBindingSource)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.statusBindingSource)).BeginInit();
             this.SuspendLayout();
             // 
             // beschreibungLabel
@@ -237,7 +243,7 @@ namespace EF_leer.Views
             // emailLabel1
             // 
             emailLabel1.AutoSize = true;
-            emailLabel1.Location = new System.Drawing.Point(333, 312);
+            emailLabel1.Location = new System.Drawing.Point(334, 324);
             emailLabel1.Name = "emailLabel1";
             emailLabel1.Size = new System.Drawing.Size(35, 13);
             emailLabel1.TabIndex = 31;
@@ -246,7 +252,7 @@ namespace EF_leer.Views
             // festnetznummerLabel
             // 
             festnetznummerLabel.AutoSize = true;
-            festnetznummerLabel.Location = new System.Drawing.Point(333, 338);
+            festnetznummerLabel.Location = new System.Drawing.Point(334, 350);
             festnetznummerLabel.Name = "festnetznummerLabel";
             festnetznummerLabel.Size = new System.Drawing.Size(87, 13);
             festnetznummerLabel.TabIndex = 33;
@@ -255,7 +261,7 @@ namespace EF_leer.Views
             // mobilnummerLabel
             // 
             mobilnummerLabel.AutoSize = true;
-            mobilnummerLabel.Location = new System.Drawing.Point(333, 364);
+            mobilnummerLabel.Location = new System.Drawing.Point(334, 376);
             mobilnummerLabel.Name = "mobilnummerLabel";
             mobilnummerLabel.Size = new System.Drawing.Size(72, 13);
             mobilnummerLabel.TabIndex = 35;
@@ -264,7 +270,7 @@ namespace EF_leer.Views
             // nachnameLabel
             // 
             nachnameLabel.AutoSize = true;
-            nachnameLabel.Location = new System.Drawing.Point(333, 262);
+            nachnameLabel.Location = new System.Drawing.Point(334, 274);
             nachnameLabel.Name = "nachnameLabel";
             nachnameLabel.Size = new System.Drawing.Size(62, 13);
             nachnameLabel.TabIndex = 37;
@@ -273,7 +279,7 @@ namespace EF_leer.Views
             // pK_MitarbeiterLabel
             // 
             pK_MitarbeiterLabel.AutoSize = true;
-            pK_MitarbeiterLabel.Location = new System.Drawing.Point(333, 210);
+            pK_MitarbeiterLabel.Location = new System.Drawing.Point(334, 222);
             pK_MitarbeiterLabel.Name = "pK_MitarbeiterLabel";
             pK_MitarbeiterLabel.Size = new System.Drawing.Size(76, 13);
             pK_MitarbeiterLabel.TabIndex = 41;
@@ -282,7 +288,7 @@ namespace EF_leer.Views
             // positionLabel
             // 
             positionLabel.AutoSize = true;
-            positionLabel.Location = new System.Drawing.Point(333, 286);
+            positionLabel.Location = new System.Drawing.Point(334, 298);
             positionLabel.Name = "positionLabel";
             positionLabel.Size = new System.Drawing.Size(47, 13);
             positionLabel.TabIndex = 43;
@@ -291,7 +297,7 @@ namespace EF_leer.Views
             // vornameLabel
             // 
             vornameLabel.AutoSize = true;
-            vornameLabel.Location = new System.Drawing.Point(333, 236);
+            vornameLabel.Location = new System.Drawing.Point(334, 248);
             vornameLabel.Name = "vornameLabel";
             vornameLabel.Size = new System.Drawing.Size(52, 13);
             vornameLabel.TabIndex = 45;
@@ -350,7 +356,7 @@ namespace EF_leer.Views
             this.tabPage1.Location = new System.Drawing.Point(4, 22);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(768, 400);
+            this.tabPage1.Size = new System.Drawing.Size(882, 400);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Erstellen";
             this.tabPage1.UseVisualStyleBackColor = true;
@@ -529,13 +535,14 @@ namespace EF_leer.Views
             // tabPage2
             // 
             this.tabPage2.AutoScroll = true;
+            this.tabPage2.Controls.Add(this.comboStatus);
+            this.tabPage2.Controls.Add(this.comboPrio);
+            this.tabPage2.Controls.Add(this.comboArt);
             this.tabPage2.Controls.Add(this.dienstleistungDataGridView);
             this.tabPage2.Controls.Add(this.button4);
             this.tabPage2.Controls.Add(this.button3);
             this.tabPage2.Controls.Add(statusnameLabel);
-            this.tabPage2.Controls.Add(this.statusnameTextBox);
             this.tabPage2.Controls.Add(prioritätsnameLabel);
-            this.tabPage2.Controls.Add(this.prioritätsnameTextBox);
             this.tabPage2.Controls.Add(emailLabel1);
             this.tabPage2.Controls.Add(this.emailTextBox1);
             this.tabPage2.Controls.Add(festnetznummerLabel);
@@ -557,7 +564,6 @@ namespace EF_leer.Views
             this.tabPage2.Controls.Add(kundennummerLabel);
             this.tabPage2.Controls.Add(this.kundennummerTextBox);
             this.tabPage2.Controls.Add(artnameLabel);
-            this.tabPage2.Controls.Add(this.artnameTextBox);
             this.tabPage2.Controls.Add(beschreibungLabel);
             this.tabPage2.Controls.Add(this.beschreibungTextBox);
             this.tabPage2.Controls.Add(erstelldatumLabel);
@@ -579,6 +585,31 @@ namespace EF_leer.Views
             this.tabPage2.Text = "Übersicht";
             this.tabPage2.UseVisualStyleBackColor = true;
             // 
+            // dienstleistungDataGridView
+            // 
+            this.dienstleistungDataGridView.AutoGenerateColumns = false;
+            this.dienstleistungDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dienstleistungDataGridView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.dataGridViewTextBoxColumn1,
+            this.dataGridViewTextBoxColumn2,
+            this.dataGridViewTextBoxColumn3,
+            this.dataGridViewTextBoxColumn4});
+            this.dienstleistungDataGridView.DataSource = this.dienstleistungBindingSource;
+            this.dienstleistungDataGridView.Location = new System.Drawing.Point(533, 171);
+            this.dienstleistungDataGridView.Name = "dienstleistungDataGridView";
+            this.dienstleistungDataGridView.Size = new System.Drawing.Size(341, 220);
+            this.dienstleistungDataGridView.TabIndex = 62;
+            // 
+            // button4
+            // 
+            this.button4.Location = new System.Drawing.Point(172, 308);
+            this.button4.Name = "button4";
+            this.button4.Size = new System.Drawing.Size(141, 36);
+            this.button4.TabIndex = 62;
+            this.button4.Text = "Ticket updaten";
+            this.button4.UseVisualStyleBackColor = true;
+            this.button4.Click += new System.EventHandler(this.button4_Click);
+            // 
             // button3
             // 
             this.button3.Location = new System.Drawing.Point(8, 308);
@@ -589,26 +620,10 @@ namespace EF_leer.Views
             this.button3.UseVisualStyleBackColor = true;
             this.button3.Click += new System.EventHandler(this.button3_Click);
             // 
-            // statusnameTextBox
-            // 
-            this.statusnameTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.ticketBindingSource, "status.Statusname", true));
-            this.statusnameTextBox.Location = new System.Drawing.Point(446, 50);
-            this.statusnameTextBox.Name = "statusnameTextBox";
-            this.statusnameTextBox.Size = new System.Drawing.Size(100, 20);
-            this.statusnameTextBox.TabIndex = 60;
-            // 
-            // prioritätsnameTextBox
-            // 
-            this.prioritätsnameTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.ticketBindingSource, "priorität.Prioritätsname", true));
-            this.prioritätsnameTextBox.Location = new System.Drawing.Point(349, 50);
-            this.prioritätsnameTextBox.Name = "prioritätsnameTextBox";
-            this.prioritätsnameTextBox.Size = new System.Drawing.Size(100, 20);
-            this.prioritätsnameTextBox.TabIndex = 52;
-            // 
             // emailTextBox1
             // 
             this.emailTextBox1.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.ticketBindingSource, "mitarbeiter.Email", true));
-            this.emailTextBox1.Location = new System.Drawing.Point(426, 309);
+            this.emailTextBox1.Location = new System.Drawing.Point(427, 321);
             this.emailTextBox1.Name = "emailTextBox1";
             this.emailTextBox1.Size = new System.Drawing.Size(100, 20);
             this.emailTextBox1.TabIndex = 32;
@@ -616,7 +631,7 @@ namespace EF_leer.Views
             // festnetznummerTextBox
             // 
             this.festnetznummerTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.ticketBindingSource, "mitarbeiter.Festnetznummer", true));
-            this.festnetznummerTextBox.Location = new System.Drawing.Point(426, 335);
+            this.festnetznummerTextBox.Location = new System.Drawing.Point(427, 347);
             this.festnetznummerTextBox.Name = "festnetznummerTextBox";
             this.festnetznummerTextBox.Size = new System.Drawing.Size(100, 20);
             this.festnetznummerTextBox.TabIndex = 34;
@@ -624,7 +639,7 @@ namespace EF_leer.Views
             // mobilnummerTextBox
             // 
             this.mobilnummerTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.ticketBindingSource, "mitarbeiter.Mobilnummer", true));
-            this.mobilnummerTextBox.Location = new System.Drawing.Point(426, 361);
+            this.mobilnummerTextBox.Location = new System.Drawing.Point(427, 373);
             this.mobilnummerTextBox.Name = "mobilnummerTextBox";
             this.mobilnummerTextBox.Size = new System.Drawing.Size(100, 20);
             this.mobilnummerTextBox.TabIndex = 36;
@@ -632,7 +647,7 @@ namespace EF_leer.Views
             // nachnameTextBox
             // 
             this.nachnameTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.ticketBindingSource, "mitarbeiter.Nachname", true));
-            this.nachnameTextBox.Location = new System.Drawing.Point(426, 259);
+            this.nachnameTextBox.Location = new System.Drawing.Point(427, 271);
             this.nachnameTextBox.Name = "nachnameTextBox";
             this.nachnameTextBox.Size = new System.Drawing.Size(100, 20);
             this.nachnameTextBox.TabIndex = 38;
@@ -640,7 +655,7 @@ namespace EF_leer.Views
             // pK_MitarbeiterTextBox
             // 
             this.pK_MitarbeiterTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.ticketBindingSource, "mitarbeiter.PK_Mitarbeiter", true));
-            this.pK_MitarbeiterTextBox.Location = new System.Drawing.Point(426, 207);
+            this.pK_MitarbeiterTextBox.Location = new System.Drawing.Point(427, 219);
             this.pK_MitarbeiterTextBox.Name = "pK_MitarbeiterTextBox";
             this.pK_MitarbeiterTextBox.Size = new System.Drawing.Size(100, 20);
             this.pK_MitarbeiterTextBox.TabIndex = 42;
@@ -648,7 +663,7 @@ namespace EF_leer.Views
             // positionTextBox
             // 
             this.positionTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.ticketBindingSource, "mitarbeiter.Position", true));
-            this.positionTextBox.Location = new System.Drawing.Point(426, 283);
+            this.positionTextBox.Location = new System.Drawing.Point(427, 295);
             this.positionTextBox.Name = "positionTextBox";
             this.positionTextBox.Size = new System.Drawing.Size(100, 20);
             this.positionTextBox.TabIndex = 44;
@@ -656,7 +671,7 @@ namespace EF_leer.Views
             // vornameTextBox
             // 
             this.vornameTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.ticketBindingSource, "mitarbeiter.Vorname", true));
-            this.vornameTextBox.Location = new System.Drawing.Point(426, 233);
+            this.vornameTextBox.Location = new System.Drawing.Point(427, 245);
             this.vornameTextBox.Name = "vornameTextBox";
             this.vornameTextBox.Size = new System.Drawing.Size(100, 20);
             this.vornameTextBox.TabIndex = 46;
@@ -684,14 +699,6 @@ namespace EF_leer.Views
             this.kundennummerTextBox.Name = "kundennummerTextBox";
             this.kundennummerTextBox.Size = new System.Drawing.Size(100, 20);
             this.kundennummerTextBox.TabIndex = 26;
-            // 
-            // artnameTextBox
-            // 
-            this.artnameTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.ticketBindingSource, "art.Artname", true));
-            this.artnameTextBox.Location = new System.Drawing.Point(248, 50);
-            this.artnameTextBox.Name = "artnameTextBox";
-            this.artnameTextBox.Size = new System.Drawing.Size(100, 20);
-            this.artnameTextBox.TabIndex = 16;
             // 
             // beschreibungTextBox
             // 
@@ -856,39 +863,29 @@ namespace EF_leer.Views
             this.bindingNavigatorSeparator2.Name = "bindingNavigatorSeparator2";
             this.bindingNavigatorSeparator2.Size = new System.Drawing.Size(6, 25);
             // 
-            // button4
+            // comboArt
             // 
-            this.button4.Location = new System.Drawing.Point(172, 308);
-            this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(141, 36);
-            this.button4.TabIndex = 62;
-            this.button4.Text = "Ticket updaten";
-            this.button4.UseVisualStyleBackColor = true;
-            this.button4.Click += new System.EventHandler(this.button4_Click);
+            this.comboArt.FormattingEnabled = true;
+            this.comboArt.Location = new System.Drawing.Point(248, 50);
+            this.comboArt.Name = "comboArt";
+            this.comboArt.Size = new System.Drawing.Size(100, 21);
+            this.comboArt.TabIndex = 63;
             // 
-            // ticketBindingSource
+            // comboPrio
             // 
-            this.ticketBindingSource.DataSource = typeof(EF_leer.ticket);
-            this.ticketBindingSource.CurrentChanged += new System.EventHandler(this.ticketBindingSource_CurrentChanged);
+            this.comboPrio.FormattingEnabled = true;
+            this.comboPrio.Location = new System.Drawing.Point(349, 50);
+            this.comboPrio.Name = "comboPrio";
+            this.comboPrio.Size = new System.Drawing.Size(100, 21);
+            this.comboPrio.TabIndex = 64;
             // 
-            // dienstleistungBindingSource
+            // comboStatus
             // 
-            this.dienstleistungBindingSource.DataSource = typeof(EF_leer.dienstleistung);
-            // 
-            // dienstleistungDataGridView
-            // 
-            this.dienstleistungDataGridView.AutoGenerateColumns = false;
-            this.dienstleistungDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dienstleistungDataGridView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.dataGridViewTextBoxColumn1,
-            this.dataGridViewTextBoxColumn2,
-            this.dataGridViewTextBoxColumn3,
-            this.dataGridViewTextBoxColumn4});
-            this.dienstleistungDataGridView.DataSource = this.dienstleistungBindingSource;
-            this.dienstleistungDataGridView.Location = new System.Drawing.Point(532, 80);
-            this.dienstleistungDataGridView.Name = "dienstleistungDataGridView";
-            this.dienstleistungDataGridView.Size = new System.Drawing.Size(341, 220);
-            this.dienstleistungDataGridView.TabIndex = 62;
+            this.comboStatus.FormattingEnabled = true;
+            this.comboStatus.Location = new System.Drawing.Point(446, 50);
+            this.comboStatus.Name = "comboStatus";
+            this.comboStatus.Size = new System.Drawing.Size(100, 21);
+            this.comboStatus.TabIndex = 65;
             // 
             // dataGridViewTextBoxColumn1
             // 
@@ -914,6 +911,27 @@ namespace EF_leer.Views
             this.dataGridViewTextBoxColumn4.HeaderText = "abgeleitet";
             this.dataGridViewTextBoxColumn4.Name = "dataGridViewTextBoxColumn4";
             // 
+            // dienstleistungBindingSource
+            // 
+            this.dienstleistungBindingSource.DataSource = typeof(EF_leer.dienstleistung);
+            // 
+            // ticketBindingSource
+            // 
+            this.ticketBindingSource.DataSource = typeof(EF_leer.ticket);
+            this.ticketBindingSource.CurrentChanged += new System.EventHandler(this.ticketBindingSource_CurrentChanged);
+            // 
+            // artBindingSource
+            // 
+            this.artBindingSource.DataSource = typeof(EF_leer.art);
+            // 
+            // prioritätBindingSource
+            // 
+            this.prioritätBindingSource.DataSource = typeof(EF_leer.priorität);
+            // 
+            // statusBindingSource
+            // 
+            this.statusBindingSource.DataSource = typeof(EF_leer.status);
+            // 
             // Ticket_Form
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -928,13 +946,16 @@ namespace EF_leer.Views
             this.tabPage1.PerformLayout();
             this.tabPage2.ResumeLayout(false);
             this.tabPage2.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dienstleistungDataGridView)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.bindingNavigator1)).EndInit();
             this.bindingNavigator1.ResumeLayout(false);
             this.bindingNavigator1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.bindingSource1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.ticketBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dienstleistungBindingSource)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dienstleistungDataGridView)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.ticketBindingSource)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.artBindingSource)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.prioritätBindingSource)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.statusBindingSource)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -977,9 +998,7 @@ namespace EF_leer.Views
         private System.Windows.Forms.ToolStripButton bindingNavigatorMoveLastItem;
         private System.Windows.Forms.ToolStripSeparator bindingNavigatorSeparator2;
         private System.Windows.Forms.BindingSource bindingSource1;
-        private System.Windows.Forms.TextBox statusnameTextBox;
         private System.Windows.Forms.BindingSource ticketBindingSource;
-        private System.Windows.Forms.TextBox prioritätsnameTextBox;
         private System.Windows.Forms.TextBox emailTextBox1;
         private System.Windows.Forms.TextBox festnetznummerTextBox;
         private System.Windows.Forms.TextBox mobilnummerTextBox;
@@ -990,7 +1009,6 @@ namespace EF_leer.Views
         private System.Windows.Forms.TextBox emailTextBox;
         private System.Windows.Forms.TextBox firmennameTextBox;
         private System.Windows.Forms.TextBox kundennummerTextBox;
-        private System.Windows.Forms.TextBox artnameTextBox;
         private System.Windows.Forms.TextBox beschreibungTextBox;
         private System.Windows.Forms.DateTimePicker erstelldatumDateTimePicker;
         private System.Windows.Forms.TextBox interneNotizTextBox;
@@ -1005,5 +1023,11 @@ namespace EF_leer.Views
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn3;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn4;
         private System.Windows.Forms.BindingSource dienstleistungBindingSource;
+        private System.Windows.Forms.ComboBox comboStatus;
+        private System.Windows.Forms.ComboBox comboPrio;
+        private System.Windows.Forms.ComboBox comboArt;
+        private System.Windows.Forms.BindingSource artBindingSource;
+        private System.Windows.Forms.BindingSource prioritätBindingSource;
+        private System.Windows.Forms.BindingSource statusBindingSource;
     }
 }
