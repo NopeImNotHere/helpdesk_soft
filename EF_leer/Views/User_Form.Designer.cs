@@ -1,7 +1,7 @@
 ﻿
 namespace EF_leer.Views
 {
-    partial class Mitarbeiter_Form
+    partial class User_Form
     {
         /// <summary>
         /// Required designer variable.
@@ -31,7 +31,20 @@ namespace EF_leer.Views
         {
             this.components = new System.ComponentModel.Container();
             this.ticketDataGridView = new System.Windows.Forms.DataGridView();
+            this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn5 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn6 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn7 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ticketBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.rechnungDataGridView = new System.Windows.Forms.DataGridView();
+            this.dataGridViewTextBoxColumn16 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn17 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn18 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn19 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.rechnungBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.panel1 = new System.Windows.Forms.Panel();
             this.ticketUeberKundenOrt = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
@@ -42,24 +55,11 @@ namespace EF_leer.Views
             this.button2 = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
-            this.dataGridViewTextBoxColumn16 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn17 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn18 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn19 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.rechnungBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn5 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn6 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn7 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ticketBindingSource = new System.Windows.Forms.BindingSource(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.ticketDataGridView)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.rechnungDataGridView)).BeginInit();
-            this.panel1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.rechnungBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.ticketBindingSource)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.rechnungDataGridView)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.rechnungBindingSource)).BeginInit();
+            this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // ticketDataGridView
@@ -84,6 +84,52 @@ namespace EF_leer.Views
             this.ticketDataGridView.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.ticketDataGridView_CellClick);
             this.ticketDataGridView.Click += new System.EventHandler(this.ticketDataGridView_Click);
             // 
+            // dataGridViewTextBoxColumn1
+            // 
+            this.dataGridViewTextBoxColumn1.DataPropertyName = "PK_Ticket";
+            this.dataGridViewTextBoxColumn1.HeaderText = "PK_Ticket";
+            this.dataGridViewTextBoxColumn1.Name = "dataGridViewTextBoxColumn1";
+            // 
+            // dataGridViewTextBoxColumn2
+            // 
+            this.dataGridViewTextBoxColumn2.DataPropertyName = "Ticket_Titel";
+            this.dataGridViewTextBoxColumn2.HeaderText = "Ticket_Titel";
+            this.dataGridViewTextBoxColumn2.Name = "dataGridViewTextBoxColumn2";
+            // 
+            // dataGridViewTextBoxColumn3
+            // 
+            this.dataGridViewTextBoxColumn3.DataPropertyName = "Beschreibung";
+            this.dataGridViewTextBoxColumn3.HeaderText = "Beschreibung";
+            this.dataGridViewTextBoxColumn3.Name = "dataGridViewTextBoxColumn3";
+            // 
+            // dataGridViewTextBoxColumn4
+            // 
+            this.dataGridViewTextBoxColumn4.DataPropertyName = "InterneNotiz";
+            this.dataGridViewTextBoxColumn4.HeaderText = "InterneNotiz";
+            this.dataGridViewTextBoxColumn4.Name = "dataGridViewTextBoxColumn4";
+            // 
+            // dataGridViewTextBoxColumn5
+            // 
+            this.dataGridViewTextBoxColumn5.DataPropertyName = "InternerStatus";
+            this.dataGridViewTextBoxColumn5.HeaderText = "InternerStatus";
+            this.dataGridViewTextBoxColumn5.Name = "dataGridViewTextBoxColumn5";
+            // 
+            // dataGridViewTextBoxColumn6
+            // 
+            this.dataGridViewTextBoxColumn6.DataPropertyName = "Erstelldatum";
+            this.dataGridViewTextBoxColumn6.HeaderText = "Erstelldatum";
+            this.dataGridViewTextBoxColumn6.Name = "dataGridViewTextBoxColumn6";
+            // 
+            // dataGridViewTextBoxColumn7
+            // 
+            this.dataGridViewTextBoxColumn7.DataPropertyName = "Bearbeitungsdatum";
+            this.dataGridViewTextBoxColumn7.HeaderText = "Bearbeitungsdatum";
+            this.dataGridViewTextBoxColumn7.Name = "dataGridViewTextBoxColumn7";
+            // 
+            // ticketBindingSource
+            // 
+            this.ticketBindingSource.DataSource = typeof(EF_leer.ticket);
+            // 
             // rechnungDataGridView
             // 
             this.rechnungDataGridView.AllowUserToAddRows = false;
@@ -101,6 +147,34 @@ namespace EF_leer.Views
             this.rechnungDataGridView.Size = new System.Drawing.Size(300, 418);
             this.rechnungDataGridView.TabIndex = 2;
             this.rechnungDataGridView.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.rechnungDataGridView_CellClick);
+            // 
+            // dataGridViewTextBoxColumn16
+            // 
+            this.dataGridViewTextBoxColumn16.DataPropertyName = "Rechnungsnr";
+            this.dataGridViewTextBoxColumn16.HeaderText = "Rechnungsnr";
+            this.dataGridViewTextBoxColumn16.Name = "dataGridViewTextBoxColumn16";
+            // 
+            // dataGridViewTextBoxColumn17
+            // 
+            this.dataGridViewTextBoxColumn17.DataPropertyName = "Ticketbeschreibung";
+            this.dataGridViewTextBoxColumn17.HeaderText = "Ticketbeschreibung";
+            this.dataGridViewTextBoxColumn17.Name = "dataGridViewTextBoxColumn17";
+            // 
+            // dataGridViewTextBoxColumn18
+            // 
+            this.dataGridViewTextBoxColumn18.DataPropertyName = "Abrechnung";
+            this.dataGridViewTextBoxColumn18.HeaderText = "Abrechnung";
+            this.dataGridViewTextBoxColumn18.Name = "dataGridViewTextBoxColumn18";
+            // 
+            // dataGridViewTextBoxColumn19
+            // 
+            this.dataGridViewTextBoxColumn19.DataPropertyName = "Ratenzahlung";
+            this.dataGridViewTextBoxColumn19.HeaderText = "Ratenzahlung";
+            this.dataGridViewTextBoxColumn19.Name = "dataGridViewTextBoxColumn19";
+            // 
+            // rechnungBindingSource
+            // 
+            this.rechnungBindingSource.DataSource = typeof(EF_leer.rechnung);
             // 
             // panel1
             // 
@@ -217,81 +291,7 @@ namespace EF_leer.Views
             this.label1.Text = "Actions";
             this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // dataGridViewTextBoxColumn16
-            // 
-            this.dataGridViewTextBoxColumn16.DataPropertyName = "Rechnungsnr";
-            this.dataGridViewTextBoxColumn16.HeaderText = "Rechnungsnr";
-            this.dataGridViewTextBoxColumn16.Name = "dataGridViewTextBoxColumn16";
-            // 
-            // dataGridViewTextBoxColumn17
-            // 
-            this.dataGridViewTextBoxColumn17.DataPropertyName = "Ticketbeschreibung";
-            this.dataGridViewTextBoxColumn17.HeaderText = "Ticketbeschreibung";
-            this.dataGridViewTextBoxColumn17.Name = "dataGridViewTextBoxColumn17";
-            // 
-            // dataGridViewTextBoxColumn18
-            // 
-            this.dataGridViewTextBoxColumn18.DataPropertyName = "Abrechnung";
-            this.dataGridViewTextBoxColumn18.HeaderText = "Abrechnung";
-            this.dataGridViewTextBoxColumn18.Name = "dataGridViewTextBoxColumn18";
-            // 
-            // dataGridViewTextBoxColumn19
-            // 
-            this.dataGridViewTextBoxColumn19.DataPropertyName = "Ratenzahlung";
-            this.dataGridViewTextBoxColumn19.HeaderText = "Ratenzahlung";
-            this.dataGridViewTextBoxColumn19.Name = "dataGridViewTextBoxColumn19";
-            // 
-            // rechnungBindingSource
-            // 
-            this.rechnungBindingSource.DataSource = typeof(EF_leer.rechnung);
-            // 
-            // dataGridViewTextBoxColumn1
-            // 
-            this.dataGridViewTextBoxColumn1.DataPropertyName = "PK_Ticket";
-            this.dataGridViewTextBoxColumn1.HeaderText = "PK_Ticket";
-            this.dataGridViewTextBoxColumn1.Name = "dataGridViewTextBoxColumn1";
-            // 
-            // dataGridViewTextBoxColumn2
-            // 
-            this.dataGridViewTextBoxColumn2.DataPropertyName = "Ticket_Titel";
-            this.dataGridViewTextBoxColumn2.HeaderText = "Ticket_Titel";
-            this.dataGridViewTextBoxColumn2.Name = "dataGridViewTextBoxColumn2";
-            // 
-            // dataGridViewTextBoxColumn3
-            // 
-            this.dataGridViewTextBoxColumn3.DataPropertyName = "Beschreibung";
-            this.dataGridViewTextBoxColumn3.HeaderText = "Beschreibung";
-            this.dataGridViewTextBoxColumn3.Name = "dataGridViewTextBoxColumn3";
-            // 
-            // dataGridViewTextBoxColumn4
-            // 
-            this.dataGridViewTextBoxColumn4.DataPropertyName = "InterneNotiz";
-            this.dataGridViewTextBoxColumn4.HeaderText = "InterneNotiz";
-            this.dataGridViewTextBoxColumn4.Name = "dataGridViewTextBoxColumn4";
-            // 
-            // dataGridViewTextBoxColumn5
-            // 
-            this.dataGridViewTextBoxColumn5.DataPropertyName = "InternerStatus";
-            this.dataGridViewTextBoxColumn5.HeaderText = "InternerStatus";
-            this.dataGridViewTextBoxColumn5.Name = "dataGridViewTextBoxColumn5";
-            // 
-            // dataGridViewTextBoxColumn6
-            // 
-            this.dataGridViewTextBoxColumn6.DataPropertyName = "Erstelldatum";
-            this.dataGridViewTextBoxColumn6.HeaderText = "Erstelldatum";
-            this.dataGridViewTextBoxColumn6.Name = "dataGridViewTextBoxColumn6";
-            // 
-            // dataGridViewTextBoxColumn7
-            // 
-            this.dataGridViewTextBoxColumn7.DataPropertyName = "Bearbeitungsdatum";
-            this.dataGridViewTextBoxColumn7.HeaderText = "Bearbeitungsdatum";
-            this.dataGridViewTextBoxColumn7.Name = "dataGridViewTextBoxColumn7";
-            // 
-            // ticketBindingSource
-            // 
-            this.ticketBindingSource.DataSource = typeof(EF_leer.ticket);
-            // 
-            // Mitarbeiter_Form
+            // User_Form
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -299,14 +299,14 @@ namespace EF_leer.Views
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.rechnungDataGridView);
             this.Controls.Add(this.ticketDataGridView);
-            this.Name = "Mitarbeiter_Form";
+            this.Name = "User_Form";
             this.Text = "Mitarbeiter_Form";
             ((System.ComponentModel.ISupportInitialize)(this.ticketDataGridView)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.ticketBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.rechnungDataGridView)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.rechnungBindingSource)).EndInit();
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.rechnungBindingSource)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.ticketBindingSource)).EndInit();
             this.ResumeLayout(false);
 
         }

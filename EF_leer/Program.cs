@@ -1,8 +1,9 @@
 ﻿using AdysTech.CredentialManager;
 using EF_leer.Views;
 using System;
-using System.Windows.Forms;
 using System.Linq;
+using System.Net;
+using System.Windows.Forms;
 
 namespace EF_leer
 {
@@ -23,6 +24,14 @@ namespace EF_leer
 
         private static void OnApplicationExit(object sender, EventArgs e)
         {
+            using (oberstufe_db1Entities data = new oberstufe_db1Entities())
+            {
+                NetworkCredential creds = CredentialManager.GetCredentials("sessionHash");
+                session session = data.session.Where(s => s.sessionhash == creds.Password).FirstOrDefault();
+                data.session.Remove(session);
+                data.SaveChanges();
+            }
+
             if (CredentialManager.GetCredentials("sessionHash") != null)
             {
                 CredentialManager.RemoveCredentials("sessionHash");

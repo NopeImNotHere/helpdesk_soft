@@ -8,15 +8,16 @@ using System.Windows.Forms;
 
 namespace EF_leer.Views
 {
-    public partial class Mitarbeiter_Form : Form
+    public partial class User_Form : Form
     {
-        private mitarbeiter currentMitarbeiter;
+        private dynamic currentUser;
+
         private static readonly Random _rand = new Random();
         private oberstufe_db1Entities data = new oberstufe_db1Entities();
         private string currentHint = "";
         public bool isLoggedOut = false;
-        
-        public Mitarbeiter_Form()
+
+        public User_Form()
         {
             NetworkCredential credentials = CredentialManager.GetCredentials("sessionHash");
             if (credentials == null)
@@ -26,8 +27,15 @@ namespace EF_leer.Views
             }
             InitializeComponent();
             string hash = credentials.Password;
-            mitarbeiter mitarbeiter = data.session.Where(s => s.sessionhash == hash).First().mitarbeiter;
-            LoadData(mitarbeiter);
+            session session = data.session.Where(s => s.sessionhash == hash).First();
+            if (session.mitarbeiter != null)
+            {
+                LoadData(session.mitarbeiter);
+            }
+            else if (session.kunde != null)
+            {
+                LoadData(session.kunde);
+            }
 
             List<ort> orte = data.ort.ToList();
             AutoCompleteStringCollection orteCollection = new AutoCompleteStringCollection();
@@ -45,18 +53,31 @@ namespace EF_leer.Views
         }
 
 
-        public Mitarbeiter_Form(mitarbeiter mitarbeiter)
+        public User_Form(mitarbeiter mitarbeiter) : this()
         {
-            InitializeComponent();
             LoadData(mitarbeiter);
         }
 
-        public void LoadData(mitarbeiter mitarbeiter)
+        public User_Form(kunde kunde) : this()
         {
-            ticketBindingSource.DataSource = mitarbeiter.ticket;
-            List<rechnung> rechnungen = mitarbeiter.ticket.SelectMany(t => t.rechnung).ToList();
+            LoadData(kunde);
+        }
+
+        public void LoadData(dynamic user)
+        {
+            List<ticket> tickets = new List<ticket>();
+            if (user is kunde kunde)
+            {
+                tickets = kunde.ticket.ToList();
+            }
+            else if (user is mitarbeiter mitarbeiter)
+            {
+                tickets = mitarbeiter.ticket.ToList();
+            }
+            List<rechnung> rechnungen = tickets.SelectMany(t => t.rechnung).ToList();
+            ticketBindingSource.DataSource = tickets;
             rechnungBindingSource.DataSource = rechnungen;
-            currentMitarbeiter = mitarbeiter;
+            currentUser = user;
         }
 
         private void OpenErrorScreen()
@@ -140,35 +161,44 @@ namespace EF_leer.Views
         private void ticketUeberKundenOrt_TextChanged(object sender, EventArgs e)
         {
             string searchOrt = ticketUeberKundenOrt.Text;
-            if(searchOrt == string.Empty || searchOrt == currentHint)
+            if (searchOrt == string.Empty || searchOrt == currentHint)
             {
                 return;
             }
             ort dataOrt = new ort();
-            foreach(ort ort in data.ort.ToList())
+            foreach (ort ort in data.ort.ToList())
             {
-                if(ort.Stadt.Contains(searchOrt) || ort.PLZ.Contains(searchOrt))
+                if (ort.Stadt.Contains(searchOrt) || ort.PLZ.Contains(searchOrt))
                 {
                     dataOrt = ort;
                 }
             }
 
             kunde dataKunde = new kunde();
-            foreach(kunde kunde in data.kunde.ToList())
+            foreach (kunde kunde in data.kunde.ToList())
             {
-                if(kunde.ort.Contains(dataOrt))
+                if (kunde.ort.Contains(dataOrt))
                 {
                     dataKunde = kunde;
                 }
             }
 
             List<ticket> filteredTickets = new List<ticket>();
-            foreach(ticket ticket in dataKunde.ticket.ToList())
+            foreach (ticket ticket in dataKunde.ticket.ToList())
             {
-                if(ticket.mitarbeiter == currentMitarbeiter)
+                if ((currentUser is mitarbeiter mit && ticket.mitarbeiter?.PK_Mitarbeiter == mit.PK_Mitarbeiter) ||
+                    (currentUser is kunde kun && ticket.kunde?.PK_Kunde == kun.PK_Kunde))
                 {
                     filteredTickets.Add(ticket);
                 }
+
+
+                if ((ticket.mitarbeiter?.PK_Mitarbeiter == (currentUser as mitarbeiter)?.PK_Mitarbeiter) ||
+                    (ticket.kunde?.PK_Kunde == (currentUser as kunde)?.PK_Kunde))
+                {
+                    filteredTickets.Add(ticket);
+                }
+
             }
 
             ticketBindingSource.DataSource = filteredTickets;
@@ -178,9 +208,18 @@ namespace EF_leer.Views
         {
             if (string.IsNullOrWhiteSpace(ticketUeberKundenOrt.Text))
             {
+                List<ticket> tickets = new List<ticket>();
+                if (currentUser is kunde kunde)
+                {
+                    tickets = kunde.ticket.ToList();
+                }
+                else if (currentUser is mitarbeiter mitarbeiter)
+                {
+                    tickets = mitarbeiter.ticket.ToList();
+                }
+                ticketBindingSource.DataSource = tickets;
                 ticketUeberKundenOrt.Text = currentHint;
                 ticketUeberKundenOrt.ForeColor = Color.Gray;
-                ticketBindingSource.DataSource = currentMitarbeiter.ticket;
             }
         }
 
@@ -196,7 +235,7 @@ namespace EF_leer.Views
         private void rechnungDataGridView_CellClick(object sender, DataGridViewCellEventArgs e)
         {
             rechnung rechnung = rechnungBindingSource.Current as rechnung;
-            if(this.MdiParent != null && this.MdiParent is Main_Form)
+            if (this.MdiParent != null && this.MdiParent is Main_Form)
             {
                 (this.MdiParent as Main_Form).windowLauncher(new Rechnung_Form(rechnung.ticket.PK_Ticket), false);
                 this.Close();

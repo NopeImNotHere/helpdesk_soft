@@ -134,7 +134,7 @@
           <Property Name="sessionhash" Type="longtext" Nullable="false" />
           <Property Name="expires_at" Type="datetime" Precision="0" Nullable="false" />
           <Property Name="inserted_at" Type="datetime" Precision="0" Nullable="false" />
-          <Property Name="FK_Mitarbeiter" Type="int" Nullable="false" />
+          <Property Name="FK_Mitarbeiter" Type="int" />
           <Property Name="FK_Kunde" Type="int" />
         </EntityType>
         <EntityType Name="status">
@@ -332,7 +332,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="session_mitarbeiter">
-          <End Role="mitarbeiter" Type="Self.mitarbeiter" Multiplicity="1" />
+          <End Role="mitarbeiter" Type="Self.mitarbeiter" Multiplicity="0..1" />
           <End Role="session" Type="Self.session" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="mitarbeiter">
@@ -629,7 +629,7 @@
           <Property Name="expires_at" Type="DateTime" Nullable="false" />
           <Property Name="inserted_at" Type="DateTime" Nullable="false" />
           <NavigationProperty Name="kunde" Relationship="Self.session_kunde" FromRole="session" ToRole="kunde" />
-          <NavigationProperty Name="mitarbeiter" Relationship="Self.session_mitarbeiter" FromRole="session" ToRole="mitarbeiter" />
+          <NavigationProperty Name="mitarbeiter" Relationship="oberstufe_db1Model.session_mitarbeiter" FromRole="session" ToRole="mitarbeiter" />
         </EntityType>
         <EntityType Name="status">
           <Key>
@@ -714,7 +714,7 @@
           <End Role="mitarbeiter" Type="Self.mitarbeiter" Multiplicity="*" />
         </Association>
         <Association Name="session_mitarbeiter">
-          <End Role="mitarbeiter" Type="Self.mitarbeiter" Multiplicity="1" />
+          <End Role="mitarbeiter" Type="Self.mitarbeiter" Multiplicity="0..1" />
           <End Role="session" Type="Self.session" Multiplicity="*" />
         </Association>
         <Association Name="ticket_mitarbeiter">
@@ -1042,6 +1042,7 @@
             <EndProperty Name="session">
               <ScalarProperty Name="id" ColumnName="id" />
             </EndProperty>
+            <Condition ColumnName="FK_Mitarbeiter" IsNull="false" />
           </AssociationSetMapping>
           <AssociationSetMapping Name="ticket_mitarbeiter" TypeName="oberstufe_db1Model.ticket_mitarbeiter" StoreEntitySet="ticket">
             <EndProperty Name="mitarbeiter">

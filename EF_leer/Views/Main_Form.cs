@@ -12,6 +12,8 @@ namespace EF_leer.Views
 
         private Main_Form()
         {
+            InitializeComponent();
+            NetworkCredential temp = CredentialManager.GetCredentials("sessionHash");
             if (CredentialManager.GetCredentials("sessionHash") == null && !System.Diagnostics.Debugger.IsAttached)
             {
                 MessageBox.Show("Illegaler Zugriff schließe Programm");
@@ -22,37 +24,40 @@ namespace EF_leer.Views
             {
                 NetworkCredential creds = CredentialManager.GetCredentials("sessionHash");
                 string sessionHash = creds.Password;
-                session session = data.session.Where(s => s.sessionhash == sessionHash).First();
+                session session = data.session.Where(s => s.sessionhash == sessionHash).FirstOrDefault();
 
-                if (session.kunde != null)
+                if (session != null)
                 {
-                    profileStripMenuItem.Text = $"Logged als {session.kunde.Firmenname}";
-                }
-                else
-                {
-                    profileStripMenuItem.Text = $"Logged als {session.mitarbeiter.Vorname} {session.mitarbeiter.Nachname}";
+                    if (session.kunde != null)
+                    {
+                        profileStripMenuItem.Text = $"Logged als {session.kunde.Firmenname}";
+                    }
+                    else if (session.mitarbeiter != null)
+                    {
+                        profileStripMenuItem.Text = $"Logged als {session.mitarbeiter.Vorname} {session.mitarbeiter.Nachname}";
+                    }
                 }
             }
         }
-        public Main_Form(Form form, bool isDialog) : base()
+        public Main_Form(Form form, bool isDialog) : this()
         {
-            InitializeComponent();
             windowLauncher(form, isDialog);
         }
 
         public void windowLauncher(Form form, bool isDialog)
         {
-            if(form == null)
+            if (form == null)
             {
                 form = new Main_Form();
                 isDialog = false;
             }
 
-            if(isDialog)
+            if (isDialog)
             {
                 form.Owner = this;
                 form.ShowDialog();
-            } else
+            }
+            else
             {
                 ShowChildForm(form);
             }
@@ -64,7 +69,7 @@ namespace EF_leer.Views
             childForm.Dock = DockStyle.Fill;
             this.ClientSize = childForm.Size;
             childForm.Show();
-            if (childForm is Mitarbeiter_Form form /*||childForm is Kunde_Form form*/)
+            if (childForm is User_Form form)
             {
                 form.FormClosed += (s, e) =>
                 {
@@ -93,18 +98,18 @@ namespace EF_leer.Views
             NetworkCredential creds = CredentialManager.GetCredentials("sessionHash");
             if (creds == null)
             {
-                windowLauncher(new Mitarbeiter_Form(), false);
+                windowLauncher(new User_Form(), false);
             }
 
             string sessionHash = creds.Password;
             session session = data.session.Where(s => s.sessionhash == sessionHash).First();
             if (session.mitarbeiter != null)
             {
-                windowLauncher(new Mitarbeiter_Form(session.mitarbeiter), false);
+                windowLauncher(new User_Form(session.mitarbeiter), false);
             }
             else if (session.kunde != null)
             {
-               //windowLauncher(new );
+                windowLauncher(new User_Form(session.kunde), false);
             }
         }
     }
