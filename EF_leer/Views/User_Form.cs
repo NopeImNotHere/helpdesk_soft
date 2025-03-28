@@ -49,16 +49,9 @@ namespace EF_leer.Views
             currentHint = $"{randomStadt} oder {randomPLZ}";
             ticketUeberKundenOrt.Text = currentHint;
             ticketUeberKundenOrt.ForeColor = Color.Gray;
-
         }
 
-
-        public User_Form(mitarbeiter mitarbeiter) : this()
-        {
-            LoadData(mitarbeiter);
-        }
-
-        public User_Form(kunde kunde) : this()
+        public void LoadData(mitarbeiter mitarbeiter)
         {
             LoadData(kunde);
         }
@@ -174,27 +167,12 @@ namespace EF_leer.Views
                 }
             }
 
-            kunde dataKunde = new kunde();
-            foreach (kunde kunde in data.kunde.ToList())
-            {
-                if (kunde.ort.Contains(dataOrt))
-                {
-                    dataKunde = kunde;
-                }
-            }
+            List<ticket> kundeTicket = dataOrt.kunde.SelectMany(k => k.ticket).ToList();
 
             List<ticket> filteredTickets = new List<ticket>();
-            foreach (ticket ticket in dataKunde.ticket.ToList())
+            foreach(ticket ticket in kundeTicket)
             {
-                if ((currentUser is mitarbeiter mit && ticket.mitarbeiter?.PK_Mitarbeiter == mit.PK_Mitarbeiter) ||
-                    (currentUser is kunde kun && ticket.kunde?.PK_Kunde == kun.PK_Kunde))
-                {
-                    filteredTickets.Add(ticket);
-                }
-
-
-                if ((ticket.mitarbeiter?.PK_Mitarbeiter == (currentUser as mitarbeiter)?.PK_Mitarbeiter) ||
-                    (ticket.kunde?.PK_Kunde == (currentUser as kunde)?.PK_Kunde))
+                if(ticket.mitarbeiter == currentMitarbeiter)
                 {
                     filteredTickets.Add(ticket);
                 }
@@ -249,6 +227,14 @@ namespace EF_leer.Views
             {
                 (this.MdiParent as Main_Form).windowLauncher(new Ticket_Form(ticket), false);
                 this.Close();
+            }
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            if (this.MdiParent != null && this.MdiParent is Main_Form)
+            {
+                (this.MdiParent as Main_Form).windowLauncher(new MitarbeiterData_Form(currentMitarbeiter), true);
             }
         }
     }

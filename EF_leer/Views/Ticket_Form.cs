@@ -64,59 +64,70 @@ namespace EF_leer.Views
 
         private void button1_Click(object sender, EventArgs e)
         {
-            /*NetworkCredential creds = CredentialManager.GetCredentials("sessionHash");
+            NetworkCredential creds = CredentialManager.GetCredentials("sessionHash");
             string sessionHash = creds.Password;
-            session session = daten.session.Where(s => s.sessionhash == sessionHash).First();*/
+            session session = daten.session.Where(s => s.sessionhash == sessionHash).First();
+            ticket Neu = new ticket();
 
-            ticket Neu = new ticket
+            if (session.mitarbeiter != null)
             {
+                Neu.kunde = comboBoxKunde.SelectedItem as kunde;
+                Neu.Ticket_Titel = textBoxTitel.Text;
+                Neu.art = comboBoxArt.SelectedItem as art;
+                Neu.priorität = comboBoxPrio.SelectedItem as priorität;
+                Neu.status = comboBoxStatus.SelectedItem as status;
+                Neu.Beschreibung = richTextBoxBesch.Text;
+                Neu.InterneNotiz = richTextBoxIntNotiz.Text;
+                Neu.InternerStatus = richTextBoxIntStatus.Text;
+                Neu.Erstelldatum = DateTime.Now;
+                Neu.mitarbeiter = session.mitarbeiter as mitarbeiter;
 
-                kunde = comboBoxKunde.SelectedItem as kunde,
-                Ticket_Titel = textBoxTitel.Text,
-                art = comboBoxArt.SelectedItem as art,
-                priorität = comboBoxPrio.SelectedItem as priorität,
-                status = comboBoxStatus.SelectedItem as status,
-                Beschreibung = richTextBoxBesch.Text,
-                InterneNotiz = richTextBoxIntNotiz.Text,
-                InternerStatus = richTextBoxIntStatus.Text,
-                Erstelldatum = DateTime.Now
-                //mitarbeiter = session.mitarbeiter as mitarbeiter
-            };
-            daten.ticket.Add(Neu);
+                daten.ticket.Add(Neu);
+            }
+            else
+            {
+                Neu.kunde = comboBoxKunde.SelectedItem as kunde;
+                Neu.Ticket_Titel = textBoxTitel.Text;
+                Neu.art = comboBoxArt.SelectedItem as art;
+                Neu.priorität = comboBoxPrio.SelectedItem as priorität;
+                Neu.status = comboBoxStatus.SelectedItem as status;
+                Neu.Beschreibung = richTextBoxBesch.Text;
+                Neu.InterneNotiz = richTextBoxIntNotiz.Text;
+                Neu.InternerStatus = richTextBoxIntStatus.Text;
+                Neu.Erstelldatum = DateTime.Now;
+
+                daten.ticket.Add(Neu);
+            }
 
             if(daten.SaveChanges() != 0)
             {
 
 
-            ticket NeustTicket = daten.ticket.Where(t => t.Erstelldatum == Neu.Erstelldatum).First();
+                //ticket NeustTicket = daten.ticket.Where(t => t.Erstelldatum == Neu.Erstelldatum).First();
+                ticket NeustTicket = Neu;
+                var PKT = NeustTicket.PK_Ticket;
             if (ausgewählteDienstleistungen != null && NeustTicket != null)
             {
-                Dictionary<int, int> dienstleistungsZähler = new Dictionary<int, int>();
 
-                foreach (var Dienst in ausgewählteDienstleistungen)
-                {
-                    if (!dienstleistungsZähler.ContainsKey(Dienst.PK_Dienstleistung))
+                    foreach (var gruppe in ausgewählteDienstleistungen.GroupBy(d => d.PK_Dienstleistung))
                     {
-                        dienstleistungsZähler[Dienst.PK_Dienstleistung] = 0;
+                        var Anzahl = gruppe.Count();
+
+                        abgeleitet abgel = new abgeleitet
+                        {
+                            Anzahl = Anzahl,
+                            FK_Dienstleistung = gruppe.Key,
+                            FK_Ticket = NeustTicket.PK_Ticket
+                        };
+                        daten.abgeleitet.Add(abgel);
                     }
-
-                    dienstleistungsZähler[Dienst.PK_Dienstleistung]++;
-
-                    abgeleitet abgel = new abgeleitet
-                    {
-                        FK_Dienstleistung = Dienst.PK_Dienstleistung,
-                        FK_Ticket = NeustTicket.PK_Ticket,
-                        Anzahl = dienstleistungsZähler[Dienst.PK_Dienstleistung]
-                    };
-
-                    daten.abgeleitet.Add(abgel);
 
                     daten.SaveChanges();
                     //this.Hide();
                     Ticket_Form newFormT = new Ticket_Form();
                     newFormT.Show();
                     this.Close();
-                }
+                
             }
 
             }
@@ -145,6 +156,22 @@ namespace EF_leer.Views
         private void button4_Click(object sender, EventArgs e)
         {
             var aktuellTicket = ticketBindingSource.Current as ticket;
+
+            aktuellTicket.Bearbeitungsdatum = DateTime.Now;
+            
+            var ausgewählteArt = comboArt.SelectedItem as art;
+            var ausgewähltePrio = comboPrio.SelectedItem as priorität;
+            var ausgewählterStatus = comboStatus.SelectedItem as status;
+
+            if (ausgewählteArt != null)
+                aktuellTicket.art = daten.art.Find(ausgewählteArt.PK_Art);
+
+            if (ausgewähltePrio != null)
+                aktuellTicket.priorität = daten.priorität.Find(ausgewähltePrio.PK_Priorität);
+
+            if (ausgewählterStatus != null)
+                aktuellTicket.status = daten.status.Find(ausgewählterStatus.PK_Status);
+
             daten.SaveChanges();
             ticketBindingSource.ResetBindings(false);
         }
@@ -177,7 +204,41 @@ namespace EF_leer.Views
                         }
                     }
                 }
+                comboArt.DataSource = daten.art.ToList();
+                comboArt.DisplayMember = "Artname";
+                comboArt.ValueMember = "PK_Art";
+                foreach (var item in comboArt.Items)
+                {
+                    var Item = item as art;
+                    if (Item.Artname.ToString() == aktTIcket.art.Artname.ToString())
+                    {
+                        comboArt.SelectedItem = item;
+                    }
+                }
 
+                comboPrio.DataSource = daten.priorität.ToList();
+                comboPrio.DisplayMember = "Prioritätsname";
+                comboPrio.ValueMember = "PK_Priorität";
+                foreach (var item in comboPrio.Items)
+                {
+                    var Item = item as priorität;
+                    if (Item.Prioritätsname.ToString() == aktTIcket.priorität.Prioritätsname.ToString())
+                    {
+                        comboPrio.SelectedItem = item;
+                    }
+                }
+
+                comboStatus.DataSource = daten.status.ToList();
+                comboStatus.DisplayMember = "Statusname";
+                comboStatus.ValueMember = "PK_Status";
+                foreach (var item in comboStatus.Items)
+                {
+                    var Item = item as status;
+                    if (Item.Statusname.ToString() == aktTIcket.status.Statusname.ToString())
+                    {
+                        comboStatus.SelectedItem = item;
+                    }
+                }
 
                 dienstleistungBindingSource.DataSource = Dienstleistungen;
             }

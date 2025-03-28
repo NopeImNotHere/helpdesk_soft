@@ -257,6 +257,7 @@ namespace EF_leer.Views
             this.button3.TabIndex = 3;
             this.button3.Text = "Eigene Daten ändern";
             this.button3.UseVisualStyleBackColor = true;
+            this.button3.Click += new System.EventHandler(this.button3_Click);
             // 
             // button2
             // 
@@ -291,7 +292,7 @@ namespace EF_leer.Views
             this.label1.Text = "Actions";
             this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // User_Form
+            // Mitarbeiter_Form
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
