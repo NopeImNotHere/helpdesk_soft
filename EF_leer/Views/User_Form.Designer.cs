@@ -292,7 +292,7 @@ namespace EF_leer.Views
             this.label1.Text = "Actions";
             this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // Mitarbeiter_Form
+            // User_Form
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;

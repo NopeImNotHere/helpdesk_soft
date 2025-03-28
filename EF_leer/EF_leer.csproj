@@ -89,7 +89,7 @@
     <LangVersion>7.3</LangVersion>
     <ErrorReport>prompt</ErrorReport>
     <Prefer32Bit>true</Prefer32Bit>
-    <StartArguments>EF_leer.Views.Mitarbeiter_Form false</StartArguments>
+    <StartArguments>EF_leer.Views.User_Form false</StartArguments>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="AdysTech.CredentialManager, Version=2.6.0.0, Culture=neutral, PublicKeyToken=42b78d2d57493ebe, processorArchitecture=MSIL">

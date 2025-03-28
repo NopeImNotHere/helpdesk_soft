@@ -38,6 +38,7 @@ namespace EF_leer.Views
             System.Windows.Forms.Label positionLabel;
             System.Windows.Forms.Label vornameLabel;
             this.emailTextBox = new System.Windows.Forms.TextBox();
+            this.mitarbeiterBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.festnetznummerTextBox = new System.Windows.Forms.TextBox();
             this.mobilnummerTextBox = new System.Windows.Forms.TextBox();
             this.nachnameTextBox = new System.Windows.Forms.TextBox();
@@ -48,7 +49,6 @@ namespace EF_leer.Views
             this.ortBox = new System.Windows.Forms.ComboBox();
             this.cancelChanges = new System.Windows.Forms.Button();
             this.saveChanges = new System.Windows.Forms.Button();
-            this.mitarbeiterBindingSource = new System.Windows.Forms.BindingSource(this.components);
             emailLabel = new System.Windows.Forms.Label();
             festnetznummerLabel = new System.Windows.Forms.Label();
             mobilnummerLabel = new System.Windows.Forms.Label();
@@ -56,8 +56,8 @@ namespace EF_leer.Views
             passwortLabel = new System.Windows.Forms.Label();
             positionLabel = new System.Windows.Forms.Label();
             vornameLabel = new System.Windows.Forms.Label();
-            this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.mitarbeiterBindingSource)).BeginInit();
+            this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // emailLabel
@@ -71,15 +71,6 @@ namespace EF_leer.Views
             emailLabel.Text = "Email:";
             emailLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // emailTextBox
-            // 
-            this.emailTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.mitarbeiterBindingSource, "Email", true));
-            this.emailTextBox.Dock = System.Windows.Forms.DockStyle.Top;
-            this.emailTextBox.Location = new System.Drawing.Point(0, 95);
-            this.emailTextBox.Name = "emailTextBox";
-            this.emailTextBox.Size = new System.Drawing.Size(288, 20);
-            this.emailTextBox.TabIndex = 2;
-            // 
             // festnetznummerLabel
             // 
             festnetznummerLabel.Dock = System.Windows.Forms.DockStyle.Top;
@@ -90,15 +81,6 @@ namespace EF_leer.Views
             festnetznummerLabel.TabIndex = 3;
             festnetznummerLabel.Text = "Festnetznummer:";
             festnetznummerLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // festnetznummerTextBox
-            // 
-            this.festnetznummerTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.mitarbeiterBindingSource, "Festnetznummer", true));
-            this.festnetznummerTextBox.Dock = System.Windows.Forms.DockStyle.Top;
-            this.festnetznummerTextBox.Location = new System.Drawing.Point(0, 175);
-            this.festnetznummerTextBox.Name = "festnetznummerTextBox";
-            this.festnetznummerTextBox.Size = new System.Drawing.Size(288, 20);
-            this.festnetznummerTextBox.TabIndex = 4;
             // 
             // mobilnummerLabel
             // 
@@ -111,15 +93,6 @@ namespace EF_leer.Views
             mobilnummerLabel.Text = "Mobilnummer:";
             mobilnummerLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // mobilnummerTextBox
-            // 
-            this.mobilnummerTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.mitarbeiterBindingSource, "Mobilnummer", true));
-            this.mobilnummerTextBox.Dock = System.Windows.Forms.DockStyle.Top;
-            this.mobilnummerTextBox.Location = new System.Drawing.Point(0, 213);
-            this.mobilnummerTextBox.Name = "mobilnummerTextBox";
-            this.mobilnummerTextBox.Size = new System.Drawing.Size(288, 20);
-            this.mobilnummerTextBox.TabIndex = 6;
-            // 
             // nachnameLabel
             // 
             nachnameLabel.Dock = System.Windows.Forms.DockStyle.Top;
@@ -130,15 +103,6 @@ namespace EF_leer.Views
             nachnameLabel.TabIndex = 7;
             nachnameLabel.Text = "Nachname:";
             nachnameLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // nachnameTextBox
-            // 
-            this.nachnameTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.mitarbeiterBindingSource, "Nachname", true));
-            this.nachnameTextBox.Dock = System.Windows.Forms.DockStyle.Top;
-            this.nachnameTextBox.Location = new System.Drawing.Point(0, 57);
-            this.nachnameTextBox.Name = "nachnameTextBox";
-            this.nachnameTextBox.Size = new System.Drawing.Size(288, 20);
-            this.nachnameTextBox.TabIndex = 8;
             // 
             // passwortLabel
             // 
@@ -151,15 +115,6 @@ namespace EF_leer.Views
             passwortLabel.Text = "Passwort:";
             passwortLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // passwortTextBox
-            // 
-            this.passwortTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.mitarbeiterBindingSource, "Passwort", true));
-            this.passwortTextBox.Dock = System.Windows.Forms.DockStyle.Top;
-            this.passwortTextBox.Location = new System.Drawing.Point(0, 134);
-            this.passwortTextBox.Name = "passwortTextBox";
-            this.passwortTextBox.Size = new System.Drawing.Size(288, 20);
-            this.passwortTextBox.TabIndex = 10;
-            // 
             // positionLabel
             // 
             positionLabel.Dock = System.Windows.Forms.DockStyle.Top;
@@ -171,15 +126,6 @@ namespace EF_leer.Views
             positionLabel.Text = "Position:";
             positionLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // positionTextBox
-            // 
-            this.positionTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.mitarbeiterBindingSource, "Position", true));
-            this.positionTextBox.Dock = System.Windows.Forms.DockStyle.Top;
-            this.positionTextBox.Location = new System.Drawing.Point(0, 250);
-            this.positionTextBox.Name = "positionTextBox";
-            this.positionTextBox.Size = new System.Drawing.Size(288, 20);
-            this.positionTextBox.TabIndex = 14;
-            // 
             // vornameLabel
             // 
             vornameLabel.Dock = System.Windows.Forms.DockStyle.Top;
@@ -190,6 +136,64 @@ namespace EF_leer.Views
             vornameLabel.TabIndex = 15;
             vornameLabel.Text = "Vorname:";
             vornameLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // emailTextBox
+            // 
+            this.emailTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.mitarbeiterBindingSource, "Email", true));
+            this.emailTextBox.Dock = System.Windows.Forms.DockStyle.Top;
+            this.emailTextBox.Location = new System.Drawing.Point(0, 95);
+            this.emailTextBox.Name = "emailTextBox";
+            this.emailTextBox.Size = new System.Drawing.Size(288, 20);
+            this.emailTextBox.TabIndex = 2;
+            // 
+            // mitarbeiterBindingSource
+            // 
+            this.mitarbeiterBindingSource.DataSource = typeof(EF_leer.mitarbeiter);
+            // 
+            // festnetznummerTextBox
+            // 
+            this.festnetznummerTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.mitarbeiterBindingSource, "Festnetznummer", true));
+            this.festnetznummerTextBox.Dock = System.Windows.Forms.DockStyle.Top;
+            this.festnetznummerTextBox.Location = new System.Drawing.Point(0, 175);
+            this.festnetznummerTextBox.Name = "festnetznummerTextBox";
+            this.festnetznummerTextBox.Size = new System.Drawing.Size(288, 20);
+            this.festnetznummerTextBox.TabIndex = 4;
+            // 
+            // mobilnummerTextBox
+            // 
+            this.mobilnummerTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.mitarbeiterBindingSource, "Mobilnummer", true));
+            this.mobilnummerTextBox.Dock = System.Windows.Forms.DockStyle.Top;
+            this.mobilnummerTextBox.Location = new System.Drawing.Point(0, 213);
+            this.mobilnummerTextBox.Name = "mobilnummerTextBox";
+            this.mobilnummerTextBox.Size = new System.Drawing.Size(288, 20);
+            this.mobilnummerTextBox.TabIndex = 6;
+            // 
+            // nachnameTextBox
+            // 
+            this.nachnameTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.mitarbeiterBindingSource, "Nachname", true));
+            this.nachnameTextBox.Dock = System.Windows.Forms.DockStyle.Top;
+            this.nachnameTextBox.Location = new System.Drawing.Point(0, 57);
+            this.nachnameTextBox.Name = "nachnameTextBox";
+            this.nachnameTextBox.Size = new System.Drawing.Size(288, 20);
+            this.nachnameTextBox.TabIndex = 8;
+            // 
+            // passwortTextBox
+            // 
+            this.passwortTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.mitarbeiterBindingSource, "Passwort", true));
+            this.passwortTextBox.Dock = System.Windows.Forms.DockStyle.Top;
+            this.passwortTextBox.Location = new System.Drawing.Point(0, 134);
+            this.passwortTextBox.Name = "passwortTextBox";
+            this.passwortTextBox.Size = new System.Drawing.Size(288, 20);
+            this.passwortTextBox.TabIndex = 10;
+            // 
+            // positionTextBox
+            // 
+            this.positionTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.mitarbeiterBindingSource, "Position", true));
+            this.positionTextBox.Dock = System.Windows.Forms.DockStyle.Top;
+            this.positionTextBox.Location = new System.Drawing.Point(0, 250);
+            this.positionTextBox.Name = "positionTextBox";
+            this.positionTextBox.Size = new System.Drawing.Size(288, 20);
+            this.positionTextBox.TabIndex = 14;
             // 
             // vornameTextBox
             // 
@@ -257,10 +261,6 @@ namespace EF_leer.Views
             this.saveChanges.UseVisualStyleBackColor = true;
             this.saveChanges.Click += new System.EventHandler(this.saveChanges_Click);
             // 
-            // mitarbeiterBindingSource
-            // 
-            this.mitarbeiterBindingSource.DataSource = typeof(EF_leer.mitarbeiter);
-            // 
             // MitarbeiterData_Form
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -269,9 +269,9 @@ namespace EF_leer.Views
             this.Controls.Add(this.panel1);
             this.Name = "MitarbeiterData_Form";
             this.Text = "Daten ändern";
+            ((System.ComponentModel.ISupportInitialize)(this.mitarbeiterBindingSource)).EndInit();
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.mitarbeiterBindingSource)).EndInit();
             this.ResumeLayout(false);
 
         }

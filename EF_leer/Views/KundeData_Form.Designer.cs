@@ -181,6 +181,7 @@ namespace EF_leer.Views
             this.saveChanges.TabIndex = 9;
             this.saveChanges.Text = "Speichern";
             this.saveChanges.UseVisualStyleBackColor = true;
+            this.saveChanges.Click += new System.EventHandler(this.saveChanges_Click);
             // 
             // KundeData_Form
             // 

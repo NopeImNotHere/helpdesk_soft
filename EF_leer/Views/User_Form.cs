@@ -51,11 +51,6 @@ namespace EF_leer.Views
             ticketUeberKundenOrt.ForeColor = Color.Gray;
         }
 
-        public void LoadData(mitarbeiter mitarbeiter)
-        {
-            LoadData(kunde);
-        }
-
         public void LoadData(dynamic user)
         {
             List<ticket> tickets = new List<ticket>();
@@ -170,9 +165,9 @@ namespace EF_leer.Views
             List<ticket> kundeTicket = dataOrt.kunde.SelectMany(k => k.ticket).ToList();
 
             List<ticket> filteredTickets = new List<ticket>();
-            foreach(ticket ticket in kundeTicket)
+            foreach (ticket ticket in kundeTicket)
             {
-                if(ticket.mitarbeiter == currentMitarbeiter)
+                if (ticket.mitarbeiter == currentUser)
                 {
                     filteredTickets.Add(ticket);
                 }
@@ -234,7 +229,14 @@ namespace EF_leer.Views
         {
             if (this.MdiParent != null && this.MdiParent is Main_Form)
             {
-                (this.MdiParent as Main_Form).windowLauncher(new MitarbeiterData_Form(currentMitarbeiter), true);
+                if (currentUser is mitarbeiter)
+                {
+                    (this.MdiParent as Main_Form).windowLauncher(new MitarbeiterData_Form(currentUser), true);
+                }
+                else if (currentUser is kunde)
+                {
+                    (this.MdiParent as Main_Form).windowLauncher(new KundeData_Form(currentUser), true);
+                }
             }
         }
     }

@@ -103,14 +103,8 @@ namespace EF_leer.Views
 
             string sessionHash = creds.Password;
             session session = data.session.Where(s => s.sessionhash == sessionHash).First();
-            if (session.mitarbeiter != null)
-            {
-                windowLauncher(new Mitarbeiter_Form(), false);
-            }
-            else if (session.kunde != null)
-            {
-                windowLauncher(new User_Form(session.kunde), false);
-            }
+            windowLauncher(new User_Form(), false);
+
         }
 
         private void neuErstellenToolStripMenuItem_Click(object sender, EventArgs e)
