@@ -1,14 +1,34 @@
+-- phpMyAdmin SQL Dump
+-- version 5.2.1
+-- https://www.phpmyadmin.net/
+--
+-- Host: 127.0.0.1
+-- Erstellungszeit: 28. Mrz 2025 um 18:29
+-- Server-Version: 10.4.32-MariaDB
+-- PHP-Version: 8.2.12
+
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
 SET time_zone = "+00:00";
+
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
 /*!40101 SET NAMES utf8mb4 */;
+
+--
+-- Datenbank: `oberstufe_db1`
+--
 DROP DATABASE IF EXISTS `oberstufe_db1`;
 CREATE DATABASE IF NOT EXISTS `oberstufe_db1` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 USE `oberstufe_db1`;
+
+-- --------------------------------------------------------
+
+--
+-- Tabellenstruktur für Tabelle `abgeleitet`
+--
 
 DROP TABLE IF EXISTS `abgeleitet`;
 CREATE TABLE `abgeleitet` (
@@ -16,6 +36,10 @@ CREATE TABLE `abgeleitet` (
   `FK_Ticket` int(11) NOT NULL,
   `Anzahl` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Daten für Tabelle `abgeleitet`
+--
 
 INSERT INTO `abgeleitet` (`FK_Dienstleistung`, `FK_Ticket`, `Anzahl`) VALUES
 (1, 8, 2),
@@ -45,11 +69,21 @@ INSERT INTO `abgeleitet` (`FK_Dienstleistung`, `FK_Ticket`, `Anzahl`) VALUES
 (11, 1, 1),
 (14, 1, 1);
 
+-- --------------------------------------------------------
+
+--
+-- Tabellenstruktur für Tabelle `arbeitet`
+--
+
 DROP TABLE IF EXISTS `arbeitet`;
 CREATE TABLE `arbeitet` (
   `FK_Mitarbeiter` int(11) NOT NULL,
   `FK_Kunde` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Daten für Tabelle `arbeitet`
+--
 
 INSERT INTO `arbeitet` (`FK_Mitarbeiter`, `FK_Kunde`) VALUES
 (1, 1),
@@ -103,12 +137,22 @@ INSERT INTO `arbeitet` (`FK_Mitarbeiter`, `FK_Kunde`) VALUES
 (49, 1),
 (50, 1);
 
+-- --------------------------------------------------------
+
+--
+-- Tabellenstruktur für Tabelle `art`
+--
+
 DROP TABLE IF EXISTS `art`;
 CREATE TABLE `art` (
   `PK_Art` int(11) NOT NULL,
   `Artname` varchar(255) DEFAULT NULL,
   `Beschreibung` text DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Daten für Tabelle `art`
+--
 
 INSERT INTO `art` (`PK_Art`, `Artname`, `Beschreibung`) VALUES
 (1, 'Wartung', 'Test2'),
@@ -118,11 +162,21 @@ INSERT INTO `art` (`PK_Art`, `Artname`, `Beschreibung`) VALUES
 (5, 'Beratung', 'IT-Beratung'),
 (6, 'Test', 'awdawd');
 
+-- --------------------------------------------------------
+
+--
+-- Tabellenstruktur für Tabelle `bearbeitet`
+--
+
 DROP TABLE IF EXISTS `bearbeitet`;
 CREATE TABLE `bearbeitet` (
   `FK_Mitarbeiter` int(11) NOT NULL,
   `FK_Ticket` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Daten für Tabelle `bearbeitet`
+--
 
 INSERT INTO `bearbeitet` (`FK_Mitarbeiter`, `FK_Ticket`) VALUES
 (1, 1),
@@ -139,12 +193,22 @@ INSERT INTO `bearbeitet` (`FK_Mitarbeiter`, `FK_Ticket`) VALUES
 (30, 12),
 (40, 15);
 
+-- --------------------------------------------------------
+
+--
+-- Tabellenstruktur für Tabelle `bezahlungsart`
+--
+
 DROP TABLE IF EXISTS `bezahlungsart`;
 CREATE TABLE `bezahlungsart` (
   `Artname` varchar(255) DEFAULT NULL,
   `Beschreibung` text DEFAULT NULL,
   `PK_Bezahlungsart` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Daten für Tabelle `bezahlungsart`
+--
 
 INSERT INTO `bezahlungsart` (`Artname`, `Beschreibung`, `PK_Bezahlungsart`) VALUES
 ('Kreditkarte', 'Zahlung per Kreditkarter', 1),
@@ -156,12 +220,22 @@ INSERT INTO `bezahlungsart` (`Artname`, `Beschreibung`, `PK_Bezahlungsart`) VALU
 ('TestArt', 'TestArt', 7),
 ('Leon schlagen', 'Leon ist ein Hurensohn und stinkt nach käse', 8);
 
+-- --------------------------------------------------------
+
+--
+-- Tabellenstruktur für Tabelle `dienstleistung`
+--
+
 DROP TABLE IF EXISTS `dienstleistung`;
 CREATE TABLE `dienstleistung` (
   `PK_Dienstleistung` int(11) NOT NULL,
   `Beschreibung` text DEFAULT NULL,
   `Kosten` decimal(10,2) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Daten für Tabelle `dienstleistung`
+--
 
 INSERT INTO `dienstleistung` (`PK_Dienstleistung`, `Beschreibung`, `Kosten`) VALUES
 (1, 'eServerwartunge', 8.50),
@@ -179,6 +253,12 @@ INSERT INTO `dienstleistung` (`PK_Dienstleistung`, `Beschreibung`, `Kosten`) VAL
 (13, 'asdads', 213213.00),
 (14, 'Test', 66.00);
 
+-- --------------------------------------------------------
+
+--
+-- Tabellenstruktur für Tabelle `kunde`
+--
+
 DROP TABLE IF EXISTS `kunde`;
 CREATE TABLE `kunde` (
   `PK_Kunde` int(11) NOT NULL,
@@ -188,14 +268,24 @@ CREATE TABLE `kunde` (
   `Passwort` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+--
+-- Daten für Tabelle `kunde`
+--
+
 INSERT INTO `kunde` (`PK_Kunde`, `Kundennummer`, `Firmenname`, `Email`, `Passwort`) VALUES
-(1, 'K000', 'Easitix', 'admin@easitix.com', 'IonlyCANcockNOTcook'),
-(2, 'K001', 'Firma Alpha2', 'unicorns@rainbowland.com', 'IllSmokeWeed69'),
-(3, 'K002', 'Firma Beta', 'picklemonsters@crazyworld.com', 'ILikethefingerInMYass'),
-(4, 'K003', 'Firma Gamma', 'flyingcarrots@vegetableheaven.com', 'IcanFLEXninetees4fortnite'),
-(5, 'K004', 'Firma Delta', 'banana_bandits@fruitopia.com', 'L0StIn@VaCuum!!'),
-(6, 'K005', 'Firma Epsilon', 'sockpuppets@whimsicalrealm.com', 'Sh@d0w0fChtrapper'),
-(7, '666', 'LuciferMorningstar.Inc', 'Morningstar@Lucifer.inc', '2453532345');
+(1, 'K000', 'Easitix', 'admin@easitix.com', 'a94a8fe5ccb19ba61c4c0873d391e987982fbbd3'),
+(2, 'K001', 'Firma Alpha2', 'unicorns@rainbowland.com', 'c81f53ab24bd42b6b845c2253d5a8af539121647'),
+(3, 'K002', 'Firma Beta', 'picklemonsters@crazyworld.com', '55bf6d21833683b7fbf781aa8be0e200400927c1'),
+(4, 'K003', 'Firma Gamma', 'flyingcarrots@vegetableheaven.com', 'a4180ecb8750d42796f3b5973b911c3357177bda'),
+(5, 'K004', 'Firma Delta', 'banana_bandits@fruitopia.com', '356573a22a598e74a0a007007ae4dde4f70fecf9'),
+(6, 'K005', 'Firma Epsilon', 'sockpuppets@whimsicalrealm.com', '3369887ccb494e6ac01b29ccebd0bff8842a6f1f'),
+(7, '666', 'LuciferMorningstar.Inc', 'Morningstar@Lucifer.inc', '004b785dd7877c29eb1681a6c7f864213a399090');
+
+-- --------------------------------------------------------
+
+--
+-- Tabellenstruktur für Tabelle `mitarbeiter`
+--
 
 DROP TABLE IF EXISTS `mitarbeiter`;
 CREATE TABLE `mitarbeiter` (
@@ -211,8 +301,12 @@ CREATE TABLE `mitarbeiter` (
   `FK_Rechtegruppe` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+--
+-- Daten für Tabelle `mitarbeiter`
+--
+
 INSERT INTO `mitarbeiter` (`PK_Mitarbeiter`, `Vorname`, `Nachname`, `Position`, `Festnetznummer`, `Mobilnummer`, `Email`, `Passwort`, `FK_Ort`, `FK_Rechtegruppe`) VALUES
-(1, 'Max', 'Mustermann', 'Techniker', '030-1234567', '0176-12345678', 'max@techcorp.de', 'a94a8fe5ccb19ba61c4c0873d391e987982fbbd3', 1, 1),
+(1, 'Max', 'Mustermann', 'Techniker', '030-1234567', '0176-12345678', 'max@techcorp.de', 'b2c2a9ca41e220a80237ea3f484b92af0b7c7223', 1, 1),
 (2, 'Erika', 'Mustermann', 'Sekretärin', '040-9876543', '0176-98765432', 'erika@meditech.de', 'a94a8fe5ccb19ba61c4c0873d391e987982fbbd3', 2, 2),
 (3, 'Hans', 'Müller', 'Entwickler', '089-5555555', '0176-55555555', 'hans@edusoft.de', 'd1bd0728db4531d015b499e0a02f281a91fb507c', 3, 1),
 (4, 'Julia', 'Schmidt', 'Projektleiterin', '0221-6666666', '0176-66666666', 'julia@healthinc.de', '899bf9c46e95583d54e4f838664bc3a112120811', 4, 3),
@@ -263,6 +357,12 @@ INSERT INTO `mitarbeiter` (`PK_Mitarbeiter`, `Vorname`, `Nachname`, `Position`, 
 (49, 'James', 'Madison', 'Präsident', '030-1111114', '0176-1234570', 'james.madison@example.com', '7a711545ae4cade33e7db80232d8379619b50479', 1, 1),
 (50, 'James', 'Monroe', 'Präsident', '030-1111115', '0176-1234571', 'james.monroe@example.com', '7604cb327ffbdf7ecacb283be39586c9b880b3ce', 1, 1);
 
+-- --------------------------------------------------------
+
+--
+-- Tabellenstruktur für Tabelle `ort`
+--
+
 DROP TABLE IF EXISTS `ort`;
 CREATE TABLE `ort` (
   `PK_Ort` int(11) NOT NULL,
@@ -272,12 +372,22 @@ CREATE TABLE `ort` (
   `Hausnummer` varchar(10) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+--
+-- Daten für Tabelle `ort`
+--
+
 INSERT INTO `ort` (`PK_Ort`, `Stadt`, `PLZ`, `Straße`, `Hausnummer`) VALUES
 (1, 'Berlin', '10115', 'Hauptstraße', '10'),
 (2, 'Hamburg', '20095', 'Nebenstraße', '5'),
 (3, 'München', '80331', 'Platz', '12'),
 (4, 'Köln', '50667', 'Ring', '3'),
 (5, 'Frankfurt', '60313', 'Weg', '8');
+
+-- --------------------------------------------------------
+
+--
+-- Tabellenstruktur für Tabelle `priorität`
+--
 
 DROP TABLE IF EXISTS `priorität`;
 CREATE TABLE `priorität` (
@@ -286,12 +396,22 @@ CREATE TABLE `priorität` (
   `Beschreibung` text DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+--
+-- Daten für Tabelle `priorität`
+--
+
 INSERT INTO `priorität` (`PK_Priorität`, `Prioritätsname`, `Beschreibung`) VALUES
 (1, 'Hoch', 'Wichtige Aufgabe'),
 (2, 'Mittel', 'Mittelwichtige Aufgabe'),
 (3, 'Niedrig', 'Geringe Priorität'),
 (4, 'Sehr Hoch', 'Sehr dringende Aufgabe'),
 (5, 'Gering', 'Kann warten');
+
+-- --------------------------------------------------------
+
+--
+-- Tabellenstruktur für Tabelle `rechnung`
+--
 
 DROP TABLE IF EXISTS `rechnung`;
 CREATE TABLE `rechnung` (
@@ -303,6 +423,10 @@ CREATE TABLE `rechnung` (
   `FK_Kunde` int(11) DEFAULT NULL,
   `FK_Ticket` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Daten für Tabelle `rechnung`
+--
 
 INSERT INTO `rechnung` (`Rechnungsnr`, `Ticketbeschreibung`, `Abrechnung`, `Ratenzahlung`, `FK_Bezahlungsart`, `FK_Kunde`, `FK_Ticket`) VALUES
 (7, 'Serverproblem', 'Einmalzahlung', 0, 3, 5, 8),
@@ -327,6 +451,12 @@ INSERT INTO `rechnung` (`Rechnungsnr`, `Ticketbeschreibung`, `Abrechnung`, `Rate
 (31, 'Server läuft nicht richtigasdd', 'Rechnung für Ticket 1', 0, 2, 2, 1),
 (32, 'Neues Netzwerk muss installiert werden', 'Rechnung für Ticket 3', 0, 2, 1, 3);
 
+-- --------------------------------------------------------
+
+--
+-- Tabellenstruktur für Tabelle `rechtegruppe`
+--
+
 DROP TABLE IF EXISTS `rechtegruppe`;
 CREATE TABLE `rechtegruppe` (
   `Administrationsrechte` tinyint(1) DEFAULT NULL,
@@ -335,6 +465,10 @@ CREATE TABLE `rechtegruppe` (
   `PK_Rechtegruppe` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+--
+-- Daten für Tabelle `rechtegruppe`
+--
+
 INSERT INTO `rechtegruppe` (`Administrationsrechte`, `Bestelllimit`, `Helpdesk_Fernwartung`, `PK_Rechtegruppe`) VALUES
 (1, 1000.00, 1, 1),
 (0, 500.00, 0, 2),
@@ -342,11 +476,21 @@ INSERT INTO `rechtegruppe` (`Administrationsrechte`, `Bestelllimit`, `Helpdesk_F
 (0, 100.00, 0, 4),
 (1, 1500.00, 0, 5);
 
+-- --------------------------------------------------------
+
+--
+-- Tabellenstruktur für Tabelle `residiert`
+--
+
 DROP TABLE IF EXISTS `residiert`;
 CREATE TABLE `residiert` (
   `FK_Kunde` int(11) NOT NULL,
   `FK_Ort` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Daten für Tabelle `residiert`
+--
 
 INSERT INTO `residiert` (`FK_Kunde`, `FK_Ort`) VALUES
 (1, 1),
@@ -357,15 +501,35 @@ INSERT INTO `residiert` (`FK_Kunde`, `FK_Ort`) VALUES
 (6, 5),
 (7, 4);
 
+-- --------------------------------------------------------
+
+--
+-- Tabellenstruktur für Tabelle `session`
+--
+
 DROP TABLE IF EXISTS `session`;
 CREATE TABLE `session` (
   `id` int(11) NOT NULL,
   `sessionhash` longtext NOT NULL,
   `expires_at` datetime NOT NULL,
   `inserted_at` datetime NOT NULL DEFAULT current_timestamp(),
-  `FK_Mitarbeiter` int(11) NOT NULL,
+  `FK_Mitarbeiter` int(11) DEFAULT NULL,
   `FK_Kunde` int(11) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ;
+
+--
+-- Daten für Tabelle `session`
+--
+
+INSERT INTO `session` (`id`, `sessionhash`, `expires_at`, `inserted_at`, `FK_Mitarbeiter`, `FK_Kunde`) VALUES
+(43, 'ce69a58cb185fd1fbb21ad2c1c181462c03e9c32167c2dd6f85e3428af63019d', '2025-03-28 20:52:25', '2025-03-28 17:52:25', 1, NULL),
+(44, '5c07648f6e8d670eab7fc76de82d263ef1bac8bcc38c88b22fb28c9431e98173', '2025-03-28 21:24:01', '2025-03-28 18:24:01', NULL, 1);
+
+-- --------------------------------------------------------
+
+--
+-- Tabellenstruktur für Tabelle `status`
+--
 
 DROP TABLE IF EXISTS `status`;
 CREATE TABLE `status` (
@@ -375,12 +539,22 @@ CREATE TABLE `status` (
   `Beschreibung` text DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+--
+-- Daten für Tabelle `status`
+--
+
 INSERT INTO `status` (`PK_Status`, `Statusname`, `Farbe`, `Beschreibung`) VALUES
 (1, 'Offen', 'Gelb', 'Ticket ist offen'),
 (2, 'In Bearbeitung', 'Gelb', 'Ticket in Bearbeitung'),
 (3, 'Geschlossen', 'Grün', 'Ticket geschlossen'),
 (4, 'Wartend', 'Blau', 'Wartet auf Antwort'),
 (5, 'Archiviert', 'Grau', 'Ticket archiviert');
+
+-- --------------------------------------------------------
+
+--
+-- Tabellenstruktur für Tabelle `ticket`
+--
 
 DROP TABLE IF EXISTS `ticket`;
 CREATE TABLE `ticket` (
@@ -397,6 +571,10 @@ CREATE TABLE `ticket` (
   `FK_Mitarbeiter` int(11) DEFAULT NULL,
   `FK_Kunde` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Daten für Tabelle `ticket`
+--
 
 INSERT INTO `ticket` (`PK_Ticket`, `Ticket_Titel`, `Beschreibung`, `InterneNotiz`, `InternerStatus`, `Erstelldatum`, `Bearbeitungsdatum`, `FK_Status`, `FK_Priorität`, `FK_Art`, `FK_Mitarbeiter`, `FK_Kunde`) VALUES
 (1, 'Problem mit Server', 'Server läuft nicht richtigasdd', 'Keine Notizasdd', 'Offenasddd', '2024-09-01 00:00:00', '2024-09-01 00:00:00', 5, 3, 2, 1, 2),
@@ -422,63 +600,114 @@ INSERT INTO `ticket` (`PK_Ticket`, `Ticket_Titel`, `Beschreibung`, `InterneNotiz
 (46, 'TEsttest', 'tesdt', 'test', 'test', '2322-12-31 22:22:00', '2322-12-31 22:22:00', 1, 1, 1, 8, 1),
 (48, 'test', 'ttest', 'test', 'test', '1212-12-12 12:12:00', '1212-12-12 12:12:00', 1, 1, 1, 2, 1);
 
+--
+-- Indizes der exportierten Tabellen
+--
 
+--
+-- Indizes für die Tabelle `abgeleitet`
+--
 ALTER TABLE `abgeleitet`
   ADD PRIMARY KEY (`FK_Dienstleistung`,`FK_Ticket`),
   ADD KEY `abgeleitet_ticket` (`FK_Ticket`);
 
+--
+-- Indizes für die Tabelle `arbeitet`
+--
 ALTER TABLE `arbeitet`
   ADD PRIMARY KEY (`FK_Mitarbeiter`,`FK_Kunde`),
   ADD KEY `arbeitet_kunde` (`FK_Kunde`);
 
+--
+-- Indizes für die Tabelle `art`
+--
 ALTER TABLE `art`
   ADD PRIMARY KEY (`PK_Art`);
 
+--
+-- Indizes für die Tabelle `bearbeitet`
+--
 ALTER TABLE `bearbeitet`
   ADD PRIMARY KEY (`FK_Mitarbeiter`,`FK_Ticket`),
   ADD KEY `bearbeitet_ticket` (`FK_Ticket`);
 
+--
+-- Indizes für die Tabelle `bezahlungsart`
+--
 ALTER TABLE `bezahlungsart`
   ADD PRIMARY KEY (`PK_Bezahlungsart`);
 
+--
+-- Indizes für die Tabelle `dienstleistung`
+--
 ALTER TABLE `dienstleistung`
   ADD PRIMARY KEY (`PK_Dienstleistung`);
 
+--
+-- Indizes für die Tabelle `kunde`
+--
 ALTER TABLE `kunde`
   ADD PRIMARY KEY (`PK_Kunde`);
 
+--
+-- Indizes für die Tabelle `mitarbeiter`
+--
 ALTER TABLE `mitarbeiter`
   ADD PRIMARY KEY (`PK_Mitarbeiter`),
   ADD KEY `mitarbeiter_fk_1` (`FK_Ort`),
   ADD KEY `mitarbeiter_fk_2` (`FK_Rechtegruppe`);
 
+--
+-- Indizes für die Tabelle `ort`
+--
 ALTER TABLE `ort`
   ADD PRIMARY KEY (`PK_Ort`);
 
+--
+-- Indizes für die Tabelle `priorität`
+--
 ALTER TABLE `priorität`
   ADD PRIMARY KEY (`PK_Priorität`);
 
+--
+-- Indizes für die Tabelle `rechnung`
+--
 ALTER TABLE `rechnung`
   ADD PRIMARY KEY (`Rechnungsnr`),
   ADD KEY `rechnung_fk_1` (`FK_Bezahlungsart`),
   ADD KEY `rechnung_fk_2` (`FK_Kunde`),
   ADD KEY `rechnung_fk_3` (`FK_Ticket`);
 
+--
+-- Indizes für die Tabelle `rechtegruppe`
+--
 ALTER TABLE `rechtegruppe`
   ADD PRIMARY KEY (`PK_Rechtegruppe`);
 
+--
+-- Indizes für die Tabelle `residiert`
+--
 ALTER TABLE `residiert`
   ADD PRIMARY KEY (`FK_Kunde`,`FK_Ort`),
   ADD KEY `residiert_ort` (`FK_Ort`);
 
+--
+-- Indizes für die Tabelle `session`
+--
 ALTER TABLE `session`
   ADD PRIMARY KEY (`id`),
   ADD KEY `FK_Mitarbeiter` (`FK_Mitarbeiter`),
   ADD KEY `FK_Kunde` (`FK_Kunde`);
 
+--
+-- Indizes für die Tabelle `status`
+--
 ALTER TABLE `status`
   ADD PRIMARY KEY (`PK_Status`);
 
+--
+-- Indizes für die Tabelle `ticket`
+--
 ALTER TABLE `ticket`
   ADD PRIMARY KEY (`PK_Ticket`),
   ADD KEY `ticket_fk_1` (`FK_Status`),
@@ -487,73 +716,139 @@ ALTER TABLE `ticket`
   ADD KEY `ticket_fk_4` (`FK_Mitarbeiter`),
   ADD KEY `ticket_fk_5` (`FK_Kunde`);
 
+--
+-- AUTO_INCREMENT für exportierte Tabellen
+--
 
+--
+-- AUTO_INCREMENT für Tabelle `art`
+--
 ALTER TABLE `art`
   MODIFY `PK_Art` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
+--
+-- AUTO_INCREMENT für Tabelle `bezahlungsart`
+--
 ALTER TABLE `bezahlungsart`
   MODIFY `PK_Bezahlungsart` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
+--
+-- AUTO_INCREMENT für Tabelle `dienstleistung`
+--
 ALTER TABLE `dienstleistung`
   MODIFY `PK_Dienstleistung` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
+--
+-- AUTO_INCREMENT für Tabelle `kunde`
+--
 ALTER TABLE `kunde`
   MODIFY `PK_Kunde` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
+--
+-- AUTO_INCREMENT für Tabelle `mitarbeiter`
+--
 ALTER TABLE `mitarbeiter`
   MODIFY `PK_Mitarbeiter` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=51;
 
+--
+-- AUTO_INCREMENT für Tabelle `ort`
+--
 ALTER TABLE `ort`
   MODIFY `PK_Ort` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
+--
+-- AUTO_INCREMENT für Tabelle `priorität`
+--
 ALTER TABLE `priorität`
   MODIFY `PK_Priorität` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
+--
+-- AUTO_INCREMENT für Tabelle `rechnung`
+--
 ALTER TABLE `rechnung`
   MODIFY `Rechnungsnr` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
 
+--
+-- AUTO_INCREMENT für Tabelle `rechtegruppe`
+--
 ALTER TABLE `rechtegruppe`
   MODIFY `PK_Rechtegruppe` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
+--
+-- AUTO_INCREMENT für Tabelle `session`
+--
 ALTER TABLE `session`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
+--
+-- AUTO_INCREMENT für Tabelle `status`
+--
 ALTER TABLE `status`
   MODIFY `PK_Status` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
+--
+-- AUTO_INCREMENT für Tabelle `ticket`
+--
 ALTER TABLE `ticket`
   MODIFY `PK_Ticket` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=49;
 
+--
+-- Constraints der exportierten Tabellen
+--
 
+--
+-- Constraints der Tabelle `abgeleitet`
+--
 ALTER TABLE `abgeleitet`
   ADD CONSTRAINT `abgeleitet_dienstleistung` FOREIGN KEY (`FK_Dienstleistung`) REFERENCES `dienstleistung` (`PK_Dienstleistung`),
   ADD CONSTRAINT `abgeleitet_ticket` FOREIGN KEY (`FK_Ticket`) REFERENCES `ticket` (`PK_Ticket`);
 
+--
+-- Constraints der Tabelle `arbeitet`
+--
 ALTER TABLE `arbeitet`
   ADD CONSTRAINT `arbeitet_kunde` FOREIGN KEY (`FK_Kunde`) REFERENCES `kunde` (`PK_Kunde`),
   ADD CONSTRAINT `arbeitet_mitarbeiter` FOREIGN KEY (`FK_Mitarbeiter`) REFERENCES `mitarbeiter` (`PK_Mitarbeiter`);
 
+--
+-- Constraints der Tabelle `bearbeitet`
+--
 ALTER TABLE `bearbeitet`
   ADD CONSTRAINT `bearbeitet_mitarbeiter` FOREIGN KEY (`FK_Mitarbeiter`) REFERENCES `mitarbeiter` (`PK_Mitarbeiter`),
   ADD CONSTRAINT `bearbeitet_ticket` FOREIGN KEY (`FK_Ticket`) REFERENCES `ticket` (`PK_Ticket`);
 
+--
+-- Constraints der Tabelle `mitarbeiter`
+--
 ALTER TABLE `mitarbeiter`
   ADD CONSTRAINT `mitarbeiter_ort` FOREIGN KEY (`FK_Ort`) REFERENCES `ort` (`PK_Ort`),
   ADD CONSTRAINT `mitarbeiter_rechtegruppe` FOREIGN KEY (`FK_Rechtegruppe`) REFERENCES `rechtegruppe` (`PK_Rechtegruppe`);
 
+--
+-- Constraints der Tabelle `rechnung`
+--
 ALTER TABLE `rechnung`
   ADD CONSTRAINT `rechnung_bezahlungsart` FOREIGN KEY (`FK_Bezahlungsart`) REFERENCES `bezahlungsart` (`PK_Bezahlungsart`),
   ADD CONSTRAINT `rechnung_kunde` FOREIGN KEY (`FK_Kunde`) REFERENCES `kunde` (`PK_Kunde`),
   ADD CONSTRAINT `rechnung_ticket` FOREIGN KEY (`FK_Ticket`) REFERENCES `ticket` (`PK_Ticket`);
 
+--
+-- Constraints der Tabelle `residiert`
+--
 ALTER TABLE `residiert`
   ADD CONSTRAINT `residiert_kunde` FOREIGN KEY (`FK_Kunde`) REFERENCES `kunde` (`PK_Kunde`),
   ADD CONSTRAINT `residiert_ort` FOREIGN KEY (`FK_Ort`) REFERENCES `ort` (`PK_Ort`);
 
+--
+-- Constraints der Tabelle `session`
+--
 ALTER TABLE `session`
   ADD CONSTRAINT `session_kunde` FOREIGN KEY (`FK_Kunde`) REFERENCES `kunde` (`PK_Kunde`),
   ADD CONSTRAINT `session_mitarbeiter` FOREIGN KEY (`FK_Mitarbeiter`) REFERENCES `mitarbeiter` (`PK_Mitarbeiter`);
 
+--
+-- Constraints der Tabelle `ticket`
+--
 ALTER TABLE `ticket`
   ADD CONSTRAINT `ticket_art` FOREIGN KEY (`FK_Art`) REFERENCES `art` (`PK_Art`),
   ADD CONSTRAINT `ticket_kunde` FOREIGN KEY (`FK_Kunde`) REFERENCES `kunde` (`PK_Kunde`),
